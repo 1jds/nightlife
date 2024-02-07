@@ -3,10 +3,10 @@ function Navbar() {
     <nav className="navbar">
       <p>BAR BUDDIES</p>
       {/* if authed = Username My Plans Logout  else = Login*/}
-      <a>User Name</a>
-      <a>My Plans</a>
-      <a>Logout</a>
-      {/* <a>Login</a> */}
+      <a href="#">User Name</a>
+      <a href="#">My Plans</a>
+      <a href="#">Logout</a>
+      {/* <a href="#">Login</a> */}
     </nav>
   );
 }

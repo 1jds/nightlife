@@ -13,7 +13,7 @@
 @font-face {
   font-family: "Lato-Regular";
   src: local("Lato-Regular"),
-    url("./font/lato/Lato-Regular.ttf") format("truetype");
+    url("./fonts/lato/Lato-Regular.ttf") format("truetype");
 }
 
 :root {
@@ -155,6 +155,18 @@ input[type="submit"] {
   color: #0a0a23 !important;
 }
 
+a {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-position: under;
+  padding: 1px 0px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 /*************************************/
 /*         2. NAVBAR STYLES          */
 /*************************************/
@@ -171,6 +183,14 @@ input[type="submit"] {
 
 .navbar > :first-child {
   margin-right: auto;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: var(--gray10);
 }
 
 /* At a break-point of 450px we need to switch to a hamburger menu... */
@@ -250,17 +270,12 @@ main {
 footer {
   background: var(--gray10);
   color: var(--gray85);
+  padding: 1rem;
+  font-size: 0.75rem;
+  text-align: center;
 }
 
-/* a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+/* 
 body {
   margin: 0;
   display: flex;
