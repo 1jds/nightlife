@@ -1,13 +1,13 @@
 function Navbar() {
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <p>BAR BUDDIES</p>
-      <div>
-        {/* Name of person logged in goes here conditionally if they are logged in... */}
-        <a>Home</a>
-        <a>Login</a>
-      </div>
-    </div>
+      {/* if authed = Username My Plans Logout  else = Login*/}
+      <a>User Name</a>
+      <a>My Plans</a>
+      <a>Logout</a>
+      {/* <a>Login</a> */}
+    </nav>
   );
 }
 
