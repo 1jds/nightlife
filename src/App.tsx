@@ -39,7 +39,10 @@ function App() {
     //   .then((response) => console.log(response))
     //   .catch((err) => console.error(err));
 
-    fetch("https://nightlife-8ddy.onrender.com/yelp-data", options)
+    fetch(
+      `https://nightlife-8ddy.onrender.com/yelp-data/${searchTerm}`,
+      options
+    )
       .then((response) => {
         console.log("The response status: ", response.status);
         if (response.status === 200) {
