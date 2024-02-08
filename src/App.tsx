@@ -34,11 +34,6 @@ function App() {
       },
     };
 
-    // fetch("https://nightlife-8ddy.onrender.com/yelp-data", options)
-    //   .then((response) => response.json())
-    //   .then((response) => console.log(response))
-    //   .catch((err) => console.error(err));
-
     fetch(
       `https://nightlife-8ddy.onrender.com/yelp-data/${searchTerm}`,
       options
@@ -52,19 +47,19 @@ function App() {
       })
       .then((data) => {
         console.log("The response data: ", data);
-        // if (data.status === 404 || data.status === 405) {
-        //   setAPIresponse([
-        //     {
-        //       msg: "No results found. Please adjust your search parameters and try again.",
-        //     },
-        //   ]);
-        //   return;
-        // }
-        // setAPIresponse(data);
+        if (data.status === 404 || data.status === 405) {
+          setAPIresponse([
+            {
+              msg: "No results found. Please adjust your search parameters and try again.",
+            },
+          ]);
+          return;
+        }
+        setAPIresponse(data);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        // setError(error);
+        setError(error);
       })
       .finally(() => {
         setLoading(false);
