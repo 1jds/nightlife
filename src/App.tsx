@@ -31,44 +31,37 @@ function App() {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization: `Bearer ${import.meta.env.YELP_API_KEY}`,
       },
     };
 
-    fetch(
-      "https://api.yelp.com/v3/businesses/search?location=London&sort_by=best_match&limit=5",
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
+    // fetch("https://nightlife-8ddy.onrender.com/yelp-data", options)
+    //   .then((response) => response.json())
+    //   .then((response) => console.log(response))
+    //   .catch((err) => console.error(err));
 
-    fetch(
-      `https://api.yelp.com/v3/businesses/search?location=${searchTerm}&sort_by=best_match&limit=5`,
-      options
-    )
+    fetch("https://nightlife-8ddy.onrender.com/yelp-data", options)
       .then((response) => {
-        console.log(response.status);
+        console.log("The response status: ", response.status);
         if (response.status === 200) {
           return response.json();
         }
         return Promise.reject(response);
       })
       .then((data) => {
-        console.log(data);
-        if (data.status === 404 || data.status === 405) {
-          setAPIresponse([
-            {
-              msg: "No results found. Please adjust your search parameters and try again.",
-            },
-          ]);
-          return;
-        }
-        setAPIresponse(data);
+        console.log("The response data: ", data);
+        // if (data.status === 404 || data.status === 405) {
+        //   setAPIresponse([
+        //     {
+        //       msg: "No results found. Please adjust your search parameters and try again.",
+        //     },
+        //   ]);
+        //   return;
+        // }
+        // setAPIresponse(data);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        setError(error);
+        // setError(error);
       })
       .finally(() => {
         setLoading(false);
