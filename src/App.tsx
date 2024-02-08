@@ -1,15 +1,30 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  JSXElementConstructor,
+  ReactElement,
+  ReactNode,
+} from "react";
 import Navbar from "./Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
+import { JSX } from "react/jsx-runtime";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
-  const [APIresponse, setAPIresponse] = useState([
-    {
-      msg: "Use the search bar to find some poetry!",
-    },
-  ]);
+  const [isDataReceived, setIsDataReceived] = useState(false);
+  const [APIresponse, setAPIresponse] = useState<{
+    businesses: [];
+    total: number | null;
+    region: {};
+    msg?: string;
+  }>({
+    businesses: [],
+    total: null,
+    region: {},
+    msg: "",
+  });
   const [error, setError] = useState(null);
 
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -48,11 +63,13 @@ function App() {
       .then((data) => {
         console.log("The response data: ", data);
         if (data.status === 404 || data.status === 405) {
-          setAPIresponse([
-            {
-              msg: "No results found. Please adjust your search parameters and try again.",
-            },
-          ]);
+          setAPIresponse({
+            businesses: [],
+            total: null,
+            region: {},
+            msg: "No results found. Please adjust your search parameters and try again.",
+          });
+          setIsDataReceived(true);
           return;
         }
         setAPIresponse(data);
@@ -66,6 +83,41 @@ function App() {
       });
     // navigate("/poems/search");
   };
+
+  let resultsList:
+    | string
+    | number
+    | boolean
+    | JSX.Element[]
+    | ReactElement<any, string | JSXElementConstructor<any>>
+    | Iterable<ReactNode>
+    | null
+    | undefined = [];
+  if (isDataReceived && APIresponse.businesses) {
+    resultsList = APIresponse.businesses.map(
+      ({
+        name,
+        id,
+        image_url,
+        is_closed,
+        rating,
+        price,
+        location: { city = "", address1 = "" } = {},
+      }) => {
+        return (
+          <div key={id} className="favourites-page--favourites-item-container">
+            <h4>{name}</h4>
+            <img src={`${image_url}`} />
+            <p>{is_closed}</p>
+            <p>{rating}</p>
+            <p>{price}</p>
+            <p>{address1}</p>
+            <p>{city}</p>
+          </div>
+        );
+      }
+    );
+  }
 
   return (
     <>
@@ -97,6 +149,13 @@ function App() {
               Search
             </button>
           </form>
+          {error ? (
+            <p>An error has occured. Please try again. {error}</p>
+          ) : loading ? (
+            <p>Results loading. Please wait...</p>
+          ) : isDataReceived ? (
+            resultsList
+          ) : null}
         </div>
       </main>
       <footer>
