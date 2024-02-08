@@ -107,14 +107,15 @@ function App() {
         location: { city = "", address1 = "" } = {},
       }) => {
         return (
-          <div key={id} className="favourites-page--favourites-item-container">
-            <h4>{name}</h4>
-            <img src={`${image_url}`} />
-            <p>{is_closed}</p>
-            <p>{rating}</p>
-            <p>{price}</p>
-            <p>{address1}</p>
-            <p>{city}</p>
+          <div key={id} className="venue-result-box box-shadow">
+            <h2>{name}</h2>
+            <img src={`${image_url}`} loading="lazy" />
+            <p>{is_closed ? "Closed" : "Open"}</p>
+            <p>Rating: {rating}</p>
+            <p>Price: {price}</p>
+            <p>
+              {address1}, {city}
+            </p>
           </div>
         );
       }
@@ -126,7 +127,7 @@ function App() {
       <Navbar />
       <main>
         <div className="content-grid">
-          <div className="pop-out">
+          <div className="pop-out box-shadow">
             <h1>BAR BUDDIES</h1>
             <p>Have plans tonight?</p>
             <p>See which bars are hoppin' tonight and RSVP ahead of time!</p>
@@ -134,7 +135,7 @@ function App() {
           <form className="search-bar">
             <input
               id="location-search-input"
-              className="textarea-input"
+              className="textarea-input box-shadow"
               type="text"
               placeholder="Where are you?"
               onChange={handleSearchTextInput}
