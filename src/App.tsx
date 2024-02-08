@@ -39,6 +39,7 @@ function App() {
 
     if (!searchTerm) {
       alert("Please enter a location first, such as 'London', or 'New York'.");
+      setLoading(false);
       return;
     }
 
@@ -72,6 +73,7 @@ function App() {
           setIsDataReceived(true);
           return;
         }
+        setIsDataReceived(true);
         setAPIresponse(data);
       })
       .catch((error) => {
