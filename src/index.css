@@ -144,13 +144,9 @@ figure {
 .btn,
 button,
 input[type="submit"] {
-  /* background-color: var(--quaternary-background); */
-  /* border: 3px solid var(--secondary-color); */
   border: 3px solid #1b1b32;
   border-radius: 0;
-  /* color: var(--secondary-color); */
   text-decoration: none;
-  /* white-space: pre-line; */
 }
 
 .btn-cta {
