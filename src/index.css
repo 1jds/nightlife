@@ -232,6 +232,12 @@ main {
   margin-bottom: 1rem;
 }
 
+@media (max-width: 400px) {
+  .pop-out > :nth-child(2) {
+    align-self: flex-start;
+  }
+}
+
 /* At 450px we change the pop-out `justify-content:` to `start`*/
 
 .search-bar {
@@ -264,8 +270,56 @@ main {
   outline-offset: 0;
 }
 
+.results {
+  margin: 1rem 0;
+}
+
+/* At 450px we change the venue-result-box flex direction to column 
+  the image becomes width: 100%
+  the text becomes center aligned
+*/
+
 .venue-result-box {
   background: var(--gray00);
+  color: var(--gray85);
+  /* padding: 1rem; */
+  margin: 2rem 0;
+  display: flex;
+  /* flex-direction: column; */
+  gap: 0.75rem;
+  /* border: 3px solid var(--gray85); */
+  font-size: 0.85em;
+}
+
+.venue-result-box > img {
+  max-width: 200px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+.venue-details {
+  max-width: 30ch;
+  line-height: 1.6;
+  padding-top: 0.2em;
+  /* border-left: 3px dashed var(--gray85); */
+}
+
+.venue-details > h2 {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 500px) {
+  .venue-result-box {
+    margin: 2rem 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .venue-result-box > img {
+    max-width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+  }
 }
 
 /*************************************/
