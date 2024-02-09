@@ -28,7 +28,8 @@
   --gray80: #2a2a40;
   --gray85: #1b1b32;
   --gray90: #0a0a23;
-
+  --green10: #d6e9c6;
+  --green40: #acd157;
   --focus-outline-color: #198eee;
 
   --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
@@ -104,7 +105,21 @@ figure {
   grid-column: full-width;
 }
 
+.badge {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  background: var(--gray10);
+  white-space: nowrap;
+  padding: 0.3em 1.6em;
+  font-size: 0.85rem;
+  line-height: 1.5rem;
+}
+
 .btn {
+  background: var(--gray10);
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -175,6 +190,10 @@ a:hover {
 
 .align-bottom {
   vertical-align: bottom;
+}
+
+.bg-green {
+  background: var(--green40);
 }
 
 /*************************************/
@@ -322,7 +341,7 @@ main {
   gap: 1rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .venue-result-box {
     margin: 2rem 0;
     flex-direction: column;
@@ -337,6 +356,12 @@ main {
 
   .venue-details {
     padding-inline: 1rem;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .venue-attending {
+    padding-bottom: 1.5rem;
   }
 }
 

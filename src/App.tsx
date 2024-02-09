@@ -386,16 +386,22 @@ function App() {
                 }
               />
               <p>{is_closed ? "Closed" : "Open Now!"}</p>
-              <p>{3} going</p>
+              <p>{3} attending</p>
               <p>Price: {price}</p>
               <p>
                 {address1}, {city}
               </p>
             </div>
-            <div className="venue-attending">
-              <p className="btn">You are not going</p>
-              <button className="btn">Add to Plan?</button>
-            </div>
+            {false ? (
+              <div className="venue-attending">
+                <p className="badge bg-green">You are attending</p>
+              </div>
+            ) : (
+              <div className="venue-attending">
+                <p className="badge">You are not going</p>
+                <button className="btn">Add to Plan?</button>
+              </div>
+            )}
           </div>
         );
       }
@@ -454,8 +460,8 @@ function App() {
               className="align-bottom"
               src={fccLogo}
               alt="Free Code Camp logo"
-              width="39"
-              height="20"
+              width="22"
+              height="22"
             ></img>
           </a>
         </p>
