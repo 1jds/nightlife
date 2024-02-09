@@ -251,13 +251,12 @@ main {
   margin-bottom: 1rem;
 }
 
+/* At 450px we change the pop-out `justify-content:` to `start`*/
 @media (max-width: 400px) {
   .pop-out > :nth-child(2) {
     align-self: flex-start;
   }
 }
-
-/* At 450px we change the pop-out `justify-content:` to `start`*/
 
 .search-bar {
   display: flex;
@@ -279,7 +278,6 @@ main {
   overflow: hidden;
   resize: none;
   font-size: 0.85rem;
-
   border: 0;
   height: auto;
 }
@@ -293,20 +291,12 @@ main {
   margin: 1rem 0;
 }
 
-/* At 450px we change the venue-result-box flex direction to column 
-  the image becomes width: 100%
-  the text becomes center aligned
-*/
-
 .venue-result-box {
   background: var(--gray00);
   color: var(--gray85);
-  /* padding: 1rem; */
   margin: 2rem 0;
   display: flex;
-  /* flex-direction: column; */
   gap: 0.75rem;
-  /* border: 3px solid var(--gray85); */
   font-size: 0.85em;
 }
 
@@ -337,6 +327,10 @@ main {
   gap: 1rem;
 }
 
+/* At 600px we change the venue-result-box flex direction to column 
+  the image becomes width: 100%
+  the text becomes center aligned and some other style changes...
+*/
 @media (max-width: 600px) {
   .venue-result-box {
     margin: 2rem 0;
