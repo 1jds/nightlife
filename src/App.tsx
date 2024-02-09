@@ -9,6 +9,19 @@ import {
 import Navbar from "./Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
 import { JSX } from "react/jsx-runtime";
+import zeroStars from "../public/Review_Ribbon_small_16_0.png";
+import halfStars from "../public/Review_Ribbon_small_16_half.png";
+// There was no one star png provided in the Yelp assets for some reason(?)
+import oneAndHalfStars from "../public/Review_Ribbon_small_16_2_1_half.png";
+import twoStars from "../public/Review_Ribbon_small_16_2.png";
+import twoAndHalfStars from "../public/Review_Ribbon_small_16_2_half.png";
+import threeStars from "../public/Review_Ribbon_small_16_3.png";
+import threeAndHalfStars from "../public/Review_Ribbon_small_16_3_half.png";
+import fourStars from "../public/Review_Ribbon_small_16_4.png";
+import fourAndHalfStars from "../public/Review_Ribbon_small_16_4_half.png";
+import fiveStars from "../public/Review_Ribbon_small_16_5.png";
+import yelpLogo from "../public/yelp_logo.svg";
+import fccLogo from "../public/fcc_secondary_small.svg";
 
 const practiceData = {
   businesses: [
@@ -349,18 +362,39 @@ function App() {
             <img src={`${image_url}`} loading="lazy" />
             <div className="venue-details">
               <h2>{name}</h2>
-              <p>
-                {is_closed ? "Closed" : "Open Now!"} {3} going
-              </p>
-              <p>Rating: {rating}</p>
+              <img
+                src={
+                  rating < 0.5
+                    ? zeroStars
+                    : rating < 1
+                    ? halfStars
+                    : rating < 2
+                    ? oneAndHalfStars
+                    : rating < 2.5
+                    ? twoStars
+                    : rating < 3
+                    ? twoAndHalfStars
+                    : rating < 3.5
+                    ? threeStars
+                    : rating < 4
+                    ? threeAndHalfStars
+                    : rating < 4.5
+                    ? fourStars
+                    : rating < 5
+                    ? fourAndHalfStars
+                    : fiveStars
+                }
+              />
+              <p>{is_closed ? "Closed" : "Open Now!"}</p>
+              <p>{3} going</p>
               <p>Price: {price}</p>
               <p>
                 {address1}, {city}
               </p>
             </div>
             <div className="venue-attending">
-              <p>You are not going here</p>
-              <button>Add to Plan?</button>
+              <p className="btn">You are not going</p>
+              <button className="btn">Add to Plan?</button>
             </div>
           </div>
         );
@@ -412,12 +446,41 @@ function App() {
       </main>
       <footer>
         <p>
-          Credit to Kunal Yadav whose work was referenced in the creation of
-          this page.
+          <span>
+            This application implements a project from Free Code Camp{" "}
+          </span>
+          <a href="https://www.freecodecamp.org/learn/coding-interview-prep/take-home-projects/build-a-nightlife-coordination-app">
+            <img
+              className="align-bottom"
+              src={fccLogo}
+              alt="Free Code Camp logo"
+              width="39"
+              height="20"
+            ></img>
+          </a>
         </p>
-        <a href="https://github.com/abkunal/Nightlife-Coordination-App">
-          See Yadav's sourcecode here.
-        </a>
+        <p>
+          Credit to Kunal Yadav whose work was referenced in the creation of
+          this page.{" "}
+          <a
+            className="footer-link"
+            href="https://github.com/abkunal/Nightlife-Coordination-App"
+          >
+            See Yadav's sourcecode here.
+          </a>
+        </p>
+        <p>
+          <span>The API data used here is from </span>
+          <a href="https://www.yelp.com/">
+            <img
+              className="align-bottom"
+              src={yelpLogo}
+              alt="Yelp logo"
+              width="39"
+              height="20"
+            ></img>
+          </a>
+        </p>
       </footer>
     </>
   );

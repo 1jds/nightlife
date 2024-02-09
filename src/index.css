@@ -173,6 +173,10 @@ a:hover {
   text-decoration: none;
 }
 
+.align-bottom {
+  vertical-align: bottom;
+}
+
 /*************************************/
 /*         2. NAVBAR STYLES          */
 /*************************************/
@@ -292,7 +296,7 @@ main {
 }
 
 .venue-result-box > img {
-  max-width: 200px;
+  max-width: 225px;
   object-fit: cover;
   aspect-ratio: 1;
 }
@@ -300,12 +304,22 @@ main {
 .venue-details {
   max-width: 30ch;
   line-height: 1.6;
-  padding-top: 0.2em;
+  padding: 0.2em 0 0.5em 0;
+  margin-right: auto;
   /* border-left: 3px dashed var(--gray85); */
 }
 
 .venue-details > h2 {
   margin-bottom: 0.5rem;
+}
+
+.venue-attending {
+  padding-inline: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1rem;
 }
 
 @media (max-width: 500px) {
@@ -320,6 +334,10 @@ main {
     object-fit: cover;
     aspect-ratio: 1;
   }
+
+  .venue-details {
+    padding-inline: 1rem;
+  }
 }
 
 /*************************************/
@@ -330,6 +348,15 @@ footer {
   background: var(--gray10);
   color: var(--gray85);
   padding: 1rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  font-weight: 700;
 }
