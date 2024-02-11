@@ -448,6 +448,24 @@ function App() {
               resultsList
             ) : null}
           </div>
+          <form
+            className="login-form"
+            action="https://nightlife-8ddy.onrender.com/users"
+            method="POST"
+          >
+            {/* Username Input */}
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            {/* Password Input */}
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            {/* Submit Button */}
+            <button className="btn" type="submit">
+              Login
+            </button>
+          </form>
         </div>
       </main>
       <footer>

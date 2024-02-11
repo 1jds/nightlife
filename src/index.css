@@ -355,6 +355,16 @@ main {
   }
 }
 
+.login-form {
+  padding: 1rem;
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /*************************************/
 /*         4. FOOTER STYLES          */
 /*************************************/
