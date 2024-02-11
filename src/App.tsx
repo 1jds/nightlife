@@ -415,7 +415,9 @@ function App() {
   }
 
   // Handle login/sign-up/authentication
-  const handleLoginSubmit = (): void => {
+  const handleLoginSubmit = (e): void => {
+    e.preventDefault();
+
     const formData = { ...userLoginDetails };
     const jsonData = JSON.stringify(formData);
 
@@ -514,7 +516,11 @@ function App() {
             />
 
             {/* Submit Button */}
-            <button className="btn" type="submit" onClick={handleLoginSubmit}>
+            <button
+              className="btn"
+              type="submit"
+              onClick={(e) => handleLoginSubmit(e)}
+            >
               Login
             </button>
           </form>
