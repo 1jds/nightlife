@@ -5,6 +5,8 @@ import {
   JSXElementConstructor,
   ReactElement,
   ReactNode,
+  MouseEvent,
+  MouseEventHandler,
 } from "react";
 import Navbar from "./Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
@@ -415,7 +417,9 @@ function App() {
   }
 
   // Handle login/sign-up/authentication
-  const handleLoginSubmit = (e): void => {
+  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
     e.preventDefault();
 
     const formData = { ...userLoginDetails };
