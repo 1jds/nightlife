@@ -260,6 +260,7 @@ const practiceData = {
 };
 
 function App() {
+  // Application State
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [isDataReceived, setIsDataReceived] = useState(false);
@@ -275,7 +276,12 @@ function App() {
     msg: "",
   });
   const [error, setError] = useState(null);
+  const [userLoginDetails, setUserLoginDetails] = useState<{
+    username: string;
+    password: string;
+  }>({ username: "", password: "" });
 
+  // Application functionality
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
     setSearchTerm(searchWords);
@@ -408,6 +414,30 @@ function App() {
     );
   }
 
+  // Handle login/sign-up/authentication
+  const handleLoginSubmit = (): void => {
+    const formData = { ...userLoginDetails };
+    const jsonData = JSON.stringify(formData);
+
+    // Send JSON data using fetch
+    fetch("https://nightlife-8ddy.onrender.com/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response data
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -425,7 +455,7 @@ function App() {
               type="text"
               placeholder="Where are you?"
               onChange={handleSearchTextInput}
-              onKeyDown={(e) => {
+              onKeyDown={(e): void => {
                 e.key === "Enter" && handleSearch(e);
               }}
               value={searchTerm}
@@ -448,21 +478,43 @@ function App() {
               resultsList
             ) : null}
           </div>
-          <form
-            className="login-form"
-            action="https://nightlife-8ddy.onrender.com/users"
-            method="POST"
-          >
+          <form id="loginForm" className="login-form">
             {/* Username Input */}
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" required />
+            <input
+              type="text"
+              id="loginUsername"
+              name="username"
+              placeholder="Username (max 15 chars)"
+              value={userLoginDetails?.username}
+              onChange={(e): void => {
+                setUserLoginDetails((prevState) => ({
+                  ...prevState,
+                  username: e.target.value,
+                }));
+              }}
+              required
+            />
 
             {/* Password Input */}
             <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" required />
+            <input
+              type="password"
+              id="loginUassword"
+              name="password"
+              placeholder="Password"
+              value={userLoginDetails?.password}
+              onChange={(e): void => {
+                setUserLoginDetails((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }));
+              }}
+              required
+            />
 
             {/* Submit Button */}
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" onClick={handleLoginSubmit}>
               Login
             </button>
           </form>
