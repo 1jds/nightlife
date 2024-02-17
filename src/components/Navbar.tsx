@@ -1,7 +1,9 @@
-import { MouseEventHandler, useRef } from "react";
+import { useState, useRef } from "react";
 
 function Navbar() {
   const loginModalRef = useRef<HTMLDialogElement>(null);
+  const [loginDialogContent, setLoginDialogContent] =
+    useState<React.ReactNode>(null);
 
   const toggleLoginDialog = () => {
     if (!loginModalRef) {
@@ -23,10 +25,7 @@ function Navbar() {
           Logout
         </a>
         {/* <a href="#">Login</a> */}
-        <dialog ref={loginModalRef}>
-          <button autoFocus>Close</button>
-          <p>This is our funky dialog!!</p>
-        </dialog>
+        <dialog ref={loginModalRef}>{loginDialogContent}</dialog>
       </nav>
     </>
   );

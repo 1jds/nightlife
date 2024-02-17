@@ -8,7 +8,7 @@ import {
   MouseEvent,
   MouseEventHandler,
 } from "react";
-import Navbar from "./Navbar";
+import Navbar from "./components/Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
 import { JSX } from "react/jsx-runtime";
 import zeroStars from "../public/Review_Ribbon_small_16_0.png";
