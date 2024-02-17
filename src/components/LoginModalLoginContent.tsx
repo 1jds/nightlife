@@ -15,12 +15,14 @@ type LoginModalLoginContentProps = {
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
   const { userLoginDetails } = props;
   return (
-    <div className="dialog-content-wrapper">
-      <h2>Sign In</h2>
+    <>
+      <h2 className="login-modal-header">Log in to your Bar Buddies Account</h2>
+      <div className="login-modal-divider">OR</div>
       <form id="loginForm" className="login-form">
         {/* Username Input */}
         <label htmlFor="username">Username:</label>
         <input
+          className="login-form-input"
           type="text"
           id="loginUsername"
           name="username"
@@ -38,6 +40,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         {/* Password Input */}
         <label htmlFor="password">Password:</label>
         <input
+          className="login-form-input"
           type="password"
           id="loginUassword"
           name="password"
@@ -54,17 +57,17 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
 
         {/* Submit Button */}
         <button
-          className="btn"
+          className="btn-yellow"
           type="submit"
           onClick={(e) => props.handleLoginSubmit(e)}
         >
           Sign In
         </button>
       </form>
-      <p>
+      <p className="login-modal-footer">
         Don't have an account yet? <a href="#">Sign up</a>
       </p>
-    </div>
+    </>
   );
 };
 export default LoginModalLoginContent;

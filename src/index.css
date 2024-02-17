@@ -30,6 +30,7 @@
   --gray90: #0a0a23;
   --green10: #d6e9c6;
   --green40: #acd157;
+  --yellow: #f1be32;
   --focus-outline-color: #198eee;
 
   --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
@@ -149,6 +150,20 @@ input[type="submit"] {
   text-decoration: none;
 }
 
+.btn-yellow {
+  background: var(--yellow);
+  border: none;
+  min-height: 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.btn-yellow:active:hover,
+.btn-yellow:focus,
+.btn-yellow:hover {
+  background: #d8ab2d;
+}
+
 .btn-cta {
   background-color: #feac32;
   background-image: -webkit-gradient(
@@ -216,6 +231,51 @@ a:hover {
 
 .navbar a:hover {
   color: var(--gray10);
+}
+
+/* Navbar Login Modal */
+
+.login-dialog {
+  max-width: 400px;
+  padding: 40px;
+}
+
+.login-form {
+  background: pink;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.login-form-input {
+  min-height: 2.5rem;
+  padding: 0.25em 0.75em;
+  font-size: 1rem;
+  border: 2px solid var(--gray90);
+}
+
+.login-modal-header {
+  font-weight: 400;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-modal-divider {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.login-modal-divider::after {
+  content: "";
+  border-bottom: 2px solid black;
+  width: 50%;
+}
+
+.login-modal-footer {
+  text-align: center;
 }
 
 /* At a break-point of 450px we need to switch to a hamburger menu... */
@@ -353,21 +413,6 @@ main {
   .venue-attending {
     padding-bottom: 1.5rem;
   }
-}
-
-.login-form {
-  padding: 1rem;
-  background: pink;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.dialog-content-wrapper {
-  background: greenyellow;
-  border: 5px solid greenyellow;
 }
 
 /*************************************/

@@ -46,9 +46,9 @@ function Navbar(props: NavbarProps) {
           Logout
         </a>
         {/* <a href="#">Login</a> */}
-        <dialog ref={loginModalRef}>
-          <button onClick={toggleLoginDialog}>Close</button>
+        <dialog className="login-dialog" ref={loginModalRef}>
           {loginDialogContent}
+          <button onClick={toggleLoginDialog}>Close</button>
         </dialog>
       </nav>
     </>
