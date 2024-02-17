@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import LoginModalLoginContent from "./loginModalLoginContent";
 
 function Navbar() {
   const loginModalRef = useRef<HTMLDialogElement>(null);
@@ -21,11 +22,20 @@ function Navbar() {
         {/* if authed = Username My Plans Logout  else = Login*/}
         <a href="#">User Name</a>
         <a href="#">My Plans</a>
-        <a onClick={toggleLoginDialog} href="#">
+        <a
+          onClick={() => {
+            setLoginDialogContent(<LoginModalLoginContent />);
+            toggleLoginDialog();
+          }}
+          href="#"
+        >
           Logout
         </a>
         {/* <a href="#">Login</a> */}
-        <dialog ref={loginModalRef}>{loginDialogContent}</dialog>
+        <dialog ref={loginModalRef}>
+          {loginDialogContent}
+          <button onClick={toggleLoginDialog}>Close</button>
+        </dialog>
       </nav>
     </>
   );
