@@ -365,6 +365,11 @@ main {
   gap: 0.5rem;
 }
 
+.dialog-content-wrapper {
+  background: greenyellow;
+  border: 5px solid greenyellow;
+}
+
 /*************************************/
 /*         4. FOOTER STYLES          */
 /*************************************/

@@ -22,8 +22,7 @@ import threeAndHalfStars from "../public/Review_Ribbon_small_16_3_half.png";
 import fourStars from "../public/Review_Ribbon_small_16_4.png";
 import fourAndHalfStars from "../public/Review_Ribbon_small_16_4_half.png";
 import fiveStars from "../public/Review_Ribbon_small_16_5.png";
-import yelpLogo from "../public/yelp_logo.svg";
-import fccLogo from "../public/fcc_secondary_small.svg";
+import Footer from "./components/Footer";
 
 const practiceData = {
   businesses: [
@@ -446,7 +445,11 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        userLoginDetails={userLoginDetails}
+        setUserLoginDetails={setUserLoginDetails}
+        handleLoginSubmit={handleLoginSubmit}
+      />
       <main>
         <div className="content-grid">
           <div className="pop-out box-shadow">
@@ -484,90 +487,9 @@ function App() {
               resultsList
             ) : null}
           </div>
-          <form id="loginForm" className="login-form">
-            {/* Username Input */}
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="loginUsername"
-              name="username"
-              placeholder="Username (max 15 chars)"
-              value={userLoginDetails?.username}
-              onChange={(e): void => {
-                setUserLoginDetails((prevState) => ({
-                  ...prevState,
-                  username: e.target.value,
-                }));
-              }}
-              required
-            />
-
-            {/* Password Input */}
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="loginUassword"
-              name="password"
-              placeholder="Password"
-              value={userLoginDetails?.password}
-              onChange={(e): void => {
-                setUserLoginDetails((prevState) => ({
-                  ...prevState,
-                  password: e.target.value,
-                }));
-              }}
-              required
-            />
-
-            {/* Submit Button */}
-            <button
-              className="btn"
-              type="submit"
-              onClick={(e) => handleLoginSubmit(e)}
-            >
-              Login
-            </button>
-          </form>
         </div>
       </main>
-      <footer>
-        <p>
-          <span>
-            This application implements a project from Free Code Camp{" "}
-          </span>
-          <a href="https://www.freecodecamp.org/learn/coding-interview-prep/take-home-projects/build-a-nightlife-coordination-app">
-            <img
-              className="align-bottom"
-              src={fccLogo}
-              alt="Free Code Camp logo"
-              width="22"
-              height="22"
-            ></img>
-          </a>
-        </p>
-        <p>
-          Credit to Kunal Yadav whose work was referenced in the creation of
-          this page.{" "}
-          <a
-            className="footer-link"
-            href="https://github.com/abkunal/Nightlife-Coordination-App"
-          >
-            See Yadav's sourcecode here.
-          </a>
-        </p>
-        <p>
-          <span>The API data used here is from </span>
-          <a href="https://www.yelp.com/">
-            <img
-              className="align-bottom"
-              src={yelpLogo}
-              alt="Yelp logo"
-              width="39"
-              height="20"
-            ></img>
-          </a>
-        </p>
-      </footer>
+      <Footer />
     </>
   );
 }

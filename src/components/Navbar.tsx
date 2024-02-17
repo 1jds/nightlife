@@ -1,7 +1,21 @@
 import { useState, useRef } from "react";
-import LoginModalLoginContent from "./loginModalLoginContent";
+import LoginModalLoginContent from "./LoginModalLoginContent";
 
-function Navbar() {
+type NavbarProps = {
+  userLoginDetails: {
+    username: string;
+    password: string;
+  };
+  setUserLoginDetails: React.Dispatch<
+    React.SetStateAction<{
+      username: string;
+      password: string;
+    }>
+  >;
+  handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+function Navbar(props: NavbarProps) {
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const [loginDialogContent, setLoginDialogContent] =
     useState<React.ReactNode>(null);
@@ -24,7 +38,7 @@ function Navbar() {
         <a href="#">My Plans</a>
         <a
           onClick={() => {
-            setLoginDialogContent(<LoginModalLoginContent />);
+            setLoginDialogContent(<LoginModalLoginContent {...props} />);
             toggleLoginDialog();
           }}
           href="#"
@@ -33,8 +47,8 @@ function Navbar() {
         </a>
         {/* <a href="#">Login</a> */}
         <dialog ref={loginModalRef}>
-          {loginDialogContent}
           <button onClick={toggleLoginDialog}>Close</button>
+          {loginDialogContent}
         </dialog>
       </nav>
     </>
