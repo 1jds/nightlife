@@ -461,6 +461,10 @@ function App() {
             <h1>BAR BUDDIES</h1>
             <p>Have plans tonight?</p>
             <p>See which bars are hoppin' tonight and RSVP ahead of time!</p>
+            <p>
+              Use the search field below to find bars and restaurants in your
+              local area.
+            </p>
           </div>
           <form className="search-bar">
             <input
