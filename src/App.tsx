@@ -281,6 +281,7 @@ function App() {
     username: string;
     password: string;
   }>({ username: "", password: "" });
+  const [isUserAuthed, setIsUserAuthed] = useState(false);
 
   // Application functionality
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -420,7 +421,7 @@ function App() {
     );
   }
 
-  // Handle login/sign-up/authentication
+  // Handle login/authentication
   const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
     e
   ): void => {
@@ -454,6 +455,7 @@ function App() {
         userLoginDetails={userLoginDetails}
         setUserLoginDetails={setUserLoginDetails}
         handleLoginSubmit={handleLoginSubmit}
+        isUserAuthed={isUserAuthed}
       />
       <main>
         <div className="content-grid">

@@ -1,6 +1,8 @@
+import LoginModalRegisterContent from "./LoginModalRegisterContent";
 import appleLogo from "../../public/apple-logo.svg";
 import googleLogo from "../../public/google-logo.svg";
 import gitHubLogo from "../../public/github-logo.svg";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 type LoginModalLoginContentProps = {
   userLoginDetails: {
@@ -14,13 +16,16 @@ type LoginModalLoginContentProps = {
     }>
   >;
   handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement>;
+  // setLoginDialogContent: setLoginDialogContent: React.Dispatch<
+  // React.SetStateAction>;
+  setLoginDialogContent: Dispatch<SetStateAction<ReactNode>>;
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
   const { userLoginDetails } = props;
   return (
     <>
-      <h2 className="login-modal-header">Log in to your Bar Buddies Account</h2>
+      <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
         <button className="btn-OAuth">
           <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
@@ -93,13 +98,21 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         >
           Sign In
         </button>
+        <p className="login-modal-footer">
+          Don't have an account yet?{" "}
+          <a
+            className="login-modal-footer-sign-up-link"
+            href="#"
+            onClick={() => {
+              props.setLoginDialogContent(
+                <LoginModalRegisterContent {...props} />
+              );
+            }}
+          >
+            Sign up
+          </a>
+        </p>
       </form>
-      <p className="login-modal-footer">
-        Don't have an account yet?{" "}
-        <a className="login-modal-footer-sign-up-link" href="#">
-          Sign up
-        </a>
-      </p>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import LoginModalLoginContent from "./LoginModalLoginContent";
+import LoginModalRegisterContent from "./LoginModalRegisterContent";
 import closeSvg from "../../public/close_FILL0_wght400_GRAD0_opsz24.svg";
 
 type NavbarProps = {
@@ -14,6 +15,7 @@ type NavbarProps = {
     }>
   >;
   handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement>;
+  isUserAuthed: boolean;
 };
 
 function Navbar(props: NavbarProps) {
@@ -34,18 +36,43 @@ function Navbar(props: NavbarProps) {
     <>
       <nav className="navbar">
         <p>BAR BUDDIES</p>
-        {/* if authed = Username My Plans Logout  else = Login*/}
-        <a href="#">User Name</a>
-        <a href="#">My Plans</a>
-        <a
-          onClick={() => {
-            setLoginDialogContent(<LoginModalLoginContent {...props} />);
-            toggleLoginDialog();
-          }}
-          href="#"
-        >
-          Logout
-        </a>
+        {/* if authed = Username My Plans Logout;  else = Login*/}
+
+        {props.isUserAuthed ? (
+          <>
+            <a href="#">User Name</a>
+            <a href="#">My Plans</a>
+            <a
+              onClick={() => {
+                setLoginDialogContent(
+                  <LoginModalLoginContent
+                    {...props}
+                    setLoginDialogContent={setLoginDialogContent}
+                  />
+                );
+                toggleLoginDialog();
+              }}
+              href="#"
+            >
+              Logout
+            </a>
+          </>
+        ) : (
+          <a
+            onClick={() => {
+              setLoginDialogContent(
+                <LoginModalLoginContent
+                  {...props}
+                  setLoginDialogContent={setLoginDialogContent}
+                />
+              );
+              toggleLoginDialog();
+            }}
+            href="#"
+          >
+            Login
+          </a>
+        )}
         {/* <a href="#">Login</a> */}
         <dialog className="login-dialog" ref={loginModalRef}>
           <button className="btn-dialog-close" onClick={toggleLoginDialog}>
