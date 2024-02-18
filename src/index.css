@@ -24,6 +24,7 @@
   --gray05: #f5f6f7;
   --gray10: #dfdfe2;
   --gray15: #d0d0d5;
+  /* --gray20: #c9cace; */
   --gray75: #3b3b4f;
   --gray80: #2a2a40;
   --gray85: #1b1b32;
@@ -31,6 +32,7 @@
   --green10: #d6e9c6;
   --green40: #acd157;
   --yellow: #f1be32;
+  --blue: #99c9ff;
   --dark-blue: #002ead;
   --focus-outline-color: #198eee;
 
@@ -64,6 +66,14 @@ h6,
 p,
 figure {
   margin: 0;
+}
+
+dialog {
+  color: var(--gray90);
+}
+
+dialog::backdrop {
+  background-color: hsla(0, 0%, 0%, 0.5);
 }
 
 /* UTILITIES */
@@ -211,12 +221,25 @@ input[type="submit"] {
 
 .btn-OAuth {
   all: unset;
+  cursor: pointer;
+  border: 3px solid var(--gray15);
+  font-size: 0.9rem;
+  font-weight: 400;
+  min-height: 2.5rem;
   display: flex;
   align-items: center;
-  border: 1px solid black;
-  font-size: 0.9rem;
   gap: 1rem;
-  padding: 0px 8px 0px 52px;
+  padding: 0 1rem;
+}
+
+.btn-OAuth:hover,
+.btn-OAuth:focus,
+.btn-OAuth:focus-visible {
+  background: var(--gray10);
+}
+
+.btn-OAuth:active:hover {
+  background-color: var(--blue);
 }
 
 a {
