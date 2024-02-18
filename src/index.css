@@ -31,6 +31,7 @@
   --green10: #d6e9c6;
   --green40: #acd157;
   --yellow: #f1be32;
+  --dark-blue: #002ead;
   --focus-outline-color: #198eee;
 
   --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
@@ -106,6 +107,11 @@ figure {
   grid-column: full-width;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .badge {
   display: inline-block;
   margin-bottom: 0;
@@ -152,6 +158,7 @@ input[type="submit"] {
 
 .btn-yellow {
   background: var(--yellow);
+  cursor: pointer;
   border: none;
   min-height: 2.5rem;
   font-size: 0.9rem;
@@ -162,6 +169,11 @@ input[type="submit"] {
 .btn-yellow:focus,
 .btn-yellow:hover {
   background: #d8ab2d;
+}
+
+.btn-yellow:focus,
+.btn-yellow:focus-visible {
+  outline-color: var(--gray15);
 }
 
 .btn-cta {
@@ -185,6 +197,16 @@ input[type="submit"] {
   border-color: #f1a02a;
   border-width: 3px;
   color: #0a0a23 !important;
+}
+
+.btn-dialog-close {
+  all: unset;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  cursor: pointer;
 }
 
 a {
@@ -241,19 +263,30 @@ a:hover {
 }
 
 .login-form {
-  background: pink;
+  /* background: pink; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .login-form-input {
   min-height: 2.5rem;
   padding: 0.25em 0.75em;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border: 2px solid var(--gray90);
+}
+
+.login-form-input:focus,
+.login-form-input:focus-visible {
+  border: 2px solid var(--focus-outline-color);
+  outline-width: 1px;
+}
+
+.login-form-input-label {
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 .login-modal-header {
@@ -264,18 +297,31 @@ a:hover {
 }
 
 .login-modal-divider {
+  color: var(--gray90);
   font-size: 0.75rem;
-  text-align: center;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 1.3rem 0;
 }
 
-.login-modal-divider::after {
-  content: "";
-  border-bottom: 2px solid black;
-  width: 50%;
+.login-modal-divider .line {
+  flex-grow: 1;
+  border-bottom: 1px solid;
 }
 
 .login-modal-footer {
   text-align: center;
+  margin-top: 20px;
+}
+
+.login-modal-footer-sign-up-link {
+  font-weight: 700;
+  color: var(--focus-outline-color);
+}
+
+.login-modal-footer a:hover {
+  color: var(--dark-blue);
 }
 
 /* At a break-point of 450px we need to switch to a hamburger menu... */

@@ -366,10 +366,15 @@ function App() {
       }) => {
         return (
           <div key={id} className="venue-result-box box-shadow">
-            <img src={`${image_url}`} loading="lazy" />
+            <img
+              src={`${image_url}`}
+              loading="lazy"
+              alt={`restaurant image for ${name}`}
+            />
             <div className="venue-details">
               <h2>{name}</h2>
               <img
+                alt={`${rating} star rating`}
                 src={
                   rating < 0.5
                     ? zeroStars

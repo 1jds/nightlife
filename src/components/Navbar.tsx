@@ -47,8 +47,10 @@ function Navbar(props: NavbarProps) {
         </a>
         {/* <a href="#">Login</a> */}
         <dialog className="login-dialog" ref={loginModalRef}>
+          <button className="btn-dialog-close" onClick={toggleLoginDialog}>
+            <img src="../../public/close_FILL0_wght400_GRAD0_opsz24.svg" />
+          </button>
           {loginDialogContent}
-          <button onClick={toggleLoginDialog}>Close</button>
         </dialog>
       </nav>
     </>
