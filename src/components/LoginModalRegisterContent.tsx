@@ -1,19 +1,19 @@
 import { useState } from "react";
 
-type LoginModalLoginContentProps = {
-  userLoginDetails: {
-    username: string;
-    password: string;
-  };
-  setUserLoginDetails: React.Dispatch<
-    React.SetStateAction<{
-      username: string;
-      password: string;
-    }>
-  >;
-};
+// type LoginModalLoginContentProps = {
+//   userLoginDetails: {
+//     username: string;
+//     password: string;
+//   };
+//   setUserLoginDetails: React.Dispatch<
+//     React.SetStateAction<{
+//       username: string;
+//       password: string;
+//     }>
+//   >;
+// };
 
-const LoginModalRegisterContent = (props: LoginModalLoginContentProps) => {
+const LoginModalRegisterContent = () => {
   // Component State
   const [userRegisterDetails, setUserRegisterDetails] = useState<{
     username: string;

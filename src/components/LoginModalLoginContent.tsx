@@ -104,9 +104,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             className="login-modal-footer-sign-up-link"
             href="#"
             onClick={() => {
-              props.setLoginDialogContent(
-                <LoginModalRegisterContent {...props} />
-              );
+              props.setLoginDialogContent(<LoginModalRegisterContent />);
             }}
           >
             Sign up
