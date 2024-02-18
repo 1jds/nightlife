@@ -209,6 +209,16 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.btn-OAuth {
+  all: unset;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  font-size: 0.9rem;
+  gap: 1rem;
+  padding: 0px 8px 0px 52px;
+}
+
 a {
   font-weight: 500;
   color: inherit;
@@ -294,6 +304,15 @@ a:hover {
   font-size: 1.3rem;
   text-align: center;
   margin-bottom: 40px;
+}
+
+.login-modal-OAuth-btns {
+  gap: 1rem;
+}
+
+.OAuth-logo {
+  width: 20px;
+  aspect-ratio: 1;
 }
 
 .login-modal-divider {

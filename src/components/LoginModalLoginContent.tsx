@@ -1,3 +1,7 @@
+import appleLogo from "../../public/apple-logo.svg";
+import googleLogo from "../../public/google-logo.svg";
+import gitHubLogo from "../../public/github-logo.svg";
+
 type LoginModalLoginContentProps = {
   userLoginDetails: {
     username: string;
@@ -17,6 +21,20 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
   return (
     <>
       <h2 className="login-modal-header">Log in to your Bar Buddies Account</h2>
+      <div className="login-modal-OAuth-btns flex-column">
+        <button className="btn-OAuth">
+          <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
+          <span>Continue with Google</span>
+        </button>
+        <button className="btn-OAuth">
+          <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
+          <span>Continue with GitHub</span>
+        </button>
+        <button className="btn-OAuth">
+          <img className="OAuth-logo" alt="Apple logo" src={appleLogo} />
+          <span>Continue with Apple</span>
+        </button>
+      </div>
       <div className="login-modal-divider">
         <div className="line"></div>
         <p>OR</p>
