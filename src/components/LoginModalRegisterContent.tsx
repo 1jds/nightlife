@@ -47,9 +47,9 @@ const LoginModalRegisterContent = () => {
       .then((data) => {
         // Handle response data
         if (data.error) {
-          setRegisterError(data.error);
+          setRegisterError(data);
         } else if (data.message) {
-          setRegisterMessage(data.message);
+          setRegisterMessage(data);
         }
         console.log("THIS IS THE RESPONSE...", data);
       })
