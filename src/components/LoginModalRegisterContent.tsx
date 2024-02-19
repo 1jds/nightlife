@@ -22,6 +22,9 @@ const LoginModalRegisterContent = () => {
   const [registerError, setRegisterError] = useState<{ error: string } | null>(
     null
   );
+  const [registerMessage, setRegisterMessage] = useState<{
+    message: string;
+  } | null>(null);
 
   // Handle login/authentication
   const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (
@@ -45,6 +48,8 @@ const LoginModalRegisterContent = () => {
         // Handle response data
         if (data.error) {
           setRegisterError(data.error);
+        } else if (data.message) {
+          setRegisterMessage(data.message);
         }
         console.log("THIS IS THE RESPONSE...", data);
       })
@@ -57,7 +62,11 @@ const LoginModalRegisterContent = () => {
   return (
     <>
       <h2 className="login-modal-header">Register for an account</h2>
-      {registerError ? <p>{registerError.error}</p> : null}
+      {registerError ? (
+        <p>{registerError.error}</p>
+      ) : registerMessage ? (
+        <p>{registerMessage.message}</p>
+      ) : null}
       <form id="loginForm" className="login-form">
         {/* Username Input */}
         <div className="flex-column">
