@@ -519,7 +519,7 @@ function App() {
             ) : loading ? (
               <p>Results loading. Please wait...</p>
             ) : isDataReceived ? (
-              <div className="results-list-output">
+              <>
                 {resultsList}
                 <button
                   className="btn"
@@ -527,7 +527,7 @@ function App() {
                 >
                   Load More Results
                 </button>
-              </div>
+              </>
             ) : null}
           </div>
         </div>

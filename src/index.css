@@ -456,6 +456,10 @@ main {
   margin: 1rem 0;
 }
 
+.results > button {
+  margin-inline: auto;
+}
+
 .venue-result-box {
   background: var(--gray00);
   color: var(--gray85);
