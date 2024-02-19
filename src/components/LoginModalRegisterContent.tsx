@@ -62,8 +62,16 @@ const LoginModalRegisterContent = () => {
   return (
     <>
       <h2 className="login-modal-header">Register for an account</h2>
-      {registerError && <p>{registerError.error}</p>}
-      {registerMessage && <p>{registerMessage.message}</p>}
+      {registerError && (
+        <p className="login-modal-register-JSON-response-message">
+          {registerError.error}
+        </p>
+      )}
+      {registerMessage && (
+        <p className="login-modal-register-JSON-response-message">
+          {registerMessage.message}
+        </p>
+      )}
       <form id="loginForm" className="login-form">
         {/* Username Input */}
         <div className="flex-column">

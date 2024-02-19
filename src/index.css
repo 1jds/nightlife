@@ -338,6 +338,12 @@ a:hover {
   aspect-ratio: 1;
 }
 
+.login-modal-register-JSON-response-message {
+  margin-bottom: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
 .login-modal-divider {
   color: var(--gray90);
   font-size: 0.75rem;
