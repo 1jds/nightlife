@@ -293,9 +293,9 @@ function App() {
   >("best_match");
 
   // Application functionality
-  useEffect(() => {
-    setVenuesData((prevState) => [...prevState, APIresponse.businesses]);
-  }, [APIresponse]);
+  // useEffect(() => {
+  //   setVenuesData((prevState) => [...prevState, APIresponse.businesses]);
+  // }, [APIresponse]);
 
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
