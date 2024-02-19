@@ -472,7 +472,7 @@ function App() {
               id="location-search-input"
               className="textarea-input box-shadow"
               type="text"
-              placeholder="Where are you?"
+              placeholder="Enter your current location"
               onChange={handleSearchTextInput}
               onKeyDown={(e): void => {
                 if (e.key === "Enter") {
@@ -487,10 +487,21 @@ function App() {
               autoCorrect="off"
               spellCheck="false"
             />
-            <div className="flex-column">
-              <label className="fs-med" htmlFor="priceSelect">
-                Price limit
-              </label>
+            <button
+              className="btn btn-cta"
+              type="submit"
+              onClick={(e) => {
+                setSearchOffset(0);
+                setVenuesData([]);
+                handleSearch(e);
+              }}
+            >
+              Search
+            </button>
+          </form>
+          <div className="options-bar">
+            <div className="options-bar--selector">
+              <label htmlFor="priceSelect">Price limit</label>
               <select
                 id="priceSelect"
                 value={searchPrice}
@@ -518,10 +529,8 @@ function App() {
                 <option value="1">$</option>
               </select>
             </div>
-            <div className="flex-column">
-              <label className="fs-med" htmlFor="sortBySelect">
-                Sort by
-              </label>
+            <div className="options-bar--selector">
+              <label htmlFor="sortBySelect">Sort by</label>
               <select
                 id="sortBySelect"
                 value={searchSortBy}
@@ -553,27 +562,20 @@ function App() {
                 <option value="distance">Distance</option>
               </select>
             </div>
-            <button
-              className="btn btn-cta"
-              type="submit"
-              onClick={(e) => {
-                setSearchOffset(0);
-                setVenuesData([]);
-                handleSearch(e);
-              }}
-            >
-              Search
-            </button>
-          </form>
+          </div>
           <div className="results">
             {resultsList && resultsList}
 
             {error ? (
-              <p>An error has occured. Please try again. {error}</p>
+              <p style={{ margin: "1rem 0rem 2rem" }}>
+                An error has occured. Please try again. {error}
+              </p>
             ) : loading ? (
-              <p>Results loading. Please wait...</p>
+              <p style={{ margin: "1rem 0rem 2rem" }}>
+                Results loading. Please wait...
+              </p>
             ) : null}
-            {resultsList && (
+            {searchOffset ? (
               <button
                 className="btn"
                 onClick={(e) => {
@@ -582,7 +584,7 @@ function App() {
               >
                 Load More Results
               </button>
-            )}
+            ) : null}
           </div>
         </div>
       </main>

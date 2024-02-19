@@ -271,10 +271,6 @@ a:hover {
   color: var(--error-red-color);
 }
 
-.fs-med {
-  font-size: 0.9rem;
-}
-
 /*************************************/
 /*         2. NAVBAR STYLES          */
 /*************************************/
@@ -435,7 +431,11 @@ main {
 }
 
 .search-bar > input {
-  width: 75%;
+  flex: 3 1 75%;
+}
+
+.search-bar > button {
+  flex: 1 1 25%;
 }
 
 .textarea-input {
@@ -454,6 +454,19 @@ main {
 :focus-visible {
   outline: 3px solid var(--focus-outline-color);
   outline-offset: 0;
+}
+
+.options-bar {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0.1rem;
+  gap: 2rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.options-bar--selector > label {
+  margin-right: 0.35rem;
 }
 
 .results {
