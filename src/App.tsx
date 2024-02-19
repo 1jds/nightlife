@@ -315,7 +315,7 @@ function App() {
     const searchJsonData = JSON.stringify(searchFormData);
 
     const options = {
-      method: "GET",
+      method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
