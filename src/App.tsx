@@ -496,7 +496,7 @@ function App() {
             {resultsList && resultsList}
 
             {error ? (
-              <p>`An error has occured. Please try again. ${error}`</p>
+              <p>An error has occured. Please try again. {error}</p>
             ) : loading ? (
               <p>Results loading. Please wait...</p>
             ) : null}
