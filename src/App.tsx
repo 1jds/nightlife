@@ -493,7 +493,7 @@ function App() {
             </button>
           </form>
           <div className="results">
-            {resultsList && <>resultsList</>}
+            {resultsList && resultsList}
 
             {error ? (
               <p>`An error has occured. Please try again. ${error}`</p>
