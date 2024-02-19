@@ -272,11 +272,6 @@ function App() {
   }>({ username: "", password: "" });
   const [isUserAuthed, setIsUserAuthed] = useState(false);
 
-  // remove previous venues data when search term changes
-  useEffect(() => {
-    setVenuesData([]);
-  }, [searchTerm]);
-
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
@@ -481,7 +476,8 @@ function App() {
               placeholder="Where are you?"
               onChange={handleSearchTextInput}
               onKeyDown={(e): void => {
-                e.key === "Enter" && handleSearch(e);
+                e.key === "Enter" && setVenuesData([]);
+                handleSearch(e);
               }}
               value={searchTerm}
               autoCapitalize="off"
@@ -492,7 +488,10 @@ function App() {
             <button
               className="btn btn-cta"
               type="submit"
-              onClick={(e) => handleSearch(e)}
+              onClick={(e) => {
+                setVenuesData([]);
+                handleSearch(e);
+              }}
             >
               Search
             </button>
