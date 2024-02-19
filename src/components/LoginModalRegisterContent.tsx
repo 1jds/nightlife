@@ -1,19 +1,10 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
-// type LoginModalLoginContentProps = {
-//   userLoginDetails: {
-//     username: string;
-//     password: string;
-//   };
-//   setUserLoginDetails: React.Dispatch<
-//     React.SetStateAction<{
-//       username: string;
-//       password: string;
-//     }>
-//   >;
-// };
+type LoginModalRegisterContentProps = {
+  toggleLoginDialog: any;
+};
 
-const LoginModalRegisterContent = () => {
+const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
   // Component State
   const [userRegisterDetails, setUserRegisterDetails] = useState<{
     username: string;
@@ -50,6 +41,7 @@ const LoginModalRegisterContent = () => {
           setRegisterError(data);
         } else if (data.message) {
           setRegisterMessage(data);
+          setTimeout(props.toggleLoginDialog, 1000);
         }
         console.log("THIS IS THE RESPONSE...", data);
       })
@@ -68,7 +60,7 @@ const LoginModalRegisterContent = () => {
         </p>
       )}
       {registerMessage && (
-        <p className="login-modal-register-JSON-response-message">
+        <p className="login-modal-register-JSON-response-message fc-dark-green">
           {registerMessage.message}
         </p>
       )}
@@ -121,7 +113,11 @@ const LoginModalRegisterContent = () => {
         <button
           className="btn-yellow"
           type="submit"
-          onClick={(e) => handleRegisterSubmit(e)}
+          onClick={(e) => {
+            setRegisterError(null);
+            setRegisterMessage(null);
+            handleRegisterSubmit(e);
+          }}
         >
           Register
         </button>

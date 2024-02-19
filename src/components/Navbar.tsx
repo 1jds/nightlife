@@ -23,7 +23,7 @@ function Navbar(props: NavbarProps) {
   const [loginDialogContent, setLoginDialogContent] =
     useState<React.ReactNode>(null);
 
-  const toggleLoginDialog = () => {
+  const toggleLoginDialog = (): void => {
     if (!loginModalRef) {
       return;
     }
@@ -43,16 +43,16 @@ function Navbar(props: NavbarProps) {
             <a href="#">User Name</a>
             <a href="#">My Plans</a>
             <a
-              onClick={() => {
-                setLoginDialogContent(
-                  <LoginModalLoginContent
-                    {...props}
-                    setLoginDialogContent={setLoginDialogContent}
-                  />
-                );
-                toggleLoginDialog();
-              }}
-              href="#"
+            // onClick={() => {
+            //   setLoginDialogContent(
+            //     <LoginModalLoginContent
+            //       {...props}
+            //       setLoginDialogContent={setLoginDialogContent}
+            //     />
+            //   );
+            //   toggleLoginDialog();
+            // }}
+            // href="#"
             >
               Logout
             </a>
@@ -64,6 +64,7 @@ function Navbar(props: NavbarProps) {
                 <LoginModalLoginContent
                   {...props}
                   setLoginDialogContent={setLoginDialogContent}
+                  toggleLoginDialog={toggleLoginDialog}
                 />
               );
               toggleLoginDialog();

@@ -19,6 +19,7 @@ type LoginModalLoginContentProps = {
   // setLoginDialogContent: setLoginDialogContent: React.Dispatch<
   // React.SetStateAction>;
   setLoginDialogContent: Dispatch<SetStateAction<ReactNode>>;
+  toggleLoginDialog: () => void;
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
@@ -104,7 +105,11 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             className="login-modal-footer-sign-up-link"
             href="#"
             onClick={() => {
-              props.setLoginDialogContent(<LoginModalRegisterContent />);
+              props.setLoginDialogContent(
+                <LoginModalRegisterContent
+                  toggleLoginDialog={props.toggleLoginDialog}
+                />
+              );
             }}
           >
             Sign up

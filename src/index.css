@@ -24,13 +24,13 @@
   --gray05: #f5f6f7;
   --gray10: #dfdfe2;
   --gray15: #d0d0d5;
-  /* --gray20: #c9cace; */
   --gray75: #3b3b4f;
   --gray80: #2a2a40;
   --gray85: #1b1b32;
   --gray90: #0a0a23;
   --green10: #d6e9c6;
-  --green40: #acd157;
+  --light-green: #acd157;
+  --dark-green: #00471b;
   --yellow: #f1be32;
   --blue: #99c9ff;
   --dark-blue: #002ead;
@@ -260,7 +260,11 @@ a:hover {
 }
 
 .bg-green {
-  background: var(--green40);
+  background: var(--light-green);
+}
+
+.fc-dark-green {
+  color: var(--dark-green);
 }
 
 .fc-maroon {
@@ -347,6 +351,7 @@ a:hover {
   margin-inline: 0;
   margin-bottom: 1rem;
   font-style: italic;
+  font-weight: 700;
   text-align: center;
 }
 
