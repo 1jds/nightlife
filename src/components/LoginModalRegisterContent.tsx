@@ -19,6 +19,9 @@ const LoginModalRegisterContent = () => {
     username: string;
     password: string;
   }>({ username: "", password: "" });
+  const [registerError, setRegisterError] = useState<{ error: string } | null>(
+    null
+  );
 
   // Handle login/authentication
   const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (
@@ -40,7 +43,7 @@ const LoginModalRegisterContent = () => {
       .then((response) => response.json())
       .then((data) => {
         // Handle response data
-        console.log(data);
+        console.log("THIS IS THE RESPONSE...", data);
       })
       .catch((error) => {
         // Handle errors
