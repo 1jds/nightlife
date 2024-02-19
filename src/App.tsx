@@ -264,7 +264,6 @@ function App() {
   // Application State
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isDataReceived, setIsDataReceived] = useState(false);
   const [venuesData, setVenuesData] = useState<any[]>([]);
   const [error, setError] = useState("");
   const [userLoginDetails, setUserLoginDetails] = useState<{
@@ -330,7 +329,6 @@ function App() {
         //   setError(data.error.description);
         // } else {
         setVenuesData((prevState) => [...prevState, ...data.businesses]);
-        setIsDataReceived(true);
         // }
       })
       .catch((error) => {
@@ -344,7 +342,7 @@ function App() {
 
   let resultsList;
 
-  if (isDataReceived && venuesData) {
+  if (venuesData) {
     // if (true) {
     // resultsList = practiceData.businesses.map(
     resultsList = venuesData.map(
@@ -491,24 +489,24 @@ function App() {
             </button>
           </form>
           <div className="results">
+            {resultsList && <>resultsList</>}
+
             {error ? (
-              <p>An error has occured. Please try again. {error}</p>
+              <p>`An error has occured. Please try again. ${error}`</p>
             ) : loading ? (
               <p>Results loading. Please wait...</p>
-            ) : isDataReceived ? (
-              <>
-                {resultsList}
-                <button
-                  className="btn"
-                  onClick={(e) => {
-                    setSearchOffset((prevState) => prevState + 5);
-                    handleSearch(e);
-                  }}
-                >
-                  Load More Results
-                </button>
-              </>
             ) : null}
+            {resultsList && (
+              <button
+                className="btn"
+                onClick={(e) => {
+                  setSearchOffset((prevState) => prevState + 5);
+                  handleSearch(e);
+                }}
+              >
+                Load More Results
+              </button>
+            )}
           </div>
         </div>
       </main>
