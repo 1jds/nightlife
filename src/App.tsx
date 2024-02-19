@@ -523,7 +523,10 @@ function App() {
                 {resultsList}
                 <button
                   className="btn"
-                  onClick={() => setSearchOffset((prevState) => prevState + 5)}
+                  onClick={(e) => {
+                    setSearchOffset((prevState) => prevState + 5);
+                    handleSearch(e);
+                  }}
                 >
                   Load More Results
                 </button>
