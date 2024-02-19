@@ -275,7 +275,9 @@ function App() {
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
-  const [searchPrice, setSearchPrice] = useState("");
+  const [searchPrice, setSearchPrice] = useState<
+    "1" | "1,2" | "1,2,3" | "1,2,3,4"
+  >("1,2,3,4");
   const [searchSortBy, setSearchSortBy] = useState<
     "best_match" | "rating" | "review_count" | "distance"
   >("best_match");
@@ -300,6 +302,8 @@ function App() {
     const searchFormData = {
       searchOffset,
       searchIsOpenNow,
+      searchSortBy,
+      searchPrice,
     };
     const searchJsonData = JSON.stringify(searchFormData);
 
