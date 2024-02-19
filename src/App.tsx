@@ -291,7 +291,7 @@ function App() {
 
   const handleSearch = (e: any): void => {
     e.preventDefault();
-
+    console.log("Got here...");
     setLoading(true);
 
     if (!searchTerm) {
@@ -319,7 +319,7 @@ function App() {
         return Promise.reject(response);
       })
       .then((data) => {
-        console.log("The response data: ", data);
+        console.log("The response data... : ", data);
         if (data.status === 404 || data.status === 405) {
           setAPIresponse({
             businesses: [],
@@ -340,7 +340,6 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-    // navigate("/poems/search");
   };
 
   let resultsList:
@@ -352,10 +351,10 @@ function App() {
     | Iterable<ReactNode>
     | null
     | undefined = [];
-  if (true) {
-    // if (isDataReceived && APIresponse.businesses) {
-    resultsList = practiceData.businesses.map(
-      // resultsList = APIresponse.businesses.map(
+  if (isDataReceived && APIresponse.businesses) {
+    // if (true) {
+    // resultsList = practiceData.businesses.map(
+    resultsList = APIresponse.businesses.map(
       ({
         name,
         id,
@@ -405,14 +404,20 @@ function App() {
                 {address1}, {city}
               </p>
             </div>
-            {false ? (
-              <div className="venue-attending">
-                <p className="badge bg-green">You are attending</p>
-              </div>
+            {isUserAuthed ? (
+              false ? (
+                <div className="venue-attending">
+                  <p className="badge bg-green">You are attending</p>
+                </div>
+              ) : (
+                <div className="venue-attending">
+                  <p className="badge">You are not going</p>
+                  <button className="btn">Add to Plan?</button>
+                </div>
+              )
             ) : (
               <div className="venue-attending">
-                <p className="badge">You are not going</p>
-                <button className="btn">Add to Plan?</button>
+                <p className="badge">Login to add to plan</p>
               </div>
             )}
           </div>
@@ -484,7 +489,11 @@ function App() {
               autoCorrect="off"
               spellCheck="false"
             />
-            <button className="btn btn-cta" type="submit">
+            <button
+              className="btn btn-cta"
+              type="submit"
+              onClick={(e) => handleSearch(e)}
+            >
               Search
             </button>
           </form>
