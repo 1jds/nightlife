@@ -487,6 +487,72 @@ function App() {
               autoCorrect="off"
               spellCheck="false"
             />
+            <div className="flex-column">
+              <label className="fs-med" htmlFor="priceSelect">
+                Price limit
+              </label>
+              <select
+                id="priceSelect"
+                value={searchPrice}
+                onChange={(e) => {
+                  let value;
+                  switch (e.target.value) {
+                    case "1":
+                      value = 1;
+                      break;
+                    case "2":
+                      value = 2;
+                      break;
+                    case "3":
+                      value = 3;
+                      break;
+                    default:
+                      value = 4;
+                  }
+                  setSearchPrice(value);
+                }}
+              >
+                <option value="4">$$$$</option>
+                <option value="3">$$$</option>
+                <option value="2">$$</option>
+                <option value="1">$</option>
+              </select>
+            </div>
+            <div className="flex-column">
+              <label className="fs-med" htmlFor="sortBySelect">
+                Sort by
+              </label>
+              <select
+                id="sortBySelect"
+                value={searchSortBy}
+                onChange={(e) => {
+                  let value:
+                    | "best_match"
+                    | "rating"
+                    | "review_count"
+                    | "distance";
+                  switch (e.target.value) {
+                    case "rating":
+                      value = "rating";
+                      break;
+                    case "review_count":
+                      value = "review_count";
+                      break;
+                    case "distance":
+                      value = "distance";
+                      break;
+                    default:
+                      value = "best_match";
+                  }
+                  setSearchSortBy(value);
+                }}
+              >
+                <option value="best_match">Best Match</option>
+                <option value="rating">Rating</option>
+                <option value="review_count">Review Count</option>
+                <option value="distance">Distance</option>
+              </select>
+            </div>
             <button
               className="btn btn-cta"
               type="submit"

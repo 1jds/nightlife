@@ -271,6 +271,10 @@ a:hover {
   color: var(--error-red-color);
 }
 
+.fs-med {
+  font-size: 0.9rem;
+}
+
 /*************************************/
 /*         2. NAVBAR STYLES          */
 /*************************************/
