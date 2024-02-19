@@ -283,6 +283,14 @@ function App() {
   }>({ username: "", password: "" });
   const [isUserAuthed, setIsUserAuthed] = useState(false);
 
+  // Query params for the venues search
+  const [searchOffset, setSearchOffset] = useState(0);
+  const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
+  const [searchPrice, setSearchPrice] = useState("");
+  const [searchSortBy, setSearchSortBy] = useState<
+    "best_match" | "rating" | "review_count" | "distance"
+  >("best_match");
+
   // Application functionality
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
@@ -300,11 +308,19 @@ function App() {
       return;
     }
 
+    const searchFormData = {
+      searchOffset,
+      searchIsOpenNow,
+    };
+    const searchJsonData = JSON.stringify(searchFormData);
+
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
+        "Content-Type": "application/json",
       },
+      body: searchJsonData,
     };
 
     fetch(
@@ -502,9 +518,16 @@ function App() {
               <p>An error has occured. Please try again. {error}</p>
             ) : loading ? (
               <p>Results loading. Please wait...</p>
-            ) : true ? (
-              // ) : isDataReceived ? (
-              resultsList
+            ) : isDataReceived ? (
+              <div className="results-list-output">
+                {resultsList}
+                <button
+                  className="btn"
+                  onClick={() => setSearchOffset((prevState) => prevState + 5)}
+                >
+                  Load More Results
+                </button>
+              </div>
             ) : null}
           </div>
         </div>
