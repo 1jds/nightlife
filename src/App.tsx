@@ -272,6 +272,11 @@ function App() {
   }>({ username: "", password: "" });
   const [isUserAuthed, setIsUserAuthed] = useState(false);
 
+  // remove previous venues data when search term changes
+  useEffect(() => {
+    setVenuesData([]);
+  }, [searchTerm]);
+
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
