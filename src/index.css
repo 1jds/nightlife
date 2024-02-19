@@ -340,6 +340,7 @@ a:hover {
 }
 
 .login-modal-register-JSON-response-message {
+  margin-inline: 0;
   margin-bottom: 1rem;
   font-style: italic;
   text-align: center;
