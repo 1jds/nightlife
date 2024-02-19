@@ -332,7 +332,7 @@ function App() {
         // if (data?.error?.description) {
         //   setError(data.error.description);
         // } else {
-        setVenuesData((prevState) => [...prevState, ...data.businesses]);
+        setVenuesData((prevState) => [...prevState, data.businesses]);
         // }
       })
       .catch((error) => {
