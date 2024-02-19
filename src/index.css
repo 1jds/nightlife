@@ -35,6 +35,7 @@
   --blue: #99c9ff;
   --dark-blue: #002ead;
   --focus-outline-color: #198eee;
+  --error-red-color: #9d0000;
 
   --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
   --header-element-size: 30px; /* I'm calling it the Navbar, but FCC call it the header */
@@ -342,6 +343,7 @@ a:hover {
   margin-bottom: 1rem;
   font-style: italic;
   text-align: center;
+  color: var(--error-red-color);
 }
 
 .login-modal-divider {
