@@ -288,7 +288,6 @@ function App() {
 
   const handleSearch = (e: any): void => {
     e.preventDefault();
-    console.log("Got here...");
     setLoading(true);
 
     if (!searchTerm) {
@@ -327,7 +326,7 @@ function App() {
       })
       .then((data) => {
         console.log("The response data... : ", data);
-        if (data.error.description) {
+        if (data?.error?.description) {
           setError(data.error.description);
         } else {
           setVenuesData((prevState) => [...prevState, ...data.businesses]);
