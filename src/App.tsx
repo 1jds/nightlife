@@ -275,9 +275,7 @@ function App() {
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
-  const [searchPrice, setSearchPrice] = useState<
-    "1" | "1,2" | "1,2,3" | "1,2,3,4"
-  >("1,2,3,4");
+  const [searchPrice, setSearchPrice] = useState(4);
   const [searchSortBy, setSearchSortBy] = useState<
     "best_match" | "rating" | "review_count" | "distance"
   >("best_match");
@@ -333,6 +331,7 @@ function App() {
           setError(data.error.description);
         } else {
           setVenuesData((prevState) => [...prevState, ...data.businesses]);
+          setSearchOffset((prevState) => prevState + 5);
         }
       })
       .catch((error) => {
@@ -477,6 +476,7 @@ function App() {
               onChange={handleSearchTextInput}
               onKeyDown={(e): void => {
                 if (e.key === "Enter") {
+                  setSearchOffset(0);
                   setVenuesData([]);
                   handleSearch(e);
                 }
@@ -491,6 +491,7 @@ function App() {
               className="btn btn-cta"
               type="submit"
               onClick={(e) => {
+                setSearchOffset(0);
                 setVenuesData([]);
                 handleSearch(e);
               }}
@@ -510,7 +511,6 @@ function App() {
               <button
                 className="btn"
                 onClick={(e) => {
-                  setSearchOffset((prevState) => prevState + 5);
                   handleSearch(e);
                 }}
               >
