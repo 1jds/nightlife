@@ -43,6 +43,9 @@ const LoginModalRegisterContent = () => {
       .then((response) => response.json())
       .then((data) => {
         // Handle response data
+        if (data.error) {
+          setRegisterError(data.error);
+        }
         console.log("THIS IS THE RESPONSE...", data);
       })
       .catch((error) => {
@@ -54,6 +57,7 @@ const LoginModalRegisterContent = () => {
   return (
     <>
       <h2 className="login-modal-header">Register for an account</h2>
+      {registerError ? <p>{registerError.error}</p> : null}
       <form id="loginForm" className="login-form">
         {/* Username Input */}
         <div className="flex-column">
