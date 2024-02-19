@@ -266,18 +266,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isDataReceived, setIsDataReceived] = useState(false);
   const [venuesData, setVenuesData] = useState<any[]>([]);
-  const [APIresponse, setAPIresponse] = useState<{
-    businesses: [];
-    total: number | null;
-    region: {};
-    msg?: string;
-  }>({
-    businesses: [],
-    total: null,
-    region: {},
-    msg: "",
-  });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [userLoginDetails, setUserLoginDetails] = useState<{
     username: string;
     password: string;
@@ -292,11 +281,6 @@ function App() {
     "best_match" | "rating" | "review_count" | "distance"
   >("best_match");
 
-  // Application functionality
-  // useEffect(() => {
-  //   setVenuesData((prevState) => [...prevState, APIresponse.businesses]);
-  // }, [APIresponse]);
-
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
     setSearchTerm(searchWords);
@@ -308,7 +292,9 @@ function App() {
     setLoading(true);
 
     if (!searchTerm) {
-      alert("Please enter a location first, such as 'London', or 'New York'.");
+      setError(
+        "Please enter a location first, such as 'London', or 'New York'."
+      );
       setLoading(false);
       return;
     }
@@ -341,22 +327,16 @@ function App() {
       })
       .then((data) => {
         console.log("The response data... : ", data);
-        if (data.status === 404 || data.status === 405) {
-          setAPIresponse({
-            businesses: [],
-            total: null,
-            region: {},
-            msg: "No results found. Please adjust your search parameters and try again.",
-          });
+        if (data.error.description) {
+          setError(data.error.description);
+        } else {
+          setVenuesData((prevState) => [...prevState, ...data.businesses]);
           setIsDataReceived(true);
-          return;
         }
-        setIsDataReceived(true);
-        setAPIresponse(data);
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        setError(error);
+        setError(`${error}`);
       })
       .finally(() => {
         setLoading(false);
