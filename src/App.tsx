@@ -476,8 +476,10 @@ function App() {
               placeholder="Where are you?"
               onChange={handleSearchTextInput}
               onKeyDown={(e): void => {
-                e.key === "Enter" && setVenuesData([]);
-                handleSearch(e);
+                if (e.key === "Enter") {
+                  setVenuesData([]);
+                  handleSearch(e);
+                }
               }}
               value={searchTerm}
               autoCapitalize="off"
