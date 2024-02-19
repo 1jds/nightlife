@@ -329,11 +329,11 @@ function App() {
       })
       .then((data) => {
         console.log("The response data... : ", data);
-        // if (data?.error?.description) {
-        //   setError(data.error.description);
-        // } else {
-        setVenuesData((prevState) => [...prevState, data.businesses]);
-        // }
+        if (data.error?.description) {
+          setError(data.error.description);
+        } else {
+          setVenuesData((prevState) => [...prevState, ...data.businesses]);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
