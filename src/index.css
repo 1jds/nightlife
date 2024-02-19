@@ -263,6 +263,10 @@ a:hover {
   background: var(--green40);
 }
 
+.fc-maroon {
+  color: var(--error-red-color);
+}
+
 /*************************************/
 /*         2. NAVBAR STYLES          */
 /*************************************/
@@ -344,7 +348,6 @@ a:hover {
   margin-bottom: 1rem;
   font-style: italic;
   text-align: center;
-  color: var(--error-red-color);
 }
 
 .login-modal-divider {

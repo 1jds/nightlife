@@ -63,7 +63,7 @@ const LoginModalRegisterContent = () => {
     <>
       <h2 className="login-modal-header">Register for an account</h2>
       {registerError && (
-        <p className="login-modal-register-JSON-response-message">
+        <p className="login-modal-register-JSON-response-message fc-maroon">
           {registerError.error}
         </p>
       )}
