@@ -459,6 +459,7 @@ main {
 .results > button {
   display: block;
   margin-inline: auto;
+  margin-bottom: 2rem;
 }
 
 .venue-result-box {
