@@ -265,6 +265,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [isDataReceived, setIsDataReceived] = useState(false);
+  const [venuesData, setVenuesData] = useState<any[]>([]);
   const [APIresponse, setAPIresponse] = useState<{
     businesses: [];
     total: number | null;
@@ -292,6 +293,10 @@ function App() {
   >("best_match");
 
   // Application functionality
+  useEffect(() => {
+    setVenuesData((prevState) => [...prevState, APIresponse.businesses]);
+  }, [APIresponse]);
+
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
     setSearchTerm(searchWords);
@@ -358,19 +363,12 @@ function App() {
       });
   };
 
-  let resultsList:
-    | string
-    | number
-    | boolean
-    | JSX.Element[]
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | Iterable<ReactNode>
-    | null
-    | undefined = [];
-  if (isDataReceived && APIresponse.businesses) {
+  let resultsList;
+
+  if (isDataReceived && venuesData) {
     // if (true) {
     // resultsList = practiceData.businesses.map(
-    resultsList = APIresponse.businesses.map(
+    resultsList = venuesData.map(
       ({
         name,
         id,
