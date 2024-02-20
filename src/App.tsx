@@ -285,18 +285,18 @@ function App() {
           "And the response data from the current-session check is... : ",
           data
         );
-        if (data.currentlyLoggedIn) {
-          setUserAuthed({
-            userId: data.userId,
-            username: data.username,
-          });
-        }
+        // if (data.currentlyLoggedIn) {
+        //   setUserAuthed({
+        //     userId: data.userId,
+        //     username: data.username,
+        //   });
+        // }
       })
       .catch((error) => {
         // Handle errors
         console.error("Error:", error);
       });
-  }, []);
+  }, [userAuthed]); // I've put this piece of state into the dependency array for testing purposes
 
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
