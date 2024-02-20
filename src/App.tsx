@@ -274,6 +274,7 @@ function App() {
   // Application Logic
   // Handle logout
   useEffect(() => {
+    console.log("THIS USE EFFECT FIRED...");
     fetch("https://nightlife-8ddy.onrender.com/current-session", {
       method: "GET",
     })
