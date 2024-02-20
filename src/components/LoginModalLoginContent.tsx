@@ -35,7 +35,11 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       .then((response) => response.json())
       .then((data) => {
         // Handle response data
-        console.log(data);
+
+        console.log(
+          "And the response data from this fetch request is... : ",
+          data
+        );
       })
       .catch((error) => {
         // Handle errors
