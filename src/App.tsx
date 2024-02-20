@@ -266,10 +266,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [venuesData, setVenuesData] = useState<any[]>([]);
   const [error, setError] = useState("");
-  const [userLoginDetails, setUserLoginDetails] = useState<{
-    username: string;
-    password: string;
-  }>({ username: "", password: "" });
   const [isUserAuthed, setIsUserAuthed] = useState(false);
 
   // Query params for the venues search
@@ -420,42 +416,9 @@ function App() {
     );
   }
 
-  // Handle login/authentication
-  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
-    e
-  ): void => {
-    e.preventDefault();
-
-    const formData = { ...userLoginDetails };
-    const jsonData = JSON.stringify(formData);
-
-    // Send JSON data using fetch
-    fetch("https://nightlife-8ddy.onrender.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: jsonData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle response data
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error:", error);
-      });
-  };
-
   return (
     <>
-      <Navbar
-        userLoginDetails={userLoginDetails}
-        setUserLoginDetails={setUserLoginDetails}
-        handleLoginSubmit={handleLoginSubmit}
-        isUserAuthed={isUserAuthed}
-      />
+      <Navbar isUserAuthed={isUserAuthed} />
       <main>
         <div className="content-grid">
           <div className="pop-out box-shadow">

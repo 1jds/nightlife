@@ -4,17 +4,6 @@ import LoginModalRegisterContent from "./LoginModalRegisterContent";
 import closeSvg from "../../public/close_FILL0_wght400_GRAD0_opsz24.svg";
 
 type NavbarProps = {
-  userLoginDetails: {
-    username: string;
-    password: string;
-  };
-  setUserLoginDetails: React.Dispatch<
-    React.SetStateAction<{
-      username: string;
-      password: string;
-    }>
-  >;
-  handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement>;
   isUserAuthed: boolean;
 };
 

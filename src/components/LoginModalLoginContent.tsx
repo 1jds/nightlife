@@ -2,28 +2,47 @@ import LoginModalRegisterContent from "./LoginModalRegisterContent";
 import appleLogo from "../../public/apple-logo.svg";
 import googleLogo from "../../public/google-logo.svg";
 import gitHubLogo from "../../public/github-logo.svg";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 type LoginModalLoginContentProps = {
-  userLoginDetails: {
-    username: string;
-    password: string;
-  };
-  setUserLoginDetails: React.Dispatch<
-    React.SetStateAction<{
-      username: string;
-      password: string;
-    }>
-  >;
-  handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement>;
-  // setLoginDialogContent: setLoginDialogContent: React.Dispatch<
-  // React.SetStateAction>;
   setLoginDialogContent: Dispatch<SetStateAction<ReactNode>>;
   toggleLoginDialog: () => void;
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
-  const { userLoginDetails } = props;
+  const [userLoginDetails, setUserLoginDetails] = useState<{
+    username: string;
+    password: string;
+  }>({ username: "", password: "" });
+
+  // Handle login/authentication
+  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
+    e.preventDefault();
+
+    const formData = { ...userLoginDetails };
+    const jsonData = JSON.stringify(formData);
+
+    // Send JSON data using fetch
+    fetch("https://nightlife-8ddy.onrender.com/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response data
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
@@ -60,7 +79,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             placeholder="Username (max 15 chars)"
             value={userLoginDetails?.username}
             onChange={(e): void => {
-              props.setUserLoginDetails((prevState) => ({
+              setUserLoginDetails((prevState) => ({
                 ...prevState,
                 username: e.target.value,
               }));
@@ -82,7 +101,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             placeholder="Password"
             value={userLoginDetails?.password}
             onChange={(e): void => {
-              props.setUserLoginDetails((prevState) => ({
+              setUserLoginDetails((prevState) => ({
                 ...prevState,
                 password: e.target.value,
               }));
@@ -95,7 +114,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         <button
           className="btn-yellow"
           type="submit"
-          onClick={(e) => props.handleLoginSubmit(e)}
+          onClick={(e) => handleLoginSubmit(e)}
         >
           Sign In
         </button>
