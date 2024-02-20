@@ -430,7 +430,7 @@ function App() {
     const jsonData = JSON.stringify(formData);
 
     // Send JSON data using fetch
-    fetch("https://nightlife-8ddy.onrender.com/users", {
+    fetch("https://nightlife-8ddy.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
