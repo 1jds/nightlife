@@ -44,8 +44,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         // Handle response data
         console.log(
           "And the response data from this fetch request is... : ",
-          data,
-          typeof data.loginSuccessful
+          data
         );
         if (data.loginSuccessful) {
           props.setUserAuthed({
@@ -60,9 +59,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         console.error("Error:", error);
       });
   };
-  // loginSuccessful: true,
-  // userId: req.user.user_id,
-  // username: req.user.username,
+
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>

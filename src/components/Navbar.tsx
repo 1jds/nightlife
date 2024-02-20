@@ -27,6 +27,28 @@ function Navbar(props: NavbarProps) {
       : loginModalRef.current?.showModal();
   };
 
+  // Handle logout
+  const logOut = (): void => {
+    fetch("https://nightlife-8ddy.onrender.com/logout", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response data
+        console.log(
+          "And the response data from the logout request is... : ",
+          data
+        );
+        if (data.logoutSuccessful) {
+          props.setUserAuthed(null);
+        }
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
       <nav className="navbar">
@@ -35,19 +57,13 @@ function Navbar(props: NavbarProps) {
 
         {props.userAuthed ? (
           <>
-            <a href="#">{props.userAuthed.username}</a>
+            <a href="#">Welcome {props.userAuthed.username}!</a>
             <a href="#">My Plans</a>
             <a
-            // onClick={() => {
-            //   setLoginDialogContent(
-            //     <LoginModalLoginContent
-            //       {...props}
-            //       setLoginDialogContent={setLoginDialogContent}
-            //     />
-            //   );
-            //   toggleLoginDialog();
-            // }}
-            // href="#"
+              onClick={() => {
+                logOut();
+              }}
+              href="#"
             >
               Logout
             </a>
