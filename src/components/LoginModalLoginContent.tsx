@@ -52,7 +52,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             userId: data.userId,
             username: data.username,
           });
-          props.toggleLoginDialog;
+          props.toggleLoginDialog();
         }
       })
       .catch((error) => {
