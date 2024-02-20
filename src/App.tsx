@@ -266,7 +266,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [venuesData, setVenuesData] = useState<any[]>([]);
   const [error, setError] = useState("");
-  const [isUserAuthed, setIsUserAuthed] = useState(false);
+  const [userAuthed, setUserAuthed] = useState<null | {
+    userId: number;
+    username: string;
+  }>(null);
 
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
@@ -394,7 +397,7 @@ function App() {
                 {address1}, {city}
               </p>
             </div>
-            {isUserAuthed ? (
+            {userAuthed ? (
               false ? (
                 <div className="venue-attending">
                   <p className="badge bg-green">You are attending</p>
@@ -418,7 +421,7 @@ function App() {
 
   return (
     <>
-      <Navbar isUserAuthed={isUserAuthed} />
+      <Navbar userAuthed={userAuthed} setUserAuthed={setUserAuthed} />
       <main>
         <div className="content-grid">
           <div className="pop-out box-shadow">

@@ -7,6 +7,13 @@ import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 type LoginModalLoginContentProps = {
   setLoginDialogContent: Dispatch<SetStateAction<ReactNode>>;
   toggleLoginDialog: () => void;
+  userAuthed: null | {
+    userId: number;
+    username: string;
+  };
+  setUserAuthed: Dispatch<
+    SetStateAction<{ userId: number; username: string } | null>
+  >;
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
@@ -35,18 +42,27 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       .then((response) => response.json())
       .then((data) => {
         // Handle response data
-
         console.log(
           "And the response data from this fetch request is... : ",
-          data
+          data,
+          typeof data.loginSuccessful
         );
+        if (data.loginSuccessful) {
+          props.setUserAuthed({
+            userId: data.userId,
+            username: data.username,
+          });
+          props.toggleLoginDialog;
+        }
       })
       .catch((error) => {
         // Handle errors
         console.error("Error:", error);
       });
   };
-
+  // loginSuccessful: true,
+  // userId: req.user.user_id,
+  // username: req.user.username,
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
