@@ -271,6 +271,32 @@ function App() {
     username: string;
   }>(null);
 
+  // Application Logic
+  // Handle logout
+  useEffect(() => {
+    fetch("https://nightlife-8ddy.onrender.com/current-session", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response data
+        console.log(
+          "And the response data from the current-session check is... : ",
+          data
+        );
+        if (data.currentlyLoggedIn) {
+          setUserAuthed({
+            userId: data.userId,
+            username: data.username,
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+  }, []);
+
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
