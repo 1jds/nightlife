@@ -40,7 +40,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
+        // "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
       },
       body: jsonData,
     })
