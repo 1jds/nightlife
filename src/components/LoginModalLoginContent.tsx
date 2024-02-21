@@ -1,7 +1,7 @@
 import LoginModalRegisterContent from "./LoginModalRegisterContent";
-import appleLogo from "../../public/apple-logo.svg";
-import googleLogo from "../../public/google-logo.svg";
-import gitHubLogo from "../../public/github-logo.svg";
+import appleLogo from "/apple-logo.svg";
+import googleLogo from "/google-logo.svg";
+import gitHubLogo from "/github-logo.svg";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 type LoginModalLoginContentProps = {
@@ -32,7 +32,9 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
     const jsonData = JSON.stringify(formData);
 
     // Send JSON data using fetch
-    fetch("https://nightlife-8ddy.onrender.com/login", {
+    const URL = "http://localhost:3001";
+    // const URL = "https://nightlife-8ddy.onrender.com"
+    fetch(`${URL}/login`, {
       method: "POST",
       credentials: "include",
       headers: {

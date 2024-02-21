@@ -11,17 +11,17 @@ import {
 import Navbar from "./components/Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
 import { JSX } from "react/jsx-runtime";
-import zeroStars from "../public/Review_Ribbon_small_16_0.png";
-import halfStars from "../public/Review_Ribbon_small_16_half.png";
+import zeroStars from "/Review_Ribbon_small_16_0.png";
+import halfStars from "/Review_Ribbon_small_16_half.png";
 // There was no one star png provided in the Yelp assets for some reason(?)
-import oneAndHalfStars from "../public/Review_Ribbon_small_16_2_1_half.png";
-import twoStars from "../public/Review_Ribbon_small_16_2.png";
-import twoAndHalfStars from "../public/Review_Ribbon_small_16_2_half.png";
-import threeStars from "../public/Review_Ribbon_small_16_3.png";
-import threeAndHalfStars from "../public/Review_Ribbon_small_16_3_half.png";
-import fourStars from "../public/Review_Ribbon_small_16_4.png";
-import fourAndHalfStars from "../public/Review_Ribbon_small_16_4_half.png";
-import fiveStars from "../public/Review_Ribbon_small_16_5.png";
+import oneAndHalfStars from "/Review_Ribbon_small_16_2_1_half.png";
+import twoStars from "/Review_Ribbon_small_16_2.png";
+import twoAndHalfStars from "/Review_Ribbon_small_16_2_half.png";
+import threeStars from "/Review_Ribbon_small_16_3.png";
+import threeAndHalfStars from "/Review_Ribbon_small_16_3_half.png";
+import fourStars from "/Review_Ribbon_small_16_4.png";
+import fourAndHalfStars from "/Review_Ribbon_small_16_4_half.png";
+import fiveStars from "/Review_Ribbon_small_16_5.png";
 import Footer from "./components/Footer";
 
 const practiceData = {
@@ -275,7 +275,9 @@ function App() {
   // Handle logout
   useEffect(() => {
     console.log("THIS USE EFFECT FIRED...");
-    fetch("https://nightlife-8ddy.onrender.com/current-session", {
+    const URL = "http://localhost:3001";
+    // const URL = "https://nightlife-8ddy.onrender.com"
+    fetch(`${URL}/current-session`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -291,18 +293,18 @@ function App() {
           "And the response data from the current-session check is... : ",
           data
         );
-        // if (data.currentlyLoggedIn) {
-        //   setUserAuthed({
-        //     userId: data.userId,
-        //     username: data.username,
-        //   });
-        // }
+        if (data.currentlyLoggedIn) {
+          setUserAuthed({
+            userId: data.userId,
+            username: data.username,
+          });
+        }
       })
       .catch((error) => {
         // Handle errors
         console.error("Error:", error);
       });
-  }, [userAuthed]); // I've put this piece of state into the dependency array for testing purposes
+  }, []); // I've put this piece of state into the dependency array for testing purposes
 
   // Query params for the venues search
   const [searchOffset, setSearchOffset] = useState(0);
@@ -346,10 +348,9 @@ function App() {
       body: searchJsonData,
     };
 
-    fetch(
-      `https://nightlife-8ddy.onrender.com/yelp-data/${searchTerm}`,
-      options
-    )
+    const URL = "http://localhost:3001";
+    // const URL = "https://nightlife-8ddy.onrender.com"
+    fetch(`${URL}/yelp-data/${searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
         if (response.status === 200) {

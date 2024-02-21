@@ -1,5 +1,5 @@
-import yelpLogo from "../../public/yelp_logo.svg";
-import fccLogo from "../../public/fcc_secondary_small.svg";
+import yelpLogo from "/yelp_logo.svg";
+import fccLogo from "/fcc_secondary_small.svg";
 
 const Footer = () => {
   return (

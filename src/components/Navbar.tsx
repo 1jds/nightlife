@@ -1,7 +1,7 @@
 import { useState, useRef, Dispatch, SetStateAction } from "react";
 import LoginModalLoginContent from "./LoginModalLoginContent";
 import LoginModalRegisterContent from "./LoginModalRegisterContent";
-import closeSvg from "../../public/close_FILL0_wght400_GRAD0_opsz24.svg";
+import closeSvg from "/close_FILL0_wght400_GRAD0_opsz24.svg";
 
 type NavbarProps = {
   userAuthed: null | {
@@ -29,7 +29,9 @@ function Navbar(props: NavbarProps) {
 
   // Handle logout
   const logOut = (): void => {
-    fetch("https://nightlife-8ddy.onrender.com/logout", {
+    const URL = "http://localhost:3001";
+    // const URL = "https://nightlife-8ddy.onrender.com";
+    fetch(`${URL}/logout`, {
       method: "GET",
     })
       .then((response) => response.json())
