@@ -275,8 +275,8 @@ function App() {
   // Handle logout
   useEffect(() => {
     console.log("THIS USE EFFECT FIRED...");
-    const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com"
+    // const URL = "http://localhost:3001";
+    const URL = "https://nightlife-8ddy.onrender.com";
     fetch(`${URL}/current-session`, {
       method: "GET",
       credentials: "include",
@@ -348,8 +348,8 @@ function App() {
       body: searchJsonData,
     };
 
-    const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com"
+    // const URL = "http://localhost:3001";
+    const URL = "https://nightlife-8ddy.onrender.com";
     fetch(`${URL}/yelp-data/${searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
