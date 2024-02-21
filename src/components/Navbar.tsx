@@ -57,13 +57,12 @@ function Navbar(props: NavbarProps) {
 
         {props.userAuthed ? (
           <>
-            <a href="#">Welcome, {props.userAuthed.username}</a>
-            <a href="#">My Plans</a>
+            <a>Welcome, {props.userAuthed.username}</a>
+            <a>My Plans</a>
             <a
               onClick={() => {
                 logOut();
               }}
-              href="#"
             >
               Logout
             </a>
