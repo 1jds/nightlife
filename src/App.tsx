@@ -277,6 +277,7 @@ function App() {
     console.log("THIS USE EFFECT FIRED...");
     fetch("https://nightlife-8ddy.onrender.com/current-session", {
       method: "GET",
+      credentials: "include",
     })
       .then((response) => response.json())
       .then((data) => {
