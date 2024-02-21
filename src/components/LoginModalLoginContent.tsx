@@ -34,9 +34,11 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
     // Send JSON data using fetch
     fetch("https://nightlife-8ddy.onrender.com/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        credentials: "include",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
       },
       body: jsonData,
     })

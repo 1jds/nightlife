@@ -278,6 +278,11 @@ function App() {
     fetch("https://nightlife-8ddy.onrender.com/current-session", {
       method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
+      },
     })
       .then((response) => response.json())
       .then((data) => {
