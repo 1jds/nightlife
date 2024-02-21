@@ -36,6 +36,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        credentials: "include",
       },
       body: jsonData,
     })
