@@ -283,7 +283,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
+        "Access-Control-Allow-Origin": "https://nightlife-six.vercel.app",
       },
     })
       .then((response) => response.json())
