@@ -33,8 +33,8 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
 
     // Send JSON data using fetch
     // const URL = "http://localhost:3001";
-    const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`${URL}/login`, {
+    // const URL = "https://nightlife-8ddy.onrender.com";
+    fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {

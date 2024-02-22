@@ -276,8 +276,8 @@ function App() {
   useEffect(() => {
     console.log("THIS USE EFFECT FIRED...");
     // const URL = "http://localhost:3001";
-    const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`${URL}/current-session`, {
+    // const URL = "https://nightlife-8ddy.onrender.com";
+    fetch("api/current-session", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -349,8 +349,8 @@ function App() {
     };
 
     // const URL = "http://localhost:3001";
-    const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`${URL}/yelp-data/${searchTerm}`, options)
+    // const URL = "https://nightlife-8ddy.onrender.com";
+    fetch(`api/yelp-data/${searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
         if (response.status === 200) {

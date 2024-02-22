@@ -28,8 +28,8 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
 
     // Send JSON data using fetch
     // const URL = "http://localhost:3001";
-    const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`${URL}/register`, {
+    // const URL = "https://nightlife-8ddy.onrender.com";
+    fetch("api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

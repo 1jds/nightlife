@@ -29,9 +29,10 @@ function Navbar(props: NavbarProps) {
 
   // Handle logout
   const logOut = (): void => {
-    const URL = "http://localhost:3001";
+    // const URL = "http://localhost:3001";
     // const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`${URL}/logout`, {
+    // fetch(`${import.meta.env.VITE_SOME_KEY}/logout`, {
+    fetch("/api/logout", {
       method: "GET",
     })
       .then((response) => response.json())
