@@ -38,7 +38,7 @@
   --error-red-color: #9d0000;
 
   --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
-  --header-element-size: 30px; /* I'm calling it the Navbar, but FCC call it the header */
+  --header-element-size: 30px; /* I'm calling it the Navbar, but FCC call it the header .... Am I even using this??? */
 }
 
 html {
@@ -275,18 +275,23 @@ a:hover {
 /*         2. NAVBAR STYLES          */
 /*************************************/
 
-.navbar {
+nav {
   background-color: var(--gray90);
-  color: var(--gray00);
-  height: var(--header-height);
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
-.navbar > :first-child {
+.navbar {
+  color: var(--gray00);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.navbar > :nth-child(2) {
   margin-right: auto;
+}
+
+.bar-buddies-logo {
+  margin-inline: 0.5rem;
 }
 
 .navbar a {
@@ -295,6 +300,41 @@ a:hover {
 
 .navbar a:hover {
   color: var(--gray10);
+}
+
+.nav--hamburger-menu-icon {
+  height: 2rem;
+  cursor: pointer;
+}
+
+.nav--hamburger-menu-body-open {
+  position: absolute;
+  top: var(--header-height);
+  right: 0px;
+  background: var(--gray90);
+  min-width: 200px;
+  /* min-height: 300px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.nav--hamburger-menu-body-closed {
+  display: none;
+}
+
+.nav--hamburger-menu-body-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav--hamburger-menu-body-item {
+  padding: 0.7rem 1rem;
+}
+
+a.nav--hamburger-menu-body-item:hover {
+  background: var(--gray10);
+  color: var(--gray90);
 }
 
 /* Navbar Login Modal */
