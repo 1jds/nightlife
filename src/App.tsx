@@ -11,17 +11,17 @@ import {
 import Navbar from "./components/Navbar";
 import "./fonts/lato/Lato-Regular.ttf";
 import { JSX } from "react/jsx-runtime";
-import zeroStars from "/Review_Ribbon_small_16_0.png";
-import halfStars from "/Review_Ribbon_small_16_half.png";
+import zeroStars from "./assets/Review_Ribbon_small_16_0.png";
+import halfStars from "./assets/Review_Ribbon_small_16_half.png";
 // There was no one star png provided in the Yelp assets for some reason(?)
-import oneAndHalfStars from "/Review_Ribbon_small_16_2_1_half.png";
-import twoStars from "/Review_Ribbon_small_16_2.png";
-import twoAndHalfStars from "/Review_Ribbon_small_16_2_half.png";
-import threeStars from "/Review_Ribbon_small_16_3.png";
-import threeAndHalfStars from "/Review_Ribbon_small_16_3_half.png";
-import fourStars from "/Review_Ribbon_small_16_4.png";
-import fourAndHalfStars from "/Review_Ribbon_small_16_4_half.png";
-import fiveStars from "/Review_Ribbon_small_16_5.png";
+import oneAndHalfStars from "./assets/Review_Ribbon_small_16_2_1_half.png";
+import twoStars from "./assets/Review_Ribbon_small_16_2.png";
+import twoAndHalfStars from "./assets/Review_Ribbon_small_16_2_half.png";
+import threeStars from "./assets/Review_Ribbon_small_16_3.png";
+import threeAndHalfStars from "./assets/Review_Ribbon_small_16_3_half.png";
+import fourStars from "./assets/Review_Ribbon_small_16_4.png";
+import fourAndHalfStars from "./assets/Review_Ribbon_small_16_4_half.png";
+import fiveStars from "./assets/Review_Ribbon_small_16_5.png";
 import Footer from "./components/Footer";
 
 const practiceData = {

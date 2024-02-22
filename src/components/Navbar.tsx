@@ -1,7 +1,7 @@
 import { useState, useRef, Dispatch, SetStateAction } from "react";
 import LoginModalLoginContent from "./LoginModalLoginContent";
 import LoginModalRegisterContent from "./LoginModalRegisterContent";
-import closeSvg from "/close_FILL0_wght400_GRAD0_opsz24.svg";
+import closeSvg from "../assets/close_FILL0_wght400_GRAD0_opsz24.svg";
 
 type NavbarProps = {
   userAuthed: null | {

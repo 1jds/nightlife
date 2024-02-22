@@ -1,7 +1,7 @@
 import LoginModalRegisterContent from "./LoginModalRegisterContent";
-import appleLogo from "/apple-logo.svg";
-import googleLogo from "/google-logo.svg";
-import gitHubLogo from "/github-logo.svg";
+import appleLogo from "../assets/apple-logo.svg";
+import googleLogo from "../assets/google-logo.svg";
+import gitHubLogo from "../assets/github-logo.svg";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 type LoginModalLoginContentProps = {
