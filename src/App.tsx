@@ -23,7 +23,8 @@ function App() {
   const [userAuthed, setUserAuthed] = useState<null | {
     userId: number;
     username: string;
-  }>({ userId: 123, username: "Bob" }); // Change back to null
+  }>(null); // Change back to null
+  // }>({ userId: 123, username: "Bob" }); // Change back to null
   const [venuesData, setVenuesData] = useState<any[]>(practiceData.businesses); // The raw data from the API about venues
   const [venuesAttendingIds, setVenuesAttendingIds] = useState<string[]>([]);
   const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
