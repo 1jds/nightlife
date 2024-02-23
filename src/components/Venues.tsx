@@ -27,40 +27,72 @@ type VenuesProps = {
 
 export default function Venues(props: VenuesProps) {
   // Component functionality
-  const handleVenueAttendingAdd = (id: string): boolean => {
-    let isSuccess = false;
-    // update venues details on database
-    const venueAttendingJsonData = JSON.stringify({
-      venueYelpId: id,
-    });
-    fetch("api/venues-attending", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: venueAttendingJsonData,
-    })
-      .then((response) => {
-        console.log("The response: ", response);
-        console.log("The response status: ", response.status);
-        if (response.status === 200) {
-          return response.json();
-        }
-        return Promise.reject(response);
-      })
-      .then((data) => {
-        console.log("The data from /api/venues-attending...: ", data);
-        if (data.insertSuccessful) {
-          isSuccess = true;
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
+  const handleVenueAttendingAdd = async (id: string): Promise<boolean> => {
+    try {
+      const venueAttendingJsonData = JSON.stringify({
+        venueYelpId: id,
       });
-    return isSuccess;
+
+      const response = await fetch("api/venues-attending", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: venueAttendingJsonData,
+      });
+
+      console.log("The response: ", response);
+      console.log("The response status: ", response.status);
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("The data from /api/venues-attending...: ", data);
+        return data.insertSuccessful;
+      } else {
+        console.error("Error fetching data: ", response);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      return false;
+    }
   };
+  // const handleVenueAttendingAdd = (id: string): boolean => {
+  //   let isSuccess = false;
+  //   // update venues details on database
+  //   const venueAttendingJsonData = JSON.stringify({
+  //     venueYelpId: id,
+  //   });
+  //   fetch("api/venues-attending", {
+  //     method: "POST",
+  //     credentials: "include",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //     body: venueAttendingJsonData,
+  //   })
+  //     .then((response) => {
+  //       console.log("The response: ", response);
+  //       console.log("The response status: ", response.status);
+  //       if (response.status === 200) {
+  //         return response.json();
+  //       }
+  //       return Promise.reject(response);
+  //     })
+  //     .then((data) => {
+  //       console.log("The data from /api/venues-attending...: ", data);
+  //       if (data.insertSuccessful) {
+  //         isSuccess = true;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data: ", error);
+  //     });
+  //   return isSuccess;
+  // };
 
   let resultsList;
   if (props.isOnHomePage) {
