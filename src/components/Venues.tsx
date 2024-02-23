@@ -125,8 +125,12 @@ export default function Venues(props: VenuesProps) {
                   <button
                     className="btn"
                     onClick={() => {
-                      const isSucces = handleVenueAttendingAdd(id);
-                      if (isSucces) {
+                      const isSuccess = handleVenueAttendingAdd(id);
+                      console.log(
+                        "Do we have a race condition here...? isSuccess... : ",
+                        isSuccess
+                      );
+                      if (isSuccess) {
                         props.setVenuesAttendingIds((prevState) => [
                           ...prevState,
                           id,
