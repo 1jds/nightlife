@@ -33,7 +33,7 @@ export default function Venues(props: VenuesProps) {
         venueYelpId: id,
       });
 
-      const response = await fetch("api/venues-attending", {
+      const response = await fetch("/api/venues-attending", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -65,7 +65,7 @@ export default function Venues(props: VenuesProps) {
   //   const venueAttendingJsonData = JSON.stringify({
   //     venueYelpId: id,
   //   });
-  //   fetch("api/venues-attending", {
+  //   fetch("/api/venues-attending", {
   //     method: "POST",
   //     credentials: "include",
   //     headers: {
@@ -208,12 +208,11 @@ export default function Venues(props: VenuesProps) {
     const populateResultsAsync = async () => {
       resultsList = await Promise.all(
         props.venuesAttendingIds.map(async (id) => {
-          const url = `https://api.yelp.com/v3/businesses/${id}`;
+          const url = `/api/get-venues-attending/:${id}`;
           const options = {
             method: "GET",
             headers: {
               accept: "application/json",
-              Authorization: `Bearer ${import.meta.env.VITE_YELP_API_KEY}`,
             },
           };
           try {

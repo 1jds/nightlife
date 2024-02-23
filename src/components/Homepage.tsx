@@ -66,7 +66,7 @@ const Homepage = (props: HomepageProps) => {
 
     // const URL = "http://localhost:3001";
     // const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`api/yelp-data/${searchTerm}`, options)
+    fetch(`/api/yelp-data/${searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
         if (response.status === 200) {

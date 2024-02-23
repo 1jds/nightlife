@@ -38,7 +38,7 @@ function App() {
     console.log("THIS USE EFFECT FIRED...");
     // const URL = "http://localhost:3001";
     // const URL = "https://nightlife-8ddy.onrender.com";
-    fetch("api/current-session", {
+    fetch("/api/current-session", {
       method: "GET",
       credentials: "include",
       headers: {
