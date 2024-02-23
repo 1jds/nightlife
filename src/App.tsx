@@ -72,6 +72,8 @@ function App() {
         userAuthed={userAuthed}
         setUserAuthed={setUserAuthed}
         setIsOnHomePage={setIsOnHomePage}
+        setVenuesAttendingIds={setVenuesAttendingIds}
+        setVenuesAttendingDetails={setVenuesAttendingDetails}
       />
       <main>
         <div className="content-grid">
