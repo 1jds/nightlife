@@ -50,6 +50,7 @@ export default function Venues(props: VenuesProps) {
         return Promise.reject(response);
       })
       .then((data) => {
+        console.log(data);
         if (data.insertSuccessful) {
           isSuccess = true;
         }
