@@ -213,7 +213,7 @@ export default function Venues(props: VenuesProps) {
             method: "GET",
             headers: {
               accept: "application/json",
-              Authorization: `Bearer ${API_KEY}`,
+              Authorization: `Bearer ${import.meta.env.VITE_YELP_API_KEY}`,
             },
           };
           try {
