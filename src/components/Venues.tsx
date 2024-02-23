@@ -43,6 +43,7 @@ export default function Venues(props: VenuesProps) {
       body: venueAttendingJsonData,
     })
       .then((response) => {
+        console.log("The response: ", response);
         console.log("The response status: ", response.status);
         if (response.status === 200) {
           return response.json();
@@ -50,7 +51,7 @@ export default function Venues(props: VenuesProps) {
         return Promise.reject(response);
       })
       .then((data) => {
-        console.log(data);
+        console.log("The data from /api/venues-attending...: ", data);
         if (data.insertSuccessful) {
           isSuccess = true;
         }
