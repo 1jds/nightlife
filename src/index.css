@@ -588,6 +588,12 @@ main {
   }
 }
 
+/* Places going */
+.places-going-heading {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
 /*************************************/
 /*         4. FOOTER STYLES          */
 /*************************************/
