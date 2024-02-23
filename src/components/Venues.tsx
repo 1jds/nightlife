@@ -28,7 +28,6 @@ type VenuesProps = {
 export default function Venues(props: VenuesProps) {
   // Component functionality
   const handleVenueAttendingAdd = (id: string): boolean => {
-    let isSuccess = false;
     // update venues details on database
     const venueAttendingJsonData = JSON.stringify({
       venueYelpId: id,
@@ -53,13 +52,14 @@ export default function Venues(props: VenuesProps) {
       .then((data) => {
         console.log("The data from /api/venues-attending...: ", data);
         if (data.insertSuccessful) {
-          isSuccess = true;
+          return true;
+        } else {
+          return false;
         }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-    return isSuccess;
   };
 
   let resultsList;
