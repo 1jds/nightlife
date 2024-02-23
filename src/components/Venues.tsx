@@ -28,6 +28,7 @@ type VenuesProps = {
 export default function Venues(props: VenuesProps) {
   // Component functionality
   const handleVenueAttendingAdd = (id: string): boolean => {
+    let isSuccess = false;
     // update venues details on database
     const venueAttendingJsonData = JSON.stringify({
       venueYelpId: id,
@@ -52,14 +53,13 @@ export default function Venues(props: VenuesProps) {
       .then((data) => {
         console.log("The data from /api/venues-attending...: ", data);
         if (data.insertSuccessful) {
-          return true;
-        } else {
-          return false;
+          isSuccess = true;
         }
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
+    return isSuccess;
   };
 
   let resultsList;
@@ -124,8 +124,8 @@ export default function Venues(props: VenuesProps) {
                   <p className="badge">You are not going</p>
                   <button
                     className="btn"
-                    onClick={() => {
-                      const isSuccess = handleVenueAttendingAdd(id);
+                    onClick={async () => {
+                      const isSuccess = await handleVenueAttendingAdd(id);
                       console.log(
                         "Do we have a race condition here...? isSuccess... : ",
                         isSuccess
