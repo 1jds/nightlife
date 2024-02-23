@@ -243,6 +243,13 @@ input[type="submit"] {
   background-color: var(--blue);
 }
 
+.btn-nav-logo-home {
+  all: unset;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 a {
   font-weight: 500;
   color: inherit;
@@ -286,7 +293,7 @@ nav {
   align-items: center;
 }
 
-.navbar > :nth-child(2) {
+.navbar > :first-child {
   margin-right: auto;
 }
 
