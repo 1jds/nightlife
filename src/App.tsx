@@ -32,24 +32,6 @@ function App() {
 
   // Application Logic
 
-  // update venues details on database
-  useEffect(() => {
-    if (venuesAttendingIds) {
-      const venuesAttendingJsonData = JSON.stringify({
-        venuesYelpIds: venuesAttendingIds,
-      });
-      fetch("api/venues-attending", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: venuesAttendingJsonData,
-      });
-    }
-  }, [venuesAttendingIds]);
-
   // Check user session current
   useEffect(() => {
     console.log("THIS USE EFFECT FIRED...");

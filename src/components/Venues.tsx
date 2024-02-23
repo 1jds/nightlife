@@ -26,6 +26,40 @@ type VenuesProps = {
 };
 
 export default function Venues(props: VenuesProps) {
+  // Component functionality
+  const handleVenueAttendingAdd = (id: string): boolean => {
+    let isSuccess = false;
+    // update venues details on database
+    const venueAttendingJsonData = JSON.stringify({
+      venueYelpId: id,
+    });
+    fetch("api/venues-attending", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: venueAttendingJsonData,
+    })
+      .then((response) => {
+        console.log("The response status: ", response.status);
+        if (response.status === 200) {
+          return response.json();
+        }
+        return Promise.reject(response);
+      })
+      .then((data) => {
+        if (data.insertSuccessful) {
+          isSuccess = true;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+    return isSuccess;
+  };
+
   let resultsList;
   if (props.isOnHomePage) {
     resultsList = props.venuesData.map(
@@ -89,22 +123,25 @@ export default function Venues(props: VenuesProps) {
                   <button
                     className="btn"
                     onClick={() => {
-                      props.setVenuesAttendingIds((prevState) => [
-                        ...prevState,
-                        id,
-                      ]);
-                      props.setVenuesAttendingDetails((prevState) => {
-                        const venueSelectDetails = {
-                          name,
+                      const isSucces = handleVenueAttendingAdd(id);
+                      if (isSucces) {
+                        props.setVenuesAttendingIds((prevState) => [
+                          ...prevState,
                           id,
-                          image_url,
-                          is_closed,
-                          rating,
-                          price,
-                          location: { address1, city },
-                        };
-                        return [...prevState, venueSelectDetails];
-                      });
+                        ]);
+                        props.setVenuesAttendingDetails((prevState) => {
+                          const venueSelectDetails = {
+                            name,
+                            id,
+                            image_url,
+                            is_closed,
+                            rating,
+                            price,
+                            location: { address1, city },
+                          };
+                          return [...prevState, venueSelectDetails];
+                        });
+                      }
                     }}
                   >
                     Add to Plan?
