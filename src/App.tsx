@@ -58,6 +58,7 @@ function App() {
             userId: data.userId,
             username: data.username,
           });
+          setVenuesAttendingIds([...data.venuesAttendingIds]);
         }
       })
       .catch((error) => {

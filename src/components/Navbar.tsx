@@ -167,6 +167,7 @@ const Navbar = (props: NavbarProps) => {
                     {...props}
                     setLoginDialogContent={setLoginDialogContent}
                     toggleLoginDialog={toggleLoginDialog}
+                    setVenuesAttendingIds={props.setVenuesAttendingIds}
                   />
                 );
                 toggleLoginDialog();

@@ -14,6 +14,7 @@ type LoginModalLoginContentProps = {
   setUserAuthed: Dispatch<
     SetStateAction<{ userId: number; username: string } | null>
   >;
+  setVenuesAttendingIds: Dispatch<SetStateAction<string[]>>;
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
@@ -56,6 +57,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             userId: data.userId,
             username: data.username,
           });
+          props.setVenuesAttendingIds([...data.venuesAttendingIds]);
           props.toggleLoginDialog();
         }
       })
