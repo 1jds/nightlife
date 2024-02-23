@@ -196,75 +196,99 @@ export default function Venues(props: VenuesProps) {
       }
     );
   } else {
-    resultsList = props.venuesAttendingDetails.map(
-      ({
-        name,
-        id,
-        image_url,
-        is_closed,
-        rating,
-        price,
-        location: { city = "", address1 = "" } = {}, // see documentation.md
-      }) => {
-        return (
-          <div key={id} className="venue-result-box box-shadow">
-            <img
-              src={`${image_url}`}
-              loading="lazy"
-              alt={`restaurant image for ${name}`}
-            />
-            <div className="venue-details">
-              <h2>{name}</h2>
-              <img
-                alt={`${rating} star rating`}
-                src={
-                  rating < 0.5
-                    ? zeroStars
-                    : rating < 1
-                    ? halfStars
-                    : rating < 2
-                    ? oneAndHalfStars
-                    : rating < 2.5
-                    ? twoStars
-                    : rating < 3
-                    ? twoAndHalfStars
-                    : rating < 3.5
-                    ? threeStars
-                    : rating < 4
-                    ? threeAndHalfStars
-                    : rating < 4.5
-                    ? fourStars
-                    : rating < 5
-                    ? fourAndHalfStars
-                    : fiveStars
-                }
-              />
-              <p>{is_closed ? "Closed" : "Open Now!"}</p>
-              <p>{3} attending</p>
-              <p>Price: {price}</p>
-              <p>
-                {address1}, {city}
-              </p>
-            </div>
-            <div className="venue-attending">
-              <button
-                className="btn"
-                onClick={() => {
-                  props.setVenuesAttendingIds((prevState) => {
-                    return prevState.filter((item) => item !== id);
-                  });
-                  props.setVenuesAttendingDetails((prevState) => {
-                    return prevState.filter((item) => item.id !== id);
-                  });
-                }}
-              >
-                Remove from Plan?
-              </button>
-            </div>
-          </div>
-        );
-      }
-    );
+    // const getWithPromiseAll = async() => {
+    //   console.time("promise all");
+    //   let data = await Promise.all(usernames.map(async (username) => {
+    //     return await simulateFetchData(username);
+    //   }))
+    //   console.timeEnd("promise all");
+    // }
+    // getWithPromiseAll();
+
+    const populateResultsAsync = async () => {
+      resultsList = await Promise.all(
+        props.venuesAttendingIds.map(async (id) => {
+          const url = `https://api.yelp.com/v3/businesses/${id}`;
+          const options = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${API_KEY}`,
+            },
+          };
+          try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("Data received:", data);
+
+            const { image_url, name, rating, is_closed, price } = data;
+            return (
+              <div key={id} className="venue-result-box box-shadow">
+                <img
+                  src={`${image_url}`}
+                  loading="lazy"
+                  alt={`restaurant image for ${name}`}
+                />
+                <div className="venue-details">
+                  <h2>{name}</h2>
+                  <img
+                    alt={`${rating} star rating`}
+                    src={
+                      rating < 0.5
+                        ? zeroStars
+                        : rating < 1
+                        ? halfStars
+                        : rating < 2
+                        ? oneAndHalfStars
+                        : rating < 2.5
+                        ? twoStars
+                        : rating < 3
+                        ? twoAndHalfStars
+                        : rating < 3.5
+                        ? threeStars
+                        : rating < 4
+                        ? threeAndHalfStars
+                        : rating < 4.5
+                        ? fourStars
+                        : rating < 5
+                        ? fourAndHalfStars
+                        : fiveStars
+                    }
+                  />
+                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                  <p>{3} attending</p>
+                  <p>Price: {price}</p>
+                  <p>
+                    {data.location?.address1}, {data.location?.city}
+                  </p>
+                </div>
+                <div className="venue-attending">
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      props.setVenuesAttendingIds((prevState) => {
+                        return prevState.filter((item) => item !== id);
+                      });
+                      props.setVenuesAttendingDetails((prevState) => {
+                        return prevState.filter((item) => item.id !== id);
+                      });
+                    }}
+                  >
+                    Remove from Plan?
+                  </button>
+                </div>
+              </div>
+            );
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        })
+      );
+    };
+    populateResultsAsync();
   }
   return <>{resultsList}</>;
 }
