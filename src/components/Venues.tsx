@@ -208,7 +208,7 @@ export default function Venues(props: VenuesProps) {
     const populateResultsAsync = async () => {
       resultsList = await Promise.all(
         props.venuesAttendingIds.map(async (id) => {
-          const url = `/api/get-venues-attending/:${id}`;
+          const url = `/api/get-venues-attending/${id}`;
           const options = {
             method: "GET",
             headers: {
