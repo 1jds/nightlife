@@ -229,9 +229,14 @@ export default function Venues(props: VenuesProps) {
           })
         );
 
-        // Ensure each item in apiDataToPopulateResultsList is not undefined
-        const validApiData = apiDataToPopulateResultsList.filter(
-          (data) => data
+        // // Ensure each item in apiDataToPopulateResultsList is not undefined
+        // const validApiData = apiDataToPopulateResultsList.filter(
+        //   (data) => data
+        // );
+
+        console.log(
+          "So... what does the data look like at this point? ... :",
+          apiDataToPopulateResultsList
         );
 
         resultsList = apiDataToPopulateResultsList.map(
