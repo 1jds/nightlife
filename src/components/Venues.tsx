@@ -204,7 +204,6 @@ export default function Venues(props: VenuesProps) {
     //   console.timeEnd("promise all");
     // }
     // getWithPromiseAll();
-
     const populateResultsAsync = async () => {
       resultsList = await Promise.all(
         props.venuesAttendingIds.map(async (id) => {
