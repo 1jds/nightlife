@@ -205,24 +205,45 @@ export default function Venues(props: VenuesProps) {
     // }
     // getWithPromiseAll();
     const populateResultsAsync = async () => {
-      resultsList = await Promise.all(
-        props.venuesAttendingIds.map(async (id) => {
-          const url = `/api/get-venues-attending/${id}`;
-          const options = {
-            method: "GET",
-            headers: {
-              accept: "application/json",
-            },
-          };
-          try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+      try {
+        const apiDataToPopulateResultsList = await Promise.all(
+          props.venuesAttendingIds.map(async (id) => {
+            const url = `/api/get-venues-attending/${id}`;
+            const options = {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+              },
+            };
+            try {
+              const response = await fetch(url, options);
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              const data = await response.json();
+              console.log("Data received for collection of ids... : ", data);
+              return data;
+            } catch (error) {
+              console.error("Error fetching data:", error);
             }
-            const data = await response.json();
-            console.log("Data received for collection of ids... : ", data);
+          })
+        );
 
-            const { image_url, name, rating, is_closed, price } = data;
+        // Ensure each item in apiDataToPopulateResultsList is not undefined
+        const validApiData = apiDataToPopulateResultsList.filter(
+          (data) => data
+        );
+
+        resultsList = apiDataToPopulateResultsList.map(
+          ({
+            name,
+            id,
+            image_url,
+            is_closed,
+            rating,
+            price,
+            location: { city = "", address1 = "" } = {}, // see documentation.md
+          }) => {
             return (
               <div key={id} className="venue-result-box box-shadow">
                 <img
@@ -260,7 +281,7 @@ export default function Venues(props: VenuesProps) {
                   <p>{3} attending</p>
                   <p>Price: {price}</p>
                   <p>
-                    {data.location?.address1}, {data.location?.city}
+                    {address1}, {city}
                   </p>
                 </div>
                 <div className="venue-attending">
@@ -280,11 +301,12 @@ export default function Venues(props: VenuesProps) {
                 </div>
               </div>
             );
-          } catch (error) {
-            console.error("Error fetching data:", error);
           }
-        })
-      );
+        );
+      } catch (error) {
+        console.error("Error in populateResultsAsync:", error);
+        // Handle the error somehow?
+      }
     };
     populateResultsAsync();
   }
