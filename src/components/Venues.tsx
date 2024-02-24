@@ -221,7 +221,7 @@ export default function Venues(props: VenuesProps) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
-            console.log("Data received:", data);
+            console.log("Data received for collection of ids... : ", data);
 
             const { image_url, name, rating, is_closed, price } = data;
             return (
