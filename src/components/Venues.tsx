@@ -138,18 +138,18 @@ export default function Venues(props: VenuesProps) {
                             ...prevState,
                             id,
                           ]);
-                          setVenuesAttendingDetails((prevState) => {
-                            const venueSelectDetails = {
-                              name,
-                              id,
-                              image_url,
-                              is_closed,
-                              rating,
-                              price,
-                              location: { address1, city },
-                            };
-                            return [...prevState, venueSelectDetails];
-                          });
+                          // setVenuesAttendingDetails((prevState) => {
+                          //   const venueSelectDetails = {
+                          //     name,
+                          //     id,
+                          //     image_url,
+                          //     is_closed,
+                          //     rating,
+                          //     price,
+                          //     location: { address1, city },
+                          //   };
+                          //   return [...prevState, venueSelectDetails];
+                          // });
                         }
                       }}
                     >
@@ -167,8 +167,9 @@ export default function Venues(props: VenuesProps) {
         }
       )
     );
-  } else {
-    useEffect(() => {
+  }
+  useEffect(() => {
+    if (!props.isOnHomePage) {
       const populateResultsAsync = async (arr: string[]) => {
         const receivedData = await Promise.all(
           arr.map(async (id) => {
@@ -202,83 +203,84 @@ export default function Venues(props: VenuesProps) {
         setVenuesAttendingDetails(receivedData);
       };
       populateResultsAsync(props.venuesAttendingIds);
-    }, []);
+    }
+  }, []);
 
-    useEffect(() => {
-      setResultsList(
-        venuesAttendingDetails.map(
-          ({
-            name,
-            id,
-            image_url,
-            is_closed,
-            rating,
-            price,
-            location: { city = "", address1 = "" } = {}, // see documentation.md
-          }) => {
-            console.log("This log indicates that we got here!");
-            return (
-              <div key={id} className="venue-result-box box-shadow">
+  useEffect(() => {
+    setResultsList(
+      venuesAttendingDetails.map(
+        ({
+          name,
+          id,
+          image_url,
+          is_closed,
+          rating,
+          price,
+          location: { city = "", address1 = "" } = {}, // see documentation.md
+        }) => {
+          console.log("This log indicates that we got here!");
+          return (
+            <div key={id} className="venue-result-box box-shadow">
+              <img
+                src={`${image_url}`}
+                loading="lazy"
+                alt={`restaurant image for ${name}`}
+              />
+              <div className="venue-details">
+                <h2>{name}</h2>
                 <img
-                  src={`${image_url}`}
-                  loading="lazy"
-                  alt={`restaurant image for ${name}`}
+                  alt={`${rating} star rating`}
+                  src={
+                    rating < 0.5
+                      ? zeroStars
+                      : rating < 1
+                      ? halfStars
+                      : rating < 2
+                      ? oneAndHalfStars
+                      : rating < 2.5
+                      ? twoStars
+                      : rating < 3
+                      ? twoAndHalfStars
+                      : rating < 3.5
+                      ? threeStars
+                      : rating < 4
+                      ? threeAndHalfStars
+                      : rating < 4.5
+                      ? fourStars
+                      : rating < 5
+                      ? fourAndHalfStars
+                      : fiveStars
+                  }
                 />
-                <div className="venue-details">
-                  <h2>{name}</h2>
-                  <img
-                    alt={`${rating} star rating`}
-                    src={
-                      rating < 0.5
-                        ? zeroStars
-                        : rating < 1
-                        ? halfStars
-                        : rating < 2
-                        ? oneAndHalfStars
-                        : rating < 2.5
-                        ? twoStars
-                        : rating < 3
-                        ? twoAndHalfStars
-                        : rating < 3.5
-                        ? threeStars
-                        : rating < 4
-                        ? threeAndHalfStars
-                        : rating < 4.5
-                        ? fourStars
-                        : rating < 5
-                        ? fourAndHalfStars
-                        : fiveStars
-                    }
-                  />
-                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <p>{3} attending</p>
-                  <p>Price: {price}</p>
-                  <p>
-                    {address1}, {city}
-                  </p>
-                </div>
-                <div className="venue-attending">
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      props.setVenuesAttendingIds((prevState) => {
-                        return prevState.filter((item) => item !== id);
-                      });
-                      setVenuesAttendingDetails((prevState) => {
-                        return prevState.filter((item) => item.id !== id);
-                      });
-                    }}
-                  >
-                    Remove from Plan?
-                  </button>
-                </div>
+                <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                <p>{3} attending</p>
+                <p>Price: {price}</p>
+                <p>
+                  {address1}, {city}
+                </p>
               </div>
-            );
-          }
-        )
-      );
-    }, [venuesAttendingDetails]);
-  }
+              <div className="venue-attending">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    props.setVenuesAttendingIds((prevState) => {
+                      return prevState.filter((item) => item !== id);
+                    });
+                    setVenuesAttendingDetails((prevState) => {
+                      return prevState.filter((item) => item.id !== id);
+                    });
+                  }}
+                >
+                  Remove from Plan?
+                </button>
+              </div>
+            </div>
+          );
+        }
+      )
+    );
+  }, [venuesAttendingDetails]);
+
   console.log(
     "This is what the resultsList looks like just before the return statement... : ",
     resultsList
