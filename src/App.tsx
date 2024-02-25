@@ -27,9 +27,6 @@ function App() {
   // }>({ userId: 123, username: "Bob" }); // Change back to null
   const [venuesData, setVenuesData] = useState<any[]>([]); // The raw data from the API about venues // practiceData.businesses
   const [venuesAttendingIds, setVenuesAttendingIds] = useState<string[]>([]);
-  const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
-    []
-  );
 
   // Application Logic
 
@@ -74,7 +71,6 @@ function App() {
         setUserAuthed={setUserAuthed}
         setIsOnHomePage={setIsOnHomePage}
         setVenuesAttendingIds={setVenuesAttendingIds}
-        setVenuesAttendingDetails={setVenuesAttendingDetails}
       />
       <main>
         <div className="content-grid">
@@ -86,8 +82,6 @@ function App() {
               setVenuesData={setVenuesData}
               venuesAttendingIds={venuesAttendingIds}
               setVenuesAttendingIds={setVenuesAttendingIds}
-              venuesAttendingDetails={venuesAttendingDetails}
-              setVenuesAttendingDetails={setVenuesAttendingDetails}
             />
           ) : (
             <Visiting
@@ -97,8 +91,6 @@ function App() {
               setVenuesData={setVenuesData}
               venuesAttendingIds={venuesAttendingIds}
               setVenuesAttendingIds={setVenuesAttendingIds}
-              venuesAttendingDetails={venuesAttendingDetails}
-              setVenuesAttendingDetails={setVenuesAttendingDetails}
             />
           )}
         </div>

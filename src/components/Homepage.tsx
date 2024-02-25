@@ -12,8 +12,6 @@ type HomepageProps = {
   setVenuesData: React.Dispatch<React.SetStateAction<any[]>>;
   venuesAttendingIds: string[];
   setVenuesAttendingIds: React.Dispatch<React.SetStateAction<string[]>>;
-  venuesAttendingDetails: any[];
-  setVenuesAttendingDetails: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
 const Homepage = (props: HomepageProps) => {

@@ -17,7 +17,6 @@ type NavbarProps = {
   >;
   setIsOnHomePage: React.Dispatch<React.SetStateAction<boolean>>;
   setVenuesAttendingIds: React.Dispatch<React.SetStateAction<string[]>>;
-  setVenuesAttendingDetails: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
 const Navbar = (props: NavbarProps) => {
@@ -70,7 +69,6 @@ const Navbar = (props: NavbarProps) => {
           props.setUserAuthed(null);
           props.setIsOnHomePage(true);
           props.setVenuesAttendingIds([]);
-          props.setVenuesAttendingDetails([]);
         }
       })
       .catch((error) => {
