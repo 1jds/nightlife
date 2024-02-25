@@ -168,110 +168,114 @@ export default function Venues(props: VenuesProps) {
       )
     );
   } else {
-    const populateResultsAsync = async (arr: string[]) => {
-      const receivedData = await Promise.all(
-        arr.map(async (id) => {
-          const url = `/api/get-venues-attending/${id}`;
-          const options = {
-            method: "GET",
-            headers: {
-              accept: "application/json",
-            },
-          };
-          try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
+    useEffect(() => {
+      const populateResultsAsync = async (arr: string[]) => {
+        const receivedData = await Promise.all(
+          arr.map(async (id) => {
+            const url = `/api/get-venues-attending/${id}`;
+            const options = {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+              },
+            };
+            try {
+              const response = await fetch(url, options);
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              const data = await response.json();
+              console.log("Data received for collection of ids... : ", data);
+              return data;
+            } catch (error) {
+              console.error("Error fetching data:", error);
             }
-            const data = await response.json();
-            console.log("Data received for collection of ids... : ", data);
-            return data;
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        })
-      );
+          })
+        );
 
-      console.log(
-        "Here is the received data... is this some kind of promise object? ... : ",
-        typeof receivedData,
-        receivedData
-      );
+        console.log(
+          "Here is the received data... is this some kind of promise object? ... : ",
+          typeof receivedData,
+          receivedData
+        );
 
-      setVenuesAttendingDetails(receivedData);
-    };
-    populateResultsAsync(props.venuesAttendingIds);
+        setVenuesAttendingDetails(receivedData);
+      };
+      populateResultsAsync(props.venuesAttendingIds);
+    }, []);
 
     useEffect(() => {
-      venuesAttendingDetails.map(
-        ({
-          name,
-          id,
-          image_url,
-          is_closed,
-          rating,
-          price,
-          location: { city = "", address1 = "" } = {}, // see documentation.md
-        }) => {
-          console.log("This log indicates that we got here!");
-          return (
-            <div key={id} className="venue-result-box box-shadow">
-              <img
-                src={`${image_url}`}
-                loading="lazy"
-                alt={`restaurant image for ${name}`}
-              />
-              <div className="venue-details">
-                <h2>{name}</h2>
+      setResultsList(
+        venuesAttendingDetails.map(
+          ({
+            name,
+            id,
+            image_url,
+            is_closed,
+            rating,
+            price,
+            location: { city = "", address1 = "" } = {}, // see documentation.md
+          }) => {
+            console.log("This log indicates that we got here!");
+            return (
+              <div key={id} className="venue-result-box box-shadow">
                 <img
-                  alt={`${rating} star rating`}
-                  src={
-                    rating < 0.5
-                      ? zeroStars
-                      : rating < 1
-                      ? halfStars
-                      : rating < 2
-                      ? oneAndHalfStars
-                      : rating < 2.5
-                      ? twoStars
-                      : rating < 3
-                      ? twoAndHalfStars
-                      : rating < 3.5
-                      ? threeStars
-                      : rating < 4
-                      ? threeAndHalfStars
-                      : rating < 4.5
-                      ? fourStars
-                      : rating < 5
-                      ? fourAndHalfStars
-                      : fiveStars
-                  }
+                  src={`${image_url}`}
+                  loading="lazy"
+                  alt={`restaurant image for ${name}`}
                 />
-                <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <p>{3} attending</p>
-                <p>Price: {price}</p>
-                <p>
-                  {address1}, {city}
-                </p>
+                <div className="venue-details">
+                  <h2>{name}</h2>
+                  <img
+                    alt={`${rating} star rating`}
+                    src={
+                      rating < 0.5
+                        ? zeroStars
+                        : rating < 1
+                        ? halfStars
+                        : rating < 2
+                        ? oneAndHalfStars
+                        : rating < 2.5
+                        ? twoStars
+                        : rating < 3
+                        ? twoAndHalfStars
+                        : rating < 3.5
+                        ? threeStars
+                        : rating < 4
+                        ? threeAndHalfStars
+                        : rating < 4.5
+                        ? fourStars
+                        : rating < 5
+                        ? fourAndHalfStars
+                        : fiveStars
+                    }
+                  />
+                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                  <p>{3} attending</p>
+                  <p>Price: {price}</p>
+                  <p>
+                    {address1}, {city}
+                  </p>
+                </div>
+                <div className="venue-attending">
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      props.setVenuesAttendingIds((prevState) => {
+                        return prevState.filter((item) => item !== id);
+                      });
+                      setVenuesAttendingDetails((prevState) => {
+                        return prevState.filter((item) => item.id !== id);
+                      });
+                    }}
+                  >
+                    Remove from Plan?
+                  </button>
+                </div>
               </div>
-              <div className="venue-attending">
-                <button
-                  className="btn"
-                  onClick={() => {
-                    props.setVenuesAttendingIds((prevState) => {
-                      return prevState.filter((item) => item !== id);
-                    });
-                    setVenuesAttendingDetails((prevState) => {
-                      return prevState.filter((item) => item.id !== id);
-                    });
-                  }}
-                >
-                  Remove from Plan?
-                </button>
-              </div>
-            </div>
-          );
-        }
+            );
+          }
+        )
       );
     }, [venuesAttendingDetails]);
   }
