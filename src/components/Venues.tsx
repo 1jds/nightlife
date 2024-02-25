@@ -196,124 +196,106 @@ export default function Venues(props: VenuesProps) {
       }
     );
   } else {
-    // const getWithPromiseAll = async() => {
-    //   console.time("promise all");
-    //   let data = await Promise.all(usernames.map(async (username) => {
-    //     return await simulateFetchData(username);
-    //   }))
-    //   console.timeEnd("promise all");
-    // }
-    // getWithPromiseAll();
-    const populateResultsAsync = async () => {
-      try {
-        const apiDataToPopulateResultsList = await Promise.all(
-          props.venuesAttendingIds.map(async (id) => {
-            const url = `/api/get-venues-attending/${id}`;
-            const options = {
-              method: "GET",
-              headers: {
-                accept: "application/json",
-              },
-            };
-            try {
-              const response = await fetch(url, options);
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              const data = await response.json();
-              console.log("Data received for collection of ids... : ", data);
-              return data;
-            } catch (error) {
-              console.error("Error fetching data:", error);
+    const populateResultsAsync = async (arr: string[]) => {
+      const receivedData = await Promise.all(
+        arr.map(async (id) => {
+          const url = `/api/get-venues-attending/${id}`;
+          const options = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+            },
+          };
+          try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
             }
-          })
-        );
-
-        // // Ensure each item in apiDataToPopulateResultsList is not undefined
-        // const validApiData = apiDataToPopulateResultsList.filter(
-        //   (data) => data
-        // );
-
-        console.log(
-          "So... what does the data look like at this point? ... :",
-          apiDataToPopulateResultsList
-        );
-
-        resultsList = apiDataToPopulateResultsList.map(
-          ({
-            name,
-            id,
-            image_url,
-            is_closed,
-            rating,
-            price,
-            location: { city = "", address1 = "" } = {}, // see documentation.md
-          }) => {
-            return (
-              <div key={id} className="venue-result-box box-shadow">
-                <img
-                  src={`${image_url}`}
-                  loading="lazy"
-                  alt={`restaurant image for ${name}`}
-                />
-                <div className="venue-details">
-                  <h2>{name}</h2>
-                  <img
-                    alt={`${rating} star rating`}
-                    src={
-                      rating < 0.5
-                        ? zeroStars
-                        : rating < 1
-                        ? halfStars
-                        : rating < 2
-                        ? oneAndHalfStars
-                        : rating < 2.5
-                        ? twoStars
-                        : rating < 3
-                        ? twoAndHalfStars
-                        : rating < 3.5
-                        ? threeStars
-                        : rating < 4
-                        ? threeAndHalfStars
-                        : rating < 4.5
-                        ? fourStars
-                        : rating < 5
-                        ? fourAndHalfStars
-                        : fiveStars
-                    }
-                  />
-                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <p>{3} attending</p>
-                  <p>Price: {price}</p>
-                  <p>
-                    {address1}, {city}
-                  </p>
-                </div>
-                <div className="venue-attending">
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      props.setVenuesAttendingIds((prevState) => {
-                        return prevState.filter((item) => item !== id);
-                      });
-                      props.setVenuesAttendingDetails((prevState) => {
-                        return prevState.filter((item) => item.id !== id);
-                      });
-                    }}
-                  >
-                    Remove from Plan?
-                  </button>
-                </div>
-              </div>
-            );
+            const data = await response.json();
+            console.log("Data received for collection of ids... : ", data);
+            return data;
+          } catch (error) {
+            console.error("Error fetching data:", error);
           }
-        );
-      } catch (error) {
-        console.error("Error in populateResultsAsync:", error);
-        // Handle the error somehow?
-      }
+        })
+      );
+      console.log(
+        "Here is the received data... is this some kind of promise object? ... : ",
+        typeof receivedData,
+        receivedData
+      );
+
+      resultsList = receivedData.map(
+        ({
+          name,
+          id,
+          image_url,
+          is_closed,
+          rating,
+          price,
+          location: { city = "", address1 = "" } = {}, // see documentation.md
+        }) => {
+          return (
+            <div key={id} className="venue-result-box box-shadow">
+              <img
+                src={`${image_url}`}
+                loading="lazy"
+                alt={`restaurant image for ${name}`}
+              />
+              <div className="venue-details">
+                <h2>{name}</h2>
+                <img
+                  alt={`${rating} star rating`}
+                  src={
+                    rating < 0.5
+                      ? zeroStars
+                      : rating < 1
+                      ? halfStars
+                      : rating < 2
+                      ? oneAndHalfStars
+                      : rating < 2.5
+                      ? twoStars
+                      : rating < 3
+                      ? twoAndHalfStars
+                      : rating < 3.5
+                      ? threeStars
+                      : rating < 4
+                      ? threeAndHalfStars
+                      : rating < 4.5
+                      ? fourStars
+                      : rating < 5
+                      ? fourAndHalfStars
+                      : fiveStars
+                  }
+                />
+                <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                <p>{3} attending</p>
+                <p>Price: {price}</p>
+                <p>
+                  {address1}, {city}
+                </p>
+              </div>
+              <div className="venue-attending">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    props.setVenuesAttendingIds((prevState) => {
+                      return prevState.filter((item) => item !== id);
+                    });
+                    props.setVenuesAttendingDetails((prevState) => {
+                      return prevState.filter((item) => item.id !== id);
+                    });
+                  }}
+                >
+                  Remove from Plan?
+                </button>
+              </div>
+            </div>
+          );
+        }
+      );
     };
-    populateResultsAsync();
+    populateResultsAsync(props.venuesAttendingIds);
   }
   return <>{resultsList}</>;
 }
