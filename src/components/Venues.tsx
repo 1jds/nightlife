@@ -203,7 +203,7 @@ export default function Venues(props: VenuesProps) {
       };
       populateResultsAsync(props.venuesAttendingIds);
     }
-  }, []);
+  }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
 
   useEffect(() => {
     setResultsList(
