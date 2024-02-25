@@ -65,111 +65,110 @@ export default function Venues(props: VenuesProps) {
     }
   };
 
-  if (props.isOnHomePage) {
-    setResultsList(
-      props.venuesData.map(
-        ({
-          name,
-          id,
-          image_url,
-          is_closed,
-          rating,
-          price,
-          location: { city = "", address1 = "" } = {}, // see documentation.md
-        }) => {
-          return (
-            <div key={id} className="venue-result-box box-shadow">
-              <img
-                src={`${image_url}`}
-                loading="lazy"
-                alt={`restaurant image for ${name}`}
-              />
-              <div className="venue-details">
-                <h2>{name}</h2>
+  useEffect(() => {
+    if (props.isOnHomePage) {
+      setResultsList(
+        props.venuesData.map(
+          ({
+            name,
+            id,
+            image_url,
+            is_closed,
+            rating,
+            price,
+            location: { city = "", address1 = "" } = {}, // see documentation.md
+          }) => {
+            return (
+              <div key={id} className="venue-result-box box-shadow">
                 <img
-                  alt={`${rating} star rating`}
-                  src={
-                    rating < 0.5
-                      ? zeroStars
-                      : rating < 1
-                      ? halfStars
-                      : rating < 2
-                      ? oneAndHalfStars
-                      : rating < 2.5
-                      ? twoStars
-                      : rating < 3
-                      ? twoAndHalfStars
-                      : rating < 3.5
-                      ? threeStars
-                      : rating < 4
-                      ? threeAndHalfStars
-                      : rating < 4.5
-                      ? fourStars
-                      : rating < 5
-                      ? fourAndHalfStars
-                      : fiveStars
-                  }
+                  src={`${image_url}`}
+                  loading="lazy"
+                  alt={`restaurant image for ${name}`}
                 />
-                <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <p>{3} attending</p>
-                <p>Price: {price}</p>
-                <p>
-                  {address1}, {city}
-                </p>
-              </div>
-              {props.userAuthed ? (
-                props.venuesAttendingIds.includes(id) ? (
-                  <div className="venue-attending">
-                    <p className="badge bg-green">You are attending</p>
-                  </div>
+                <div className="venue-details">
+                  <h2>{name}</h2>
+                  <img
+                    alt={`${rating} star rating`}
+                    src={
+                      rating < 0.5
+                        ? zeroStars
+                        : rating < 1
+                        ? halfStars
+                        : rating < 2
+                        ? oneAndHalfStars
+                        : rating < 2.5
+                        ? twoStars
+                        : rating < 3
+                        ? twoAndHalfStars
+                        : rating < 3.5
+                        ? threeStars
+                        : rating < 4
+                        ? threeAndHalfStars
+                        : rating < 4.5
+                        ? fourStars
+                        : rating < 5
+                        ? fourAndHalfStars
+                        : fiveStars
+                    }
+                  />
+                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                  <p>{3} attending</p>
+                  <p>Price: {price}</p>
+                  <p>
+                    {address1}, {city}
+                  </p>
+                </div>
+                {props.userAuthed ? (
+                  props.venuesAttendingIds.includes(id) ? (
+                    <div className="venue-attending">
+                      <p className="badge bg-green">You are attending</p>
+                    </div>
+                  ) : (
+                    <div className="venue-attending">
+                      <p className="badge">You are not going</p>
+                      <button
+                        className="btn"
+                        onClick={async () => {
+                          const isSuccess = await handleVenueAttendingAdd(id);
+                          console.log(
+                            "Do we have a race condition here...? isSuccess... : ",
+                            isSuccess
+                          );
+                          if (isSuccess) {
+                            props.setVenuesAttendingIds((prevState) => [
+                              ...prevState,
+                              id,
+                            ]);
+                            // setVenuesAttendingDetails((prevState) => {
+                            //   const venueSelectDetails = {
+                            //     name,
+                            //     id,
+                            //     image_url,
+                            //     is_closed,
+                            //     rating,
+                            //     price,
+                            //     location: { address1, city },
+                            //   };
+                            //   return [...prevState, venueSelectDetails];
+                            // });
+                          }
+                        }}
+                      >
+                        Add to Plan?
+                      </button>
+                    </div>
+                  )
                 ) : (
                   <div className="venue-attending">
-                    <p className="badge">You are not going</p>
-                    <button
-                      className="btn"
-                      onClick={async () => {
-                        const isSuccess = await handleVenueAttendingAdd(id);
-                        console.log(
-                          "Do we have a race condition here...? isSuccess... : ",
-                          isSuccess
-                        );
-                        if (isSuccess) {
-                          props.setVenuesAttendingIds((prevState) => [
-                            ...prevState,
-                            id,
-                          ]);
-                          // setVenuesAttendingDetails((prevState) => {
-                          //   const venueSelectDetails = {
-                          //     name,
-                          //     id,
-                          //     image_url,
-                          //     is_closed,
-                          //     rating,
-                          //     price,
-                          //     location: { address1, city },
-                          //   };
-                          //   return [...prevState, venueSelectDetails];
-                          // });
-                        }
-                      }}
-                    >
-                      Add to Plan?
-                    </button>
+                    <p className="badge">Login to add to plan</p>
                   </div>
-                )
-              ) : (
-                <div className="venue-attending">
-                  <p className="badge">Login to add to plan</p>
-                </div>
-              )}
-            </div>
-          );
-        }
-      )
-    );
-  }
-  useEffect(() => {
-    if (!props.isOnHomePage) {
+                )}
+              </div>
+            );
+          }
+        )
+      );
+    } else {
       const populateResultsAsync = async (arr: string[]) => {
         const receivedData = await Promise.all(
           arr.map(async (id) => {
