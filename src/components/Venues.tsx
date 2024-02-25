@@ -219,6 +219,7 @@ export default function Venues(props: VenuesProps) {
           }
         })
       );
+
       console.log(
         "Here is the received data... is this some kind of promise object? ... : ",
         typeof receivedData,
@@ -235,6 +236,7 @@ export default function Venues(props: VenuesProps) {
           price,
           location: { city = "", address1 = "" } = {}, // see documentation.md
         }) => {
+          console.log("This log indicates that we got here!");
           return (
             <div key={id} className="venue-result-box box-shadow">
               <img
@@ -296,6 +298,10 @@ export default function Venues(props: VenuesProps) {
       );
     };
     populateResultsAsync(props.venuesAttendingIds);
+    console.log(
+      "This is what the resultsList looks like just before the return statement... : ",
+      resultsList
+    );
   }
   return <>{resultsList}</>;
 }
