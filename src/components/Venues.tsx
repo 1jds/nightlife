@@ -129,7 +129,7 @@ export default function Venues(props: VenuesProps) {
           } catch (error) {
             console.error("Error fetching data:", error);
           }
-        }, 250);
+        }, 499);
       })
     );
 
