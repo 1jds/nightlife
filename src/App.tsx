@@ -27,6 +27,9 @@ function App() {
   // }>({ userId: 123, username: "Bob" }); // Change back to null
   const [venuesData, setVenuesData] = useState<any[]>([]); // The raw data from the API about venues // practiceData.businesses
   const [venuesAttendingIds, setVenuesAttendingIds] = useState<string[]>([]);
+  // State for Homepage component, but placed here so that it persists
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchOffset, setSearchOffset] = useState(0);
 
   // Application Logic
 
@@ -82,6 +85,10 @@ function App() {
               setVenuesData={setVenuesData}
               venuesAttendingIds={venuesAttendingIds}
               setVenuesAttendingIds={setVenuesAttendingIds}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              searchOffset={searchOffset}
+              setSearchOffset={setSearchOffset}
             />
           ) : (
             <Visiting

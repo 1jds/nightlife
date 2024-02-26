@@ -12,15 +12,17 @@ type HomepageProps = {
   setVenuesData: React.Dispatch<React.SetStateAction<any[]>>;
   venuesAttendingIds: string[];
   setVenuesAttendingIds: React.Dispatch<React.SetStateAction<string[]>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  searchOffset: number;
+  setSearchOffset: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const Homepage = (props: HomepageProps) => {
   // Component State
   const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
   // Query params for the venues search
-  const [searchOffset, setSearchOffset] = useState(0);
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
   const [searchPrice, setSearchPrice] = useState(4);
   const [searchSortBy, setSearchSortBy] = useState<
@@ -30,14 +32,14 @@ const Homepage = (props: HomepageProps) => {
   // Component Functionality
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
     let { value: searchWords } = e.target;
-    setSearchTerm(searchWords);
+    props.setSearchTerm(searchWords);
   };
 
   const handleSearch = (e: any): void => {
     e.preventDefault();
     setLoading(true);
 
-    if (!searchTerm) {
+    if (!props.searchTerm) {
       setError(
         "Please enter a location first, such as 'London', or 'New York'."
       );
@@ -46,7 +48,7 @@ const Homepage = (props: HomepageProps) => {
     }
 
     const searchFormData = {
-      searchOffset,
+      searchOffset: props.searchOffset,
       searchIsOpenNow,
       searchSortBy,
       searchPrice,
@@ -64,7 +66,7 @@ const Homepage = (props: HomepageProps) => {
 
     // const URL = "http://localhost:3001";
     // const URL = "https://nightlife-8ddy.onrender.com";
-    fetch(`/api/yelp-data/${searchTerm}`, options)
+    fetch(`/api/yelp-data/${props.searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
         if (response.status === 200) {
@@ -81,7 +83,7 @@ const Homepage = (props: HomepageProps) => {
             ...prevState,
             ...data.businesses,
           ]);
-          setSearchOffset((prevState) => prevState + 5);
+          props.setSearchOffset((prevState) => prevState + 5);
         }
       })
       .catch((error) => {
@@ -116,12 +118,12 @@ const Homepage = (props: HomepageProps) => {
           onChange={handleSearchTextInput}
           onKeyDown={(e): void => {
             if (e.key === "Enter") {
-              setSearchOffset(0);
+              props.setSearchOffset(0);
               props.setVenuesData([]);
               handleSearch(e);
             }
           }}
-          value={searchTerm}
+          value={props.searchTerm}
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
@@ -131,7 +133,7 @@ const Homepage = (props: HomepageProps) => {
           className="btn btn-cta"
           type="submit"
           onClick={(e) => {
-            setSearchOffset(0);
+            props.setSearchOffset(0);
             props.setVenuesData([]);
             handleSearch(e);
           }}
@@ -211,7 +213,7 @@ const Homepage = (props: HomepageProps) => {
             Results loading. Please wait...
           </p>
         ) : null}
-        {searchOffset ? (
+        {props.searchOffset ? (
           <button
             className="btn"
             onClick={(e) => {
