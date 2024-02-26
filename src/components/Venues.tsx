@@ -69,6 +69,43 @@ export default function Venues(props: VenuesProps) {
     }
   };
 
+  const handleVenueAttendingRemove = async (id: string): Promise<boolean> => {
+    try {
+      const venueAttendingJsonData = JSON.stringify({
+        venueYelpId: id,
+        userId: props.userAuthed?.userId,
+      });
+
+      const response = await fetch("/api/venues-attending/remove", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: venueAttendingJsonData,
+      });
+
+      console.log("The response when trying to remove: ", response);
+      console.log(
+        "The response status when trying to remove: ",
+        response.status
+      );
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("The data from /api/venues-attending/remove...: ", data);
+        return data.removeSuccessful;
+      } else {
+        console.error("Error fetching data: ", response);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (props.isOnHomePage) {
       setResultsList(
@@ -143,18 +180,6 @@ export default function Venues(props: VenuesProps) {
                               ...prevState,
                               id,
                             ]);
-                            // setVenuesAttendingDetails((prevState) => {
-                            //   const venueSelectDetails = {
-                            //     name,
-                            //     id,
-                            //     image_url,
-                            //     is_closed,
-                            //     rating,
-                            //     price,
-                            //     location: { address1, city },
-                            //   };
-                            //   return [...prevState, venueSelectDetails];
-                            // });
                           }
                         }}
                       >
@@ -265,14 +290,32 @@ export default function Venues(props: VenuesProps) {
               <div className="venue-attending">
                 <button
                   className="btn"
-                  onClick={() => {
-                    props.setVenuesAttendingIds((prevState) => {
-                      return prevState.filter((item) => item !== id);
-                    });
-                    setVenuesAttendingDetails((prevState) => {
-                      return prevState.filter((item) => item.id !== id);
-                    });
+                  onClick={async () => {
+                    const isRemoveSuccess = await handleVenueAttendingRemove(
+                      id
+                    );
+                    if (isRemoveSuccess) {
+                      props.setVenuesAttendingIds((prevState) => {
+                        return prevState.filter((item) => item !== id);
+                      });
+                      setVenuesAttendingDetails((prevState) => {
+                        return prevState.filter((item) => item.id !== id);
+                      });
+                    }
                   }}
+                  // onClick={async () => {
+                  //   const isSuccess = await handleVenueAttendingAdd(id);
+                  //   console.log(
+                  //     "Do we have a race condition here...? isSuccess... : ",
+                  //     isSuccess
+                  //   );
+                  //   if (isSuccess) {
+                  //     props.setVenuesAttendingIds((prevState) => [
+                  //       ...prevState,
+                  //       id,
+                  //     ]);
+                  //   }
+                  // }}
                 >
                   Remove from Plan?
                 </button>
