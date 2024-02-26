@@ -39,6 +39,7 @@ export default function Venues(props: VenuesProps) {
     try {
       const venueAttendingJsonData = JSON.stringify({
         venueYelpId: id,
+        userId: props.userAuthed?.userId,
       });
 
       const response = await fetch("/api/venues-attending", {
