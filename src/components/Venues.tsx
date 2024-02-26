@@ -33,7 +33,7 @@ export default function Venues(props: VenuesProps) {
   const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
     []
   );
-  const [venuesAttendingOffset, setVenuesAttendingOffset] = useState(0);
+  // const [venuesAttendingOffset, setVenuesAttendingOffset] = useState(0);
 
   // Component functionality
   const handleVenueAttendingAdd = async (id: string): Promise<boolean> => {
@@ -117,23 +117,25 @@ export default function Venues(props: VenuesProps) {
             accept: "application/json",
           },
         };
-        try {
-          const response = await fetch(url, options);
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        setTimeout(async () => {
+          try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log("Data received for collection of ids... : ", data);
+            return data;
+          } catch (error) {
+            console.error("Error fetching data:", error);
           }
-          const data = await response.json();
-          console.log("Data received for collection of ids... : ", data);
-          return data;
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+        }, 250);
       })
     );
 
     console.log("Here is the received data...... : ", receivedData);
-    setVenuesAttendingOffset((prevState) => prevState + 5);
-    setVenuesAttendingDetails((prevState) => [...prevState, receivedData]);
+    // setVenuesAttendingOffset((prevState) => prevState + 5);
+    setVenuesAttendingDetails(receivedData);
   };
 
   useEffect(() => {
@@ -228,13 +230,7 @@ export default function Venues(props: VenuesProps) {
         )
       );
     } else {
-      setVenuesAttendingOffset(0);
-      populateResultsAsync(
-        props.venuesAttendingIds.slice(
-          venuesAttendingOffset,
-          venuesAttendingOffset + 5
-        )
-      );
+      populateResultsAsync(props.venuesAttendingIds);
     }
   }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
 
@@ -338,7 +334,7 @@ export default function Venues(props: VenuesProps) {
   return (
     <>
       {props.isOnHomePage ? resultsList : venuesAttendingList}
-      {!props.isOnHomePage && (
+      {/* {!props.isOnHomePage && (
         <button
           onClick={() => {
             populateResultsAsync(
@@ -351,7 +347,7 @@ export default function Venues(props: VenuesProps) {
         >
           Load more locations
         </button>
-      )}
+      )} */}
     </>
   );
 }
