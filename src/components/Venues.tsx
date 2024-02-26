@@ -27,6 +27,9 @@ type VenuesProps = {
 export default function Venues(props: VenuesProps) {
   // Component state
   const [resultsList, setResultsList] = useState<JSX.Element[] | null>(null);
+  const [venuesAttendingList, setVenuesAttendingList] = useState<
+    JSX.Element[] | null
+  >(null);
   const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
     []
   );
@@ -206,7 +209,7 @@ export default function Venues(props: VenuesProps) {
   }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
 
   useEffect(() => {
-    setResultsList(
+    setVenuesAttendingList(
       venuesAttendingDetails.map(
         ({
           name,
@@ -284,5 +287,5 @@ export default function Venues(props: VenuesProps) {
     "This is what the resultsList looks like just before the return statement... : ",
     resultsList
   );
-  return <>{resultsList}</>;
+  return <>{props.isOnHomePage ? resultsList : venuesAttendingList}</>;
 }
