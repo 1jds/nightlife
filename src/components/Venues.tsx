@@ -218,15 +218,14 @@ export default function Venues(props: VenuesProps) {
               return data;
             } catch (error) {
               console.error("Error fetching data:", error);
+            } finally {
+              // The Yelp API is rate-limited for queries-per-second; so this timeout is just to avoid getting a 403 error. I could also retrieve just the first five results, and then give the user a button to request increments of 5 more each time. Both have potential UX trade-offs.
+              setTimeout(() => {}, 200);
             }
           })
         );
 
-        console.log(
-          "Here is the received data... is this some kind of promise object? ... : ",
-          typeof receivedData,
-          receivedData
-        );
+        console.log("Here is the received data...... : ", receivedData);
 
         setVenuesAttendingDetails(receivedData);
       };
