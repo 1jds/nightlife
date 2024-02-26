@@ -33,6 +33,7 @@ export default function Venues(props: VenuesProps) {
   const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
     []
   );
+  const [venuesAttendingOffset, setVenuesAttendingOffset] = useState(0);
 
   // Component functionality
   const handleVenueAttendingAdd = async (id: string): Promise<boolean> => {
@@ -104,6 +105,35 @@ export default function Venues(props: VenuesProps) {
       console.error("Error fetching data: ", error);
       return false;
     }
+  };
+
+  const populateResultsAsync = async (arr: string[]) => {
+    const receivedData = await Promise.all(
+      arr.map(async (id) => {
+        const url = `/api/get-venues-attending/${id}`;
+        const options = {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+          },
+        };
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const data = await response.json();
+          console.log("Data received for collection of ids... : ", data);
+          return data;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      })
+    );
+
+    console.log("Here is the received data...... : ", receivedData);
+    setVenuesAttendingOffset((prevState) => prevState + 5);
+    setVenuesAttendingDetails((prevState) => [...prevState, receivedData]);
   };
 
   useEffect(() => {
@@ -198,43 +228,13 @@ export default function Venues(props: VenuesProps) {
         )
       );
     } else {
-      const populateResultsAsync = async (arr: string[]) => {
-        const receivedData = await Promise.all(
-          arr.map(async (id) => {
-            const url = `/api/get-venues-attending/${id}`;
-            const options = {
-              method: "GET",
-              headers: {
-                accept: "application/json",
-              },
-            };
-            try {
-              const response = await fetch(url, options);
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              const data = await response.json();
-              console.log("Data received for collection of ids... : ", data);
-              return data;
-            } catch (error) {
-              console.error("Error fetching data:", error);
-            }
-          })
-        );
-
-        console.log("Here is the received data...... : ", receivedData);
-
-        setVenuesAttendingDetails((prevState) => [...prevState, receivedData]);
-      };
-      // The Yelp API is rate-limited for queries-per-second; so, to avoid 403 errors, we'll batch our fetch requests.
-      // I could also retrieve just the first five results, and then give the user a button to request increments of 5 more each time.
-      // Both have potential UX trade-offs.
-      const batchedIdsArray = [];
-      for (let i = 0; i < props.venuesAttendingIds.length; i += 4) {
-        const sliceOfFourIds = props.venuesAttendingIds.slice(i, i + 4);
-        batchedIdsArray.push(sliceOfFourIds);
-      }
-      batchedIdsArray.forEach((item) => populateResultsAsync(item));
+      setVenuesAttendingOffset(0);
+      populateResultsAsync(
+        props.venuesAttendingIds.slice(
+          venuesAttendingOffset,
+          venuesAttendingOffset + 5
+        )
+      );
     }
   }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
 
@@ -335,5 +335,23 @@ export default function Venues(props: VenuesProps) {
     "This is what the resultsList looks like just before the return statement... : ",
     resultsList
   );
-  return <>{props.isOnHomePage ? resultsList : venuesAttendingList}</>;
+  return (
+    <>
+      {props.isOnHomePage ? resultsList : venuesAttendingList}
+      {!props.isOnHomePage && (
+        <button
+          onClick={() => {
+            populateResultsAsync(
+              props.venuesAttendingIds.slice(
+                venuesAttendingOffset,
+                venuesAttendingOffset + 5
+              )
+            );
+          }}
+        >
+          Load more locations
+        </button>
+      )}
+    </>
+  );
 }
