@@ -76,7 +76,7 @@ export default function Venues(props: VenuesProps) {
         userId: props.userAuthed?.userId,
       });
 
-      const response = await fetch("/api/venues-attending/remove", {
+      const response = await fetch("/api/venue-remove", {
         method: "POST",
         credentials: "include",
         headers: {
