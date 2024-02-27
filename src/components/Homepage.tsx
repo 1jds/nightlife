@@ -69,14 +69,16 @@ const Homepage = (props: HomepageProps) => {
     fetch(`/api/yelp-data/${props.searchTerm}`, options)
       .then((response) => {
         console.log("The response status: ", response.status);
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 400) {
           return response.json();
         }
         return Promise.reject(response);
       })
       .then((data) => {
         console.log("The response data... : ", data);
-        if (data.error?.description) {
+        if (data.locationFound === false) {
+          setError(data.message);
+        } else if (data.error?.description) {
           setError(data.error.description);
         } else {
           props.setVenuesData((prevState) => [
@@ -88,7 +90,7 @@ const Homepage = (props: HomepageProps) => {
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        setError(error);
+        setError("An error occurred. Please try again.");
       })
       .finally(() => {
         setLoading(false);
