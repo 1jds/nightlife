@@ -82,11 +82,36 @@ const Homepage = (props: HomepageProps) => {
         } else if (data.error?.description) {
           setError(data.error.description);
         } else {
+          const returnData = data.businesses.map((item: any) => {
+            const yelpId = item.id;
+            fetch("/api/number-attending", {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: yelpId,
+            })
+              .then((response) => {
+                console.log(
+                  "The response status for nested fetch... : ",
+                  response.status
+                );
+                if (response.status === 200) {
+                  return response.json();
+                }
+                return Promise.reject(response);
+              })
+              .then((countData) => {
+                return { ...item, count: countData.attendingCount };
+              })
+              .catch(() => {
+                return item;
+              });
+          });
+
           setError("");
-          props.setVenuesData((prevState) => [
-            ...prevState,
-            ...data.businesses,
-          ]);
+          props.setVenuesData((prevState) => [...prevState, ...returnData]);
           props.setSearchOffset((prevState) => prevState + 5);
         }
       })

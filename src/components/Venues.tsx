@@ -119,6 +119,7 @@ export default function Venues(props: VenuesProps) {
             is_closed,
             rating,
             price,
+            count,
             location: { city = "", address1 = "" } = {}, // see documentation.md
           }) => {
             return (
@@ -155,7 +156,7 @@ export default function Venues(props: VenuesProps) {
                     }
                   />
                   <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <p>{3} attending</p>
+                  <p>{count || 0} attending</p>
                   <p>Price: {price}</p>
                   <p>
                     {address1}, {city}
@@ -218,7 +219,29 @@ export default function Venues(props: VenuesProps) {
                 }
                 const data = await response.json();
                 if (data) {
-                  return data;
+                  const yelpId = data.id;
+                  fetch("/api/number-attending", {
+                    method: "GET",
+                    headers: {
+                      accept: "application/json",
+                      "Content-Type": "application/json",
+                    },
+                    body: yelpId,
+                  })
+                    .then((response) => {
+                      console.log(
+                        "The response status for nested fetch... : ",
+                        response.status
+                      );
+                      if (response.status === 200) {
+                        return response.json();
+                      }
+                      return Promise.reject(response);
+                    })
+                    .then((countData) => {
+                      return { ...data, count: countData.attendingCount };
+                    });
+                  // return data;
                 } else {
                   return null;
                 }
@@ -241,7 +264,7 @@ export default function Venues(props: VenuesProps) {
       };
       populateResultsAsync(props.venuesAttendingIds);
     }
-  }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
+  }, [props.isOnHomePage, props.venuesData]);
 
   useEffect(() => {
     setVenuesAttendingList(
@@ -253,12 +276,20 @@ export default function Venues(props: VenuesProps) {
           is_closed,
           rating,
           price,
+          count,
           location: { city = "", address1 = "" } = {}, // see documentation.md
         }) => {
           if (!name) {
             return <></>;
           }
           console.log("This log indicates that we got here!");
+
+          // fetch
+          // return res.json({
+          //   countAttendeesSuccessful: true,
+          //   attendingCount,
+          // });
+
           return (
             <div key={id} className="venue-result-box box-shadow">
               <img
@@ -293,7 +324,7 @@ export default function Venues(props: VenuesProps) {
                   }
                 />
                 <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <p>{3} attending</p>
+                <p>{count || 0} attending</p>
                 <p>Price: {price}</p>
                 <p>
                   {address1}, {city}
@@ -308,6 +339,9 @@ export default function Venues(props: VenuesProps) {
                     );
                     if (isRemoveSuccess) {
                       props.setVenuesAttendingIds((prevState) => {
+                        return prevState.filter((item) => item !== id);
+                      });
+                      setVenuesAttendingDetails((prevState) => {
                         return prevState.filter((item) => item !== id);
                       });
                     }
@@ -330,7 +364,7 @@ export default function Venues(props: VenuesProps) {
   return (
     <>
       {props.isOnHomePage ? resultsList : venuesAttendingList}
-      {isLoading && <LoadingDots />}
+      {props.isOnHomePage == false && isLoading ? <LoadingDots /> : null}
     </>
   );
 }
