@@ -88,7 +88,7 @@ const Homepage = (props: HomepageProps) => {
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
-        setError(`${error}`);
+        setError(error);
       })
       .finally(() => {
         setLoading(false);

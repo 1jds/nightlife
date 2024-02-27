@@ -216,7 +216,7 @@ export default function Venues(props: VenuesProps) {
               }
               const data = await response.json();
               console.log("Data received for collection of ids... : ", data);
-              await new Promise((resolve) => setTimeout(resolve, 200));
+              await new Promise((resolve) => setTimeout(resolve, 200)); // The Yelp API is rate-limited for requests at about 5/s.
               return data;
             } catch (error) {
               console.error("Error fetching data:", error);
