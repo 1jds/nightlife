@@ -209,19 +209,18 @@ export default function Venues(props: VenuesProps) {
                 accept: "application/json",
               },
             };
-            setTimeout(async () => {
-              try {
-                const response = await fetch(url, options);
-                if (!response.ok) {
-                  throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const data = await response.json();
-                console.log("Data received for collection of ids... : ", data);
-                return data;
-              } catch (error) {
-                console.error("Error fetching data:", error);
+            try {
+              const response = await fetch(url, options);
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
               }
-            }, 499);
+              const data = await response.json();
+              console.log("Data received for collection of ids... : ", data);
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+              return data;
+            } catch (error) {
+              console.error("Error fetching data:", error);
+            }
           })
         );
 
