@@ -201,9 +201,9 @@ export default function Venues(props: VenuesProps) {
       );
     } else {
       const populateResultsAsync = async (arr: string[]) => {
-        for (let i = 0; i < arr.length; i += 5) {
+        for (let i = 0; i < arr.length; i += 3) {
           const receivedData = await Promise.all(
-            arr.slice(i, i + 5).map(async (id) => {
+            arr.slice(i, i + 3).map(async (id) => {
               const url = `/api/get-venues-attending/${id}`;
               const options = {
                 method: "GET",
@@ -217,15 +217,19 @@ export default function Venues(props: VenuesProps) {
                   throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log("Data received for collection of ids... : ", data);
-                await new Promise((resolve) => setTimeout(resolve, 500)); // The Yelp API is rate-limited for requests at about 5/s.
-                return data;
+                // console.log("Data received for collection of ids... : ", data);
+                // await new Promise((resolve) => setTimeout(resolve, 500));
+                if (data) {
+                  return data;
+                } else {
+                  return null;
+                }
               } catch (error) {
                 console.error("Error fetching data:", error);
               }
             })
           );
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 1500)); // The Yelp API is rate-limited for requests at about 5/s.
           console.log(
             "Here is the new batch of results...... : ",
             receivedData
@@ -253,6 +257,9 @@ export default function Venues(props: VenuesProps) {
           price,
           location: { city = "", address1 = "" } = {}, // see documentation.md
         }) => {
+          if (!name) {
+            return <></>;
+          }
           console.log("This log indicates that we got here!");
           return (
             <div key={id} className="venue-result-box box-shadow">
@@ -341,12 +348,7 @@ export default function Venues(props: VenuesProps) {
   return (
     <>
       {props.isOnHomePage ? resultsList : venuesAttendingList}
-      {isLoading && (
-        <>
-          <p style={{ margin: "1rem 0rem" }}>Results loading. Please wait...</p>
-          <LoadingDots />
-        </>
-      )}
+      {isLoading && <LoadingDots />}
     </>
   );
 }
