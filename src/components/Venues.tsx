@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import LoadingDots from "./LoadingDots";
 import zeroStars from "../assets/Review_Ribbon_small_16_0.png";
 import halfStars from "../assets/Review_Ribbon_small_16_half.png";
 // There was no one star png provided in the Yelp assets for some reason(?)
@@ -216,7 +217,7 @@ export default function Venues(props: VenuesProps) {
               }
               const data = await response.json();
               console.log("Data received for collection of ids... : ", data);
-              await new Promise((resolve) => setTimeout(resolve, 200)); // The Yelp API is rate-limited for requests at about 5/s.
+              await new Promise((resolve) => setTimeout(resolve, 300)); // The Yelp API is rate-limited for requests at about 5/s.
               return data;
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -331,11 +332,13 @@ export default function Venues(props: VenuesProps) {
   );
   return (
     <>
-      {props.isOnHomePage === false && venuesAttendingList === null ? (
-        // <LoadingDots />
-        <p style={{ margin: "1rem 0rem 2rem" }}>
-          Results loading. Please wait...
-        </p>
+      {props.isOnHomePage ? null : venuesAttendingList ? (
+        <>
+          <LoadingDots />
+          <p style={{ margin: "1rem 0rem 2rem" }}>
+            Results loading. Please wait...
+          </p>
+        </>
       ) : null}
       {props.isOnHomePage ? resultsList : venuesAttendingList}
     </>

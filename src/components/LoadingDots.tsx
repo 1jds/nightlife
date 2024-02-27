@@ -1,4 +1,5 @@
 const LoadingDots = () => {
+  console.log("This component was rendered!");
   return (
     <div className="loading">
       <span className="loading-dot"></span>

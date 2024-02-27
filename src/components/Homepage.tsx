@@ -218,13 +218,19 @@ const Homepage = (props: HomepageProps) => {
         )}
 
         {error ? (
-          <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p>
+          <>
+            <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p>
+            {/* Delete this - just here for a test */}
+            <LoadingDots />
+          </>
         ) : loading ? (
-          <LoadingDots />
-        ) : // <p style={{ margin: "1rem 0rem 2rem" }}>
-        //   Results loading. Please wait...
-        // </p>
-        null}
+          <>
+            <p style={{ margin: "1rem 0rem 2rem" }}>
+              Results loading. Please wait...
+            </p>
+            <LoadingDots />
+          </>
+        ) : null}
         {props.searchOffset ? (
           <button
             className="btn"
