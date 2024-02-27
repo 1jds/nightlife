@@ -17,13 +17,12 @@ const Footer = () => {
         </a>
       </p>
       <p>
-        Credit to Kunal Yadav whose work was referenced in the creation of this
-        page.{" "}
+        To view the sourcecode for this application{" "}
         <a
           className="footer-link"
-          href="https://github.com/abkunal/Nightlife-Coordination-App"
+          href="https://github.com/1jds/nightlife-server"
         >
-          See Yadav's sourcecode here.
+          see the GitHub repo here.
         </a>
       </p>
       <p>

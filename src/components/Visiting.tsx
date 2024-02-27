@@ -16,7 +16,9 @@ const Visiting = (props: VisitingProps) => {
   return (
     <>
       <h1 className="places-going-heading">Places you are going</h1>
-      <div className="results">{props.venuesData && <Venues {...props} />}</div>
+      <div className="results">
+        {props.venuesAttendingIds && <Venues {...props} />}
+      </div>
     </>
   );
 };

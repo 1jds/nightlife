@@ -331,21 +331,13 @@ export default function Venues(props: VenuesProps) {
   );
   return (
     <>
+      {!props.isOnHomePage && !venuesAttendingList ? (
+        // <LoadingDots />
+        <p style={{ margin: "1rem 0rem 2rem" }}>
+          Results loading. Please wait...
+        </p>
+      ) : null}
       {props.isOnHomePage ? resultsList : venuesAttendingList}
-      {/* {!props.isOnHomePage && (
-        <button
-        onClick={() => {
-            populateResultsAsync(
-              props.venuesAttendingIds.slice(
-                venuesAttendingOffset,
-                venuesAttendingOffset + 5
-              )
-            );
-          }}
-        >
-          Load more locations
-        </button>
-      )} */}
     </>
   );
 }
