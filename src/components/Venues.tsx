@@ -217,8 +217,6 @@ export default function Venues(props: VenuesProps) {
                   throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                // console.log("Data received for collection of ids... : ", data);
-                // await new Promise((resolve) => setTimeout(resolve, 500));
                 if (data) {
                   return data;
                 } else {
@@ -312,24 +310,8 @@ export default function Venues(props: VenuesProps) {
                       props.setVenuesAttendingIds((prevState) => {
                         return prevState.filter((item) => item !== id);
                       });
-                      setVenuesAttendingDetails((prevState) => {
-                        return prevState.filter((item) => item.id !== id);
-                      });
                     }
                   }}
-                  // onClick={async () => {
-                  //   const isSuccess = await handleVenueAttendingAdd(id);
-                  //   console.log(
-                  //     "Do we have a race condition here...? isSuccess... : ",
-                  //     isSuccess
-                  //   );
-                  //   if (isSuccess) {
-                  //     props.setVenuesAttendingIds((prevState) => [
-                  //       ...prevState,
-                  //       id,
-                  //     ]);
-                  //   }
-                  // }}
                 >
                   Remove from Plan?
                 </button>
