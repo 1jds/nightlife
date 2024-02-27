@@ -217,13 +217,9 @@ const Homepage = (props: HomepageProps) => {
           />
         )}
 
-        {error && (
-          <>
-            <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p>
-          </>
-        )}
-        {loading && <LoadingDots />}
-        {props.searchOffset && (
+        {error ? <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p> : null}
+        {loading ? <LoadingDots /> : null}
+        {props.searchOffset ? (
           <button
             className="btn"
             onClick={(e) => {
@@ -232,7 +228,7 @@ const Homepage = (props: HomepageProps) => {
           >
             Load More Results
           </button>
-        )}
+        ) : null}
       </div>
     </>
   );
