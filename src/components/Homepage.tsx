@@ -81,6 +81,7 @@ const Homepage = (props: HomepageProps) => {
         } else if (data.error?.description) {
           setError(data.error.description);
         } else {
+          setError("");
           props.setVenuesData((prevState) => [
             ...prevState,
             ...data.businesses,
@@ -204,12 +205,19 @@ const Homepage = (props: HomepageProps) => {
         </div>
       </div>
       <div className="results">
-        {props.venuesData && <Venues {...props} />}
+        {props.venuesData && (
+          <Venues
+            isOnHomePage={props.isOnHomePage}
+            userAuthed={props.userAuthed}
+            venuesData={props.venuesData}
+            setVenuesData={props.setVenuesData}
+            venuesAttendingIds={props.venuesAttendingIds}
+            setVenuesAttendingIds={props.setVenuesAttendingIds}
+          />
+        )}
 
         {error ? (
-          <p style={{ margin: "1rem 0rem 2rem" }}>
-            An error has occured. Please try again. {error}
-          </p>
+          <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p>
         ) : loading ? (
           <p style={{ margin: "1rem 0rem 2rem" }}>
             Results loading. Please wait...
