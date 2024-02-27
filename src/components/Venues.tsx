@@ -332,14 +332,14 @@ export default function Venues(props: VenuesProps) {
   );
   return (
     <>
-      {props.isOnHomePage ? null : venuesAttendingList ? (
+      {props.isOnHomePage ? null : venuesAttendingList ? null : (
         <>
           <LoadingDots />
           <p style={{ margin: "1rem 0rem 2rem" }}>
             Results loading. Please wait...
           </p>
         </>
-      ) : null}
+      )}
       {props.isOnHomePage ? resultsList : venuesAttendingList}
     </>
   );
