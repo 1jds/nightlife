@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from "react";
 import Venues from "./Venues";
+import LoadingDots from "./LoadingDots";
 
 // TypeScript types for this component's props
 type HomepageProps = {
@@ -219,10 +220,11 @@ const Homepage = (props: HomepageProps) => {
         {error ? (
           <p style={{ margin: "1rem 0rem 2rem" }}>{error}</p>
         ) : loading ? (
-          <p style={{ margin: "1rem 0rem 2rem" }}>
-            Results loading. Please wait...
-          </p>
-        ) : null}
+          <LoadingDots />
+        ) : // <p style={{ margin: "1rem 0rem 2rem" }}>
+        //   Results loading. Please wait...
+        // </p>
+        null}
         {props.searchOffset ? (
           <button
             className="btn"

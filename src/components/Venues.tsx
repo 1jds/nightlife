@@ -331,7 +331,7 @@ export default function Venues(props: VenuesProps) {
   );
   return (
     <>
-      {!props.isOnHomePage && !venuesAttendingList ? (
+      {props.isOnHomePage === false && venuesAttendingList === null ? (
         // <LoadingDots />
         <p style={{ margin: "1rem 0rem 2rem" }}>
           Results loading. Please wait...
