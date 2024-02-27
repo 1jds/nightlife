@@ -216,7 +216,7 @@ export default function Venues(props: VenuesProps) {
               }
               const data = await response.json();
               console.log("Data received for collection of ids... : ", data);
-              await new Promise((resolve) => setTimeout(resolve, 1000));
+              await new Promise((resolve) => setTimeout(resolve, 200));
               return data;
             } catch (error) {
               console.error("Error fetching data:", error);
@@ -334,7 +334,7 @@ export default function Venues(props: VenuesProps) {
       {props.isOnHomePage ? resultsList : venuesAttendingList}
       {/* {!props.isOnHomePage && (
         <button
-          onClick={() => {
+        onClick={() => {
             populateResultsAsync(
               props.venuesAttendingIds.slice(
                 venuesAttendingOffset,
