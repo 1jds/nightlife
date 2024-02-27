@@ -107,37 +107,6 @@ export default function Venues(props: VenuesProps) {
     }
   };
 
-  const populateResultsAsync = async (arr: string[]) => {
-    const receivedData = await Promise.all(
-      arr.map(async (id) => {
-        const url = `/api/get-venues-attending/${id}`;
-        const options = {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-          },
-        };
-        setTimeout(async () => {
-          try {
-            const response = await fetch(url, options);
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log("Data received for collection of ids... : ", data);
-            return data;
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        }, 499);
-      })
-    );
-
-    console.log("Here is the received data...... : ", receivedData);
-    // setVenuesAttendingOffset((prevState) => prevState + 5);
-    setVenuesAttendingDetails(receivedData);
-  };
-
   useEffect(() => {
     if (props.isOnHomePage) {
       setResultsList(
@@ -230,6 +199,36 @@ export default function Venues(props: VenuesProps) {
         )
       );
     } else {
+      const populateResultsAsync = async (arr: string[]) => {
+        const receivedData = await Promise.all(
+          arr.map(async (id) => {
+            const url = `/api/get-venues-attending/${id}`;
+            const options = {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+              },
+            };
+            setTimeout(async () => {
+              try {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log("Data received for collection of ids... : ", data);
+                return data;
+              } catch (error) {
+                console.error("Error fetching data:", error);
+              }
+            }, 499);
+          })
+        );
+
+        console.log("Here is the received data...... : ", receivedData);
+        // setVenuesAttendingOffset((prevState) => prevState + 5);
+        setVenuesAttendingDetails(receivedData);
+      };
       populateResultsAsync(props.venuesAttendingIds);
     }
   }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
