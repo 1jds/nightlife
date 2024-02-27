@@ -119,7 +119,7 @@ export default function Venues(props: VenuesProps) {
             is_closed,
             rating,
             price,
-            count,
+            // count,
             location: { city = "", address1 = "" } = {}, // see documentation.md
           }) => {
             return (
@@ -156,7 +156,7 @@ export default function Venues(props: VenuesProps) {
                     }
                   />
                   <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <p>{count || 0} attending</p>
+                  <p>{0} attending</p>
                   <p>Price: {price}</p>
                   <p>
                     {address1}, {city}
@@ -219,29 +219,29 @@ export default function Venues(props: VenuesProps) {
                 }
                 const data = await response.json();
                 if (data) {
-                  const yelpId = data.id;
-                  fetch("/api/number-attending", {
-                    method: "GET",
-                    headers: {
-                      accept: "application/json",
-                      "Content-Type": "application/json",
-                    },
-                    body: yelpId,
-                  })
-                    .then((response) => {
-                      console.log(
-                        "The response status for nested fetch... : ",
-                        response.status
-                      );
-                      if (response.status === 200) {
-                        return response.json();
-                      }
-                      return Promise.reject(response);
-                    })
-                    .then((countData) => {
-                      return { ...data, count: countData.attendingCount };
-                    });
-                  // return data;
+                  // const yelpId = data.id;
+                  // fetch("/api/number-attending", {
+                  //   method: "GET",
+                  //   headers: {
+                  //     accept: "application/json",
+                  //     "Content-Type": "application/json",
+                  //   },
+                  //   body: yelpId,
+                  // })
+                  //   .then((response) => {
+                  //     console.log(
+                  //       "The response status for nested fetch... : ",
+                  //       response.status
+                  //     );
+                  //     if (response.status === 200) {
+                  //       return response.json();
+                  //     }
+                  //     return Promise.reject(response);
+                  //   })
+                  //   .then((countData) => {
+                  //     return { ...data, count: countData.attendingCount };
+                  //   });
+                  return data;
                 } else {
                   return null;
                 }
@@ -276,7 +276,7 @@ export default function Venues(props: VenuesProps) {
           is_closed,
           rating,
           price,
-          count,
+          // count,
           location: { city = "", address1 = "" } = {}, // see documentation.md
         }) => {
           if (!name) {
@@ -324,7 +324,7 @@ export default function Venues(props: VenuesProps) {
                   }
                 />
                 <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <p>{count || 0} attending</p>
+                <p>{0} attending</p>
                 <p>Price: {price}</p>
                 <p>
                   {address1}, {city}
