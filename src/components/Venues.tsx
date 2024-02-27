@@ -34,7 +34,7 @@ export default function Venues(props: VenuesProps) {
   const [venuesAttendingDetails, setVenuesAttendingDetails] = useState<any[]>(
     []
   );
-  // const [venuesAttendingOffset, setVenuesAttendingOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Component functionality
   const handleVenueAttendingAdd = async (id: string): Promise<boolean> => {
@@ -201,33 +201,41 @@ export default function Venues(props: VenuesProps) {
       );
     } else {
       const populateResultsAsync = async (arr: string[]) => {
-        const receivedData = await Promise.all(
-          arr.map(async (id) => {
-            const url = `/api/get-venues-attending/${id}`;
-            const options = {
-              method: "GET",
-              headers: {
-                accept: "application/json",
-              },
-            };
-            try {
-              const response = await fetch(url, options);
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+        for (let i = 0; i < arr.length; i += 5) {
+          const receivedData = await Promise.all(
+            arr.slice(i, i + 5).map(async (id) => {
+              const url = `/api/get-venues-attending/${id}`;
+              const options = {
+                method: "GET",
+                headers: {
+                  accept: "application/json",
+                },
+              };
+              try {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log("Data received for collection of ids... : ", data);
+                await new Promise((resolve) => setTimeout(resolve, 500)); // The Yelp API is rate-limited for requests at about 5/s.
+                return data;
+              } catch (error) {
+                console.error("Error fetching data:", error);
               }
-              const data = await response.json();
-              console.log("Data received for collection of ids... : ", data);
-              await new Promise((resolve) => setTimeout(resolve, 500)); // The Yelp API is rate-limited for requests at about 5/s.
-              return data;
-            } catch (error) {
-              console.error("Error fetching data:", error);
-            }
-          })
-        );
-
-        console.log("Here is the received data...... : ", receivedData);
-        // setVenuesAttendingOffset((prevState) => prevState + 5);
-        setVenuesAttendingDetails(receivedData);
+            })
+          );
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          console.log(
+            "Here is the new batch of results...... : ",
+            receivedData
+          );
+          setVenuesAttendingDetails((prevState) => [
+            ...prevState,
+            ...receivedData,
+          ]);
+        }
+        setIsLoading(false);
       };
       populateResultsAsync(props.venuesAttendingIds);
     }
@@ -332,15 +340,13 @@ export default function Venues(props: VenuesProps) {
   );
   return (
     <>
-      {props.isOnHomePage ? null : venuesAttendingList ? null : (
+      {props.isOnHomePage ? resultsList : venuesAttendingList}
+      {isLoading && (
         <>
+          <p style={{ margin: "1rem 0rem" }}>Results loading. Please wait...</p>
           <LoadingDots />
-          <p style={{ margin: "1rem 0rem 2rem" }}>
-            Results loading. Please wait...
-          </p>
         </>
       )}
-      {props.isOnHomePage ? resultsList : venuesAttendingList}
     </>
   );
 }

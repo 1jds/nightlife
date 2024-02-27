@@ -225,7 +225,7 @@ const Homepage = (props: HomepageProps) => {
           </>
         ) : loading ? (
           <>
-            <p style={{ margin: "1rem 0rem 2rem" }}>
+            <p style={{ margin: "1rem 0rem" }}>
               Results loading. Please wait...
             </p>
             <LoadingDots />
