@@ -400,8 +400,7 @@ a.nav--hamburger-menu-body-item:hover {
 }
 
 .nav--nav-line {
-  border-bottom: 0.0625rem solid var(--gray-45);
-  /* This is not yet working; come back to this and fix it up... */
+  border-bottom: 0.0625rem solid var(--gray15);
 }
 
 /* Navbar Login Modal */
