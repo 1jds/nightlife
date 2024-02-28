@@ -61,25 +61,56 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
           props.toggleLoginDialog();
         }
       })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error:", error);
+      .catch((error): void => {
+        console.error("Error logging in with local strategy... :", error);
       });
+  };
+
+  const handleOAuthLogin = async (thirdPartyAuth: string) => {
+    try {
+      const response = await fetch(`/api/login/${thirdPartyAuth}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.loginSuccessful) {
+        props.setUserAuthed({
+          userId: data.userId,
+          username: data.username,
+        });
+        props.setVenuesAttendingIds([...data.venuesAttendingIds]);
+        props.toggleLoginDialog();
+      }
+    } catch (error) {
+      console.error(`Error logging in with ${thirdPartyAuth}... :`, error);
+    }
   };
 
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
-        <button className="btn-OAuth">
+        <button
+          className="btn-OAuth"
+          onClick={() => handleOAuthLogin("google")}
+        >
           <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
           <span>Continue with Google</span>
         </button>
-        <button className="btn-OAuth">
+        <button
+          className="btn-OAuth"
+          onClick={() => handleOAuthLogin("github")}
+        >
           <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
           <span>Continue with GitHub</span>
         </button>
-        <button className="btn-OAuth">
+        <button className="btn-OAuth" onClick={() => handleOAuthLogin("apple")}>
           <img className="OAuth-logo" alt="Apple logo" src={appleLogo} />
           <span>Continue with Apple</span>
         </button>
