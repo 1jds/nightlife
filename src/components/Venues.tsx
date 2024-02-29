@@ -11,6 +11,7 @@ import threeAndHalfStars from "../assets/Review_Ribbon_small_16_3_half.png";
 import fourStars from "../assets/Review_Ribbon_small_16_4.png";
 import fourAndHalfStars from "../assets/Review_Ribbon_small_16_4_half.png";
 import fiveStars from "../assets/Review_Ribbon_small_16_5.png";
+import NumberAttending from "./NumberAttending";
 
 // TypeScript types for this component's props
 type VenuesProps = {
@@ -156,7 +157,7 @@ export default function Venues(props: VenuesProps) {
                     }
                   />
                   <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <p>{0} attending</p>
+                  <NumberAttending id={id} />
                   <p>Price: {price}</p>
                   <p>
                     {address1}, {city}

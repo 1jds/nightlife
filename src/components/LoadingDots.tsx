@@ -1,5 +1,4 @@
 const LoadingDots = () => {
-  console.log("This component was rendered!");
   return (
     <div className="loading-wrapper">
       <p className="loading-title">Loading</p>
