@@ -135,7 +135,7 @@ const Navbar = (props: NavbarProps) => {
                       : undefined
                   }
                 >
-                  Welcome, {props.userAuthed?.username}
+                  <i>Welcome, {props.userAuthed?.username}</i>
                 </p>
                 <a
                   className={
