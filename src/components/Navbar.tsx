@@ -137,28 +137,26 @@ const Navbar = (props: NavbarProps) => {
                 >
                   <i>Welcome, {props.userAuthed?.username}</i>
                 </p>
-                <a
+                <button
                   className={
                     isMobile ? "nav--hamburger-menu-body-item" : undefined
                   }
-                  href="#"
                   onClick={() => props.setIsOnHomePage(false)}
                 >
                   My Plans
-                </a>
-                <a
-                  href="#"
+                </button>
+                <button
                   className={
                     isMobile ? "nav--hamburger-menu-body-item" : undefined
                   }
                   onClick={logOut}
                 >
                   Logout
-                </a>
+                </button>
               </div>
             </>
           ) : (
-            <a
+            <button
               onClick={() => {
                 setLoginDialogContent(
                   <LoginModalLoginContent
@@ -170,10 +168,9 @@ const Navbar = (props: NavbarProps) => {
                 );
                 toggleLoginDialog();
               }}
-              href="#"
             >
               Login
-            </a>
+            </button>
           )}
           {/* Login/Register dialog to display when 'login' pressed */}
           <dialog className="login-dialog" ref={loginModalRef}>
