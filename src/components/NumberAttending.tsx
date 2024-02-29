@@ -13,15 +13,7 @@ const NumberAttending = (props: NumberAttendingProps) => {
     console.log(
       "This is the useEffect for NumberAttending tiny component firing..."
     );
-    const yelpId = JSON.stringify(props.id);
-    fetch("/api/number-attending", {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: yelpId,
-    })
+    fetch(`/api/number-attending/{$props.id}`)
       .then((response) => {
         console.log(
           "The response status for Number Attending tiny component... : ",
