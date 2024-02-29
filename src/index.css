@@ -369,6 +369,7 @@ nav {
 } */
 .navbar--link-button {
   all: unset;
+  cursor: pointer;
 }
 
 .navbar--link-button:hover {
@@ -405,7 +406,8 @@ nav {
   padding: 0.7rem 1rem;
 }
 
-a.nav--hamburger-menu-body-item:hover {
+button.nav--hamburger-menu-body-item:hover {
+  cursor: pointer;
   background: var(--gray10);
   color: var(--gray90);
 }
@@ -632,11 +634,11 @@ main {
   gap: 1rem;
 }
 
-/* At 600px we change the venue-result-box flex direction to column 
+/* At 700px we change the venue-result-box flex direction to column 
   the image becomes width: 100%
   the text becomes center aligned and some other style changes...
 */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .venue-result-box {
     margin: 2rem 0;
     flex-direction: column;
