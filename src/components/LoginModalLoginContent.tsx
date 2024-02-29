@@ -68,13 +68,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
 
   const handleOAuthLogin = async (thirdPartyAuth: string) => {
     try {
-      const response = await fetch(`/api/login/${thirdPartyAuth}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-        },
-      });
+      const response = await fetch(`/api/login/${thirdPartyAuth}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
