@@ -6,17 +6,21 @@ type NumberAttendingProps = {
 
 const NumberAttending = (props: NumberAttendingProps) => {
   // Component State
-  const [number, setNumber] = useState(5);
+  const [number, setNumber] = useState(9);
 
   // Component Logic
   useEffect(() => {
+    console.log(
+      "This is the useEffect for NumberAttending tiny component firing..."
+    );
+    const yelpId = JSON.stringify(props.id);
     fetch("/api/number-attending", {
       method: "GET",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(props.id),
+      body: yelpId,
     })
       .then((response) => {
         console.log(
@@ -29,7 +33,10 @@ const NumberAttending = (props: NumberAttendingProps) => {
         return Promise.reject(response);
       })
       .then((countData): void => {
-        console.log(countData);
+        console.log(
+          "This is the count data for the NumberAttending tiny component... :",
+          countData
+        );
         if (countData.countAttendeesSuccessful) {
           setNumber(countData.attendingCount);
         }
