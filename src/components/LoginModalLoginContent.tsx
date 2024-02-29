@@ -68,7 +68,13 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
 
   const handleOAuthLogin = async (thirdPartyAuth: string) => {
     try {
-      const response = await fetch(`/api/login/${thirdPartyAuth}`);
+      const response = await fetch(`/api/login/${thirdPartyAuth}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -90,6 +96,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
+        <a href="/api/login/github">TEST</a>
         <button
           className="btn-OAuth"
           onClick={() => handleOAuthLogin("google")}
