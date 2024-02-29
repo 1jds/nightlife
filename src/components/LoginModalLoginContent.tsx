@@ -66,55 +66,57 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       });
   };
 
-  const handleOAuthLogin = async (thirdPartyAuth: string) => {
-    try {
-      const response = await fetch(`/api/login/${thirdPartyAuth}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      if (data.loginSuccessful) {
-        props.setUserAuthed({
-          userId: data.userId,
-          username: data.username,
-        });
-        props.setVenuesAttendingIds([...data.venuesAttendingIds]);
-        props.toggleLoginDialog();
-      }
-    } catch (error) {
-      console.error(`Error logging in with ${thirdPartyAuth}... :`, error);
-    }
-  };
+  // const handleOAuthLogin = async (thirdPartyAuth: string) => {
+  //   try {
+  //     const response = await fetch(`/api/login/${thirdPartyAuth}`, {
+  //       method: "GET",
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //       },
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     if (data.loginSuccessful) {
+  //       props.setUserAuthed({
+  //         userId: data.userId,
+  //         username: data.username,
+  //       });
+  //       props.setVenuesAttendingIds([...data.venuesAttendingIds]);
+  //       props.toggleLoginDialog();
+  //     }
+  //   } catch (error) {
+  //     console.error(`Error logging in with ${thirdPartyAuth}... :`, error);
+  //   }
+  // };
 
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
-        <a href="/api/login/github">TEST</a>
-        <button
-          className="btn-OAuth"
-          onClick={() => handleOAuthLogin("google")}
+        <a
+          href="/api/login/google"
+          className="btn-OAuth btn-OAuth-color-override"
         >
           <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
           <span>Continue with Google</span>
-        </button>
-        <button
-          className="btn-OAuth"
-          onClick={() => handleOAuthLogin("github")}
+        </a>
+        <a
+          href="/api/login/github"
+          className="btn-OAuth btn-OAuth-color-override"
         >
           <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
           <span>Continue with GitHub</span>
-        </button>
-        <button className="btn-OAuth" onClick={() => handleOAuthLogin("apple")}>
+        </a>
+        <a
+          href="/api/login/apple"
+          className="btn-OAuth btn-OAuth-color-override"
+        >
           <img className="OAuth-logo" alt="Apple logo" src={appleLogo} />
           <span>Continue with Apple</span>
-        </button>
+        </a>
       </div>
       <div className="login-modal-divider">
         <div className="line"></div>

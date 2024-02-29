@@ -233,6 +233,10 @@ input[type="submit"] {
   padding: 0 1rem;
 }
 
+a.btn-OAuth-color-override.btn-OAuth:hover {
+  color: var(--gray90);
+}
+
 .btn-OAuth:hover,
 .btn-OAuth:focus,
 .btn-OAuth:focus-visible {

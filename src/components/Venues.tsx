@@ -200,7 +200,11 @@ export default function Venues(props: VenuesProps) {
           }
         )
       );
-    } else {
+    }
+  }, [props.isOnHomePage, props.venuesData, props.venuesAttendingIds]);
+
+  useEffect(() => {
+    if (!props.isOnHomePage) {
       const populateResultsAsync = async (arr: string[]) => {
         for (let i = 0; i < arr.length; i += 3) {
           const receivedData = await Promise.all(
@@ -219,28 +223,6 @@ export default function Venues(props: VenuesProps) {
                 }
                 const data = await response.json();
                 if (data) {
-                  // const yelpId = data.id;
-                  // fetch("/api/number-attending", {
-                  //   method: "GET",
-                  //   headers: {
-                  //     accept: "application/json",
-                  //     "Content-Type": "application/json",
-                  //   },
-                  //   body: yelpId,
-                  // })
-                  //   .then((response) => {
-                  //     console.log(
-                  //       "The response status for nested fetch... : ",
-                  //       response.status
-                  //     );
-                  //     if (response.status === 200) {
-                  //       return response.json();
-                  //     }
-                  //     return Promise.reject(response);
-                  //   })
-                  //   .then((countData) => {
-                  //     return { ...data, count: countData.attendingCount };
-                  //   });
                   return data;
                 } else {
                   return null;
@@ -264,7 +246,7 @@ export default function Venues(props: VenuesProps) {
       };
       populateResultsAsync(props.venuesAttendingIds);
     }
-  }, [props.isOnHomePage, props.venuesData]);
+  }, [props.isOnHomePage]);
 
   useEffect(() => {
     setVenuesAttendingList(
@@ -342,7 +324,7 @@ export default function Venues(props: VenuesProps) {
                         return prevState.filter((item) => item !== id);
                       });
                       setVenuesAttendingDetails((prevState) => {
-                        return prevState.filter((item) => item !== id);
+                        return prevState.filter((item) => item.id !== id);
                       });
                     }
                   }}
