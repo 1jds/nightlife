@@ -139,7 +139,9 @@ const Navbar = (props: NavbarProps) => {
                 </p>
                 <button
                   className={
-                    isMobile ? "nav--hamburger-menu-body-item" : undefined
+                    isMobile
+                      ? "nav--hamburger-menu-body-item navbar--link-button"
+                      : "navbar--link-button"
                   }
                   onClick={() => props.setIsOnHomePage(false)}
                 >
@@ -147,7 +149,9 @@ const Navbar = (props: NavbarProps) => {
                 </button>
                 <button
                   className={
-                    isMobile ? "nav--hamburger-menu-body-item" : undefined
+                    isMobile
+                      ? "nav--hamburger-menu-body-item navbar--link-button"
+                      : "navbar--link-button"
                   }
                   onClick={logOut}
                 >
@@ -157,6 +161,7 @@ const Navbar = (props: NavbarProps) => {
             </>
           ) : (
             <button
+              className="navbar--link-button"
               onClick={() => {
                 setLoginDialogContent(
                   <LoginModalLoginContent

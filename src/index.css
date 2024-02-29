@@ -233,7 +233,7 @@ input[type="submit"] {
   padding: 0 1rem;
 }
 
-a.btn-OAuth-color-override.btn-OAuth:hover {
+a .btn-OAuth:hover {
   color: var(--gray90);
 }
 
@@ -360,11 +360,18 @@ nav {
   margin-inline: 0.5rem;
 }
 
-.navbar a {
+/* .navbar a {
   text-decoration: none;
 }
 
 .navbar a:hover {
+  color: var(--gray10);
+} */
+.navbar--link-button {
+  all: unset;
+}
+
+.navbar--link-button:hover {
   color: var(--gray10);
 }
 

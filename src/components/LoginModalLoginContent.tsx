@@ -96,17 +96,11 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
-        <a
-          href="/api/login/google"
-          className="btn-OAuth btn-OAuth-color-override"
-        >
+        <a href="/api/login/google" className="btn-OAuth">
           <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
           <span>Continue with Google</span>
         </a>
-        <a
-          href="/api/login/github"
-          className="btn-OAuth btn-OAuth-color-override"
-        >
+        <a href="/api/login/github" className="btn-OAuth">
           <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
           <span>Continue with GitHub</span>
         </a>
