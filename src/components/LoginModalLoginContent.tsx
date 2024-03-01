@@ -96,21 +96,21 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
-        <a href="/api/login/google" className="btn-OAuth">
+        {/* <a href="/api/login/google" className="btn-OAuth">
           <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
           <span>Continue with Google</span>
-        </a>
+        </a> */}
         <a href="/api/login/github" className="btn-OAuth">
           <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
           <span>Continue with GitHub</span>
         </a>
-        <a
+        {/* <a
           href="/api/login/apple"
           className="btn-OAuth btn-OAuth-color-override"
         >
           <img className="OAuth-logo" alt="Apple logo" src={appleLogo} />
           <span>Continue with Apple</span>
-        </a>
+        </a> */}
       </div>
       <div className="login-modal-divider">
         <div className="line"></div>
@@ -137,6 +137,8 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
               }));
             }}
             required
+            minLength={1}
+            maxLength={15}
           />
         </div>
 
