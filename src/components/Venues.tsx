@@ -307,7 +307,7 @@ export default function Venues(props: VenuesProps) {
                   }
                 />
                 <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <p>{0} attending</p>
+                <NumberAttending id={id} />
                 <p>Price: {price}</p>
                 <p>
                   {address1}, {city}

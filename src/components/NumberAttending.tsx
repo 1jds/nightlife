@@ -6,7 +6,7 @@ type NumberAttendingProps = {
 
 const NumberAttending = (props: NumberAttendingProps) => {
   // Component State
-  const [number, setNumber] = useState(9);
+  const [number, setNumber] = useState("0");
 
   // Component Logic
   useEffect(() => {
