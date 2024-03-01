@@ -1,12 +1,11 @@
 import { useState, useRef, Dispatch, SetStateAction, useEffect } from "react";
 import LoginModalLoginContent from "./LoginModalLoginContent";
-import LoginModalRegisterContent from "./LoginModalRegisterContent";
 import closeSvg from "../assets/close_FILL0_wght400_GRAD0_opsz24.svg";
 import whiteCloseSvg from "../assets/close_FILL0_wght400_GRAD0_opsz24 - white.svg";
 import nightlifeSvg from "../assets/nightlife_FILL0_wght400_GRAD0_opsz24.svg";
 import hamburgerMenu from "../assets/menu_FILL0_wght400_GRAD0_opsz40.svg";
 
-// TypeScript types for this component's props
+// Types for this component's props
 type NavbarProps = {
   userAuthed: null | {
     userId: number;
@@ -20,12 +19,14 @@ type NavbarProps = {
 };
 
 const Navbar = (props: NavbarProps) => {
+  // Component State
   const loginModalRef = useRef<HTMLDialogElement>(null);
   const [loginDialogContent, setLoginDialogContent] =
     useState<React.ReactNode>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
 
+  // Component Logic
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 650);
@@ -52,19 +53,11 @@ const Navbar = (props: NavbarProps) => {
 
   // Handle logout
   const logOut = (): void => {
-    // const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com";
-    // fetch(`${import.meta.env.VITE_SOME_KEY}/logout`, {
     fetch("/api/logout", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle response data
-        console.log(
-          "And the response data from the logout request is... : ",
-          data
-        );
         if (data.logoutSuccessful) {
           props.setUserAuthed(null);
           props.setIsOnHomePage(true);
@@ -72,7 +65,6 @@ const Navbar = (props: NavbarProps) => {
         }
       })
       .catch((error) => {
-        // Handle errors
         console.error("Error:", error);
       });
   };
@@ -82,6 +74,7 @@ const Navbar = (props: NavbarProps) => {
     setIsHamburgerMenuOpen((prevState) => !prevState);
   };
 
+  // Return JSX
   return (
     <>
       <nav className="content-grid" aria-label="primary">

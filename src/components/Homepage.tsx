@@ -2,7 +2,7 @@ import { useState, ChangeEvent } from "react";
 import Venues from "./Venues";
 import LoadingDots from "./LoadingDots";
 
-// TypeScript types for this component's props
+// Types for this component's props
 type HomepageProps = {
   isOnHomePage: boolean;
   userAuthed: null | {
@@ -23,7 +23,6 @@ const Homepage = (props: HomepageProps) => {
   // Component State
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // Query params for the venues search
   const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
   const [searchPrice, setSearchPrice] = useState(4);
   const [searchSortBy, setSearchSortBy] = useState<
@@ -39,7 +38,6 @@ const Homepage = (props: HomepageProps) => {
   const handleSearch = (e: any): void => {
     e.preventDefault();
     setLoading(true);
-
     if (!props.searchTerm) {
       setError(
         "Please enter a location first, such as 'London', or 'New York'."
@@ -47,7 +45,6 @@ const Homepage = (props: HomepageProps) => {
       setLoading(false);
       return;
     }
-
     const searchFormData = {
       searchOffset: props.searchOffset,
       searchIsOpenNow,
@@ -55,7 +52,6 @@ const Homepage = (props: HomepageProps) => {
       searchPrice,
     };
     const searchJsonData = JSON.stringify(searchFormData);
-
     const options = {
       method: "POST",
       headers: {
@@ -64,52 +60,19 @@ const Homepage = (props: HomepageProps) => {
       },
       body: searchJsonData,
     };
-
-    // const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com";
     fetch(`/api/yelp-data/${props.searchTerm}`, options)
       .then((response) => {
-        console.log("The response status: ", response.status);
         if (response.status === 200 || response.status === 400) {
           return response.json();
         }
         return Promise.reject(response);
       })
       .then((data) => {
-        console.log("The response data... : ", data);
         if (data.locationFound === false) {
           setError(data.message);
         } else if (data.error?.description) {
           setError(data.error.description);
         } else {
-          // const returnData = data.businesses.map((item: any) => {
-          //   const yelpId = item.id;
-          //   fetch("/api/number-attending", {
-          //     method: "GET",
-          //     headers: {
-          //       accept: "application/json",
-          //       "Content-Type": "application/json",
-          //     },
-          //     body: yelpId,
-          //   })
-          //     .then((response) => {
-          //       console.log(
-          //         "The response status for nested fetch... : ",
-          //         response.status
-          //       );
-          //       if (response.status === 200) {
-          //         return response.json();
-          //       }
-          //       return Promise.reject(response);
-          //     })
-          //     .then((countData) => {
-          //       return { ...item, count: countData.attendingCount };
-          //     })
-          //     .catch(() => {
-          //       return item;
-          //     });
-          // });
-
           setError("");
           props.setVenuesData((prevState) => [
             ...prevState,
@@ -127,8 +90,7 @@ const Homepage = (props: HomepageProps) => {
       });
   };
 
-  let resultsList;
-
+  // Return JSX
   return (
     <>
       <div className="pop-out box-shadow">
@@ -140,7 +102,6 @@ const Homepage = (props: HomepageProps) => {
           area.
         </p>
       </div>
-
       <form className="search-bar">
         <input
           id="location-search-input"
@@ -261,5 +222,4 @@ const Homepage = (props: HomepageProps) => {
     </>
   );
 };
-
 export default Homepage;

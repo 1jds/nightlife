@@ -1,5 +1,6 @@
 import Venues from "./Venues";
 
+// Types for this component
 type VisitingProps = {
   isOnHomePage: boolean;
   userAuthed: null | {
@@ -13,6 +14,7 @@ type VisitingProps = {
 };
 
 const Visiting = (props: VisitingProps) => {
+  // Return JSX
   return (
     <>
       <h1 className="places-going-heading">Places you are going</h1>
@@ -22,5 +24,4 @@ const Visiting = (props: VisitingProps) => {
     </>
   );
 };
-
 export default Visiting;

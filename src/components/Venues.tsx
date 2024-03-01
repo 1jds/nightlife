@@ -44,7 +44,6 @@ export default function Venues(props: VenuesProps) {
         venueYelpId: id,
         userId: props.userAuthed?.userId,
       });
-
       const response = await fetch("/api/venues-attending", {
         method: "POST",
         credentials: "include",
@@ -54,13 +53,8 @@ export default function Venues(props: VenuesProps) {
         },
         body: venueAttendingJsonData,
       });
-
-      console.log("The response: ", response);
-      console.log("The response status: ", response.status);
-
       if (response.status === 200) {
         const data = await response.json();
-        console.log("The data from /api/venues-attending...: ", data);
         return data.insertSuccessful;
       } else {
         console.error("Error fetching data: ", response);
@@ -78,7 +72,6 @@ export default function Venues(props: VenuesProps) {
         venueYelpId: id,
         userId: props.userAuthed?.userId,
       });
-
       const response = await fetch("/api/venue-remove", {
         method: "POST",
         credentials: "include",
@@ -88,16 +81,8 @@ export default function Venues(props: VenuesProps) {
         },
         body: venueAttendingJsonData,
       });
-
-      console.log("The response when trying to remove: ", response);
-      console.log(
-        "The response status when trying to remove: ",
-        response.status
-      );
-
       if (response.status === 200) {
         const data = await response.json();
-        console.log("The data from /api/venues-attending/remove...: ", data);
         return data.removeSuccessful;
       } else {
         console.error("Error fetching data: ", response);
@@ -120,7 +105,6 @@ export default function Venues(props: VenuesProps) {
             is_closed,
             rating,
             price,
-            // count,
             location: { city = "", address1 = "" } = {}, // see documentation.md
           }) => {
             return (
@@ -175,10 +159,6 @@ export default function Venues(props: VenuesProps) {
                         className="btn"
                         onClick={async () => {
                           const isSuccess = await handleVenueAttendingAdd(id);
-                          console.log(
-                            "Do we have a race condition here...? isSuccess... : ",
-                            isSuccess
-                          );
                           if (isSuccess) {
                             props.setVenuesAttendingIds((prevState) => [
                               ...prevState,
@@ -234,10 +214,6 @@ export default function Venues(props: VenuesProps) {
             })
           );
           await new Promise((resolve) => setTimeout(resolve, 1500)); // The Yelp API is rate-limited for requests at about 5/s.
-          console.log(
-            "Here is the new batch of results...... : ",
-            receivedData
-          );
           setVenuesAttendingDetails((prevState) => [
             ...prevState,
             ...receivedData,
@@ -259,19 +235,11 @@ export default function Venues(props: VenuesProps) {
           is_closed,
           rating,
           price,
-          // count,
           location: { city = "", address1 = "" } = {}, // see documentation.md
         }) => {
           if (!name) {
             return <></>;
           }
-          console.log("This log indicates that we got here!");
-
-          // fetch
-          // return res.json({
-          //   countAttendeesSuccessful: true,
-          //   attendingCount,
-          // });
 
           return (
             <div key={id} className="venue-result-box box-shadow">
@@ -340,10 +308,7 @@ export default function Venues(props: VenuesProps) {
     );
   }, [venuesAttendingDetails]);
 
-  console.log(
-    "This is what the resultsList looks like just before the return statement... : ",
-    resultsList
-  );
+  // Return JSX
   return (
     <>
       {props.isOnHomePage ? resultsList : venuesAttendingList}

@@ -1,5 +1,6 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
+// Types for this component
 type LoginModalRegisterContentProps = {
   toggleLoginDialog: any;
 };
@@ -17,18 +18,12 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
     message: string;
   } | null>(null);
 
+  // Component Logic
   // Handle login/authentication
-  const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (
-    e
-  ): void => {
+  const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.preventDefault();
-
     const formData = { ...userRegisterDetails };
     const jsonData = JSON.stringify(formData);
-
-    // Send JSON data using fetch
-    // const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com";
     fetch("/api/register", {
       method: "POST",
       headers: {
@@ -38,21 +33,19 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle response data
         if (data.error) {
           setRegisterError(data);
         } else if (data.message) {
           setRegisterMessage(data);
           setTimeout(props.toggleLoginDialog, 1000);
         }
-        console.log("THIS IS THE RESPONSE...", data);
       })
       .catch((error) => {
-        // Handle errors
         console.error("Error:", error);
       });
   };
 
+  // Return JSX
   return (
     <>
       <h2 className="login-modal-header">Register for an account</h2>

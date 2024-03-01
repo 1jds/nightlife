@@ -1,9 +1,8 @@
 import LoginModalRegisterContent from "./LoginModalRegisterContent";
-import appleLogo from "../assets/apple-logo.svg";
-import googleLogo from "../assets/google-logo.svg";
 import gitHubLogo from "../assets/github-logo.svg";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
+// Types for this component
 type LoginModalLoginContentProps = {
   setLoginDialogContent: Dispatch<SetStateAction<ReactNode>>;
   toggleLoginDialog: () => void;
@@ -18,40 +17,29 @@ type LoginModalLoginContentProps = {
 };
 
 const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
+  // Component state
   const [userLoginDetails, setUserLoginDetails] = useState<{
     username: string;
     password: string;
   }>({ username: "", password: "" });
 
+  // Component Logic
   // Handle login/authentication
-  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
-    e
-  ): void => {
+  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.preventDefault();
-
     const formData = { ...userLoginDetails };
     const jsonData = JSON.stringify(formData);
-
-    // Send JSON data using fetch
-    // const URL = "http://localhost:3001";
-    // const URL = "https://nightlife-8ddy.onrender.com";
     fetch("/api/login", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        // "Access-Control-Allow-Origin": "https://nightlifeapp.onrender.com",
       },
       body: jsonData,
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle response data
-        console.log(
-          "And the response data from this fetch request is... : ",
-          data
-        );
         if (data.loginSuccessful) {
           props.setUserAuthed({
             userId: data.userId,
@@ -66,51 +54,15 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
       });
   };
 
-  // const handleOAuthLogin = async (thirdPartyAuth: string) => {
-  //   try {
-  //     const response = await fetch(`/api/login/${thirdPartyAuth}`, {
-  //       method: "GET",
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     if (data.loginSuccessful) {
-  //       props.setUserAuthed({
-  //         userId: data.userId,
-  //         username: data.username,
-  //       });
-  //       props.setVenuesAttendingIds([...data.venuesAttendingIds]);
-  //       props.toggleLoginDialog();
-  //     }
-  //   } catch (error) {
-  //     console.error(`Error logging in with ${thirdPartyAuth}... :`, error);
-  //   }
-  // };
-
+  // Return JSX
   return (
     <>
       <h2 className="login-modal-header">Log in to your account</h2>
       <div className="login-modal-OAuth-btns flex-column">
-        {/* <a href="/api/login/google" className="btn-OAuth">
-          <img className="OAuth-logo" alt="Google logo" src={googleLogo} />
-          <span>Continue with Google</span>
-        </a> */}
         <a href="/api/login/github" className="btn-OAuth">
           <img className="OAuth-logo" alt="GitHub logo" src={gitHubLogo} />
           <span>Continue with GitHub</span>
         </a>
-        {/* <a
-          href="/api/login/apple"
-          className="btn-OAuth btn-OAuth-color-override"
-        >
-          <img className="OAuth-logo" alt="Apple logo" src={appleLogo} />
-          <span>Continue with Apple</span>
-        </a> */}
       </div>
       <div className="login-modal-divider">
         <div className="line"></div>

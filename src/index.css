@@ -1,7 +1,10 @@
 /*************************** 
     TABLE OF CONTENTS
       1. Global Styles
+        - Utilities
+        - Loading Dots Animation
       2. Navbar Styles
+        - Navbar Login Modal
       3. App Styles
       4. Footer Styles
 ****************************/
@@ -37,8 +40,8 @@
   --focus-outline-color: #198eee;
   --error-red-color: #9d0000;
 
-  --header-height: 56px; /* I'm calling it the Navbar, but FCC call it the header */
-  --header-element-size: 30px; /* I'm calling it the Navbar, but FCC call it the header .... Am I even using this??? */
+  --header-height: 56px; /* Navbar AKA Header */
+  --header-element-size: 30px; /* Navbar AKA Header */
 }
 
 html {
@@ -287,7 +290,6 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin-bottom: 1.5rem; */
 }
 
 .loading-wrapper {
@@ -360,13 +362,6 @@ nav {
   margin-inline: 0.5rem;
 }
 
-/* .navbar a {
-  text-decoration: none;
-}
-
-.navbar a:hover {
-  color: var(--gray10);
-} */
 .navbar--link-button {
   all: unset;
   cursor: pointer;
@@ -387,7 +382,6 @@ nav {
   right: 0px;
   background: var(--gray90);
   min-width: 200px;
-  /* min-height: 300px; */
   display: flex;
   flex-direction: column;
 }
@@ -417,14 +411,12 @@ button.nav--hamburger-menu-body-item:hover {
 }
 
 /* Navbar Login Modal */
-
 .login-dialog {
   max-width: 400px;
   padding: 40px;
 }
 
 .login-form {
-  /* background: pink; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -501,8 +493,6 @@ button.nav--hamburger-menu-body-item:hover {
 .login-modal-footer a:hover {
   color: var(--dark-blue);
 }
-
-/* At a break-point of 450px we need to switch to a hamburger menu... */
 
 /*************************************/
 /*         3. APP STYLES          */
@@ -618,7 +608,6 @@ main {
   line-height: 1.6;
   padding: 0.2em 0 0.5em 0;
   margin-right: auto;
-  /* border-left: 3px dashed var(--gray85); */
 }
 
 .venue-details > h2 {

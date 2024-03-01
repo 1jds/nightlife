@@ -1,4 +1,5 @@
 const LoadingDots = () => {
+  // Return JSX
   return (
     <div className="loading-wrapper">
       <p className="loading-title">Loading</p>
