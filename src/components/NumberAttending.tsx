@@ -13,7 +13,7 @@ const NumberAttending = (props: NumberAttendingProps) => {
     console.log(
       "This is the useEffect for NumberAttending tiny component firing..."
     );
-    fetch(`/api/number-attending/{$props.id}`)
+    fetch(`/api/number-attending/${props.id}`)
       .then((response) => {
         console.log(
           "The response status for Number Attending tiny component... : ",
