@@ -98,15 +98,18 @@ export default function Venues(props: VenuesProps) {
     if (props.isOnHomePage) {
       setResultsList(
         props.venuesData.map(
-          ({
-            name,
-            id,
-            image_url,
-            is_closed,
-            rating,
-            price,
-            location: { city = "", address1 = "" } = {}, // see documentation.md
-          }) => {
+          (
+            {
+              name,
+              id,
+              image_url,
+              is_closed,
+              rating,
+              price,
+              location: { city = "", address1 = "" } = {}, // see documentation.md
+            },
+            index
+          ) => {
             return (
               <div key={id} className="venue-result-box box-shadow">
                 <img
@@ -141,7 +144,7 @@ export default function Venues(props: VenuesProps) {
                     }
                   />
                   <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                  <NumberAttending id={id} />
+                  <NumberAttending id={id} index={index} />
                   <p>Price: {price}</p>
                   <p>
                     {address1}, {city}
@@ -213,7 +216,7 @@ export default function Venues(props: VenuesProps) {
               }
             })
           );
-          await new Promise((resolve) => setTimeout(resolve, 1500)); // The Yelp API is rate-limited for requests at about 5/s.
+          await new Promise((resolve) => setTimeout(resolve, 2500)); // The Yelp API is rate-limited for requests at about 5/s.
           setVenuesAttendingDetails((prevState) => [
             ...prevState,
             ...receivedData,
@@ -228,15 +231,18 @@ export default function Venues(props: VenuesProps) {
   useEffect(() => {
     setVenuesAttendingList(
       venuesAttendingDetails.map(
-        ({
-          name,
-          id,
-          image_url,
-          is_closed,
-          rating,
-          price,
-          location: { city = "", address1 = "" } = {}, // see documentation.md
-        }) => {
+        (
+          {
+            name,
+            id,
+            image_url,
+            is_closed,
+            rating,
+            price,
+            location: { city = "", address1 = "" } = {}, // see documentation.md
+          },
+          index
+        ) => {
           if (!name) {
             return <></>;
           }
@@ -275,7 +281,7 @@ export default function Venues(props: VenuesProps) {
                   }
                 />
                 <p>{is_closed ? "Closed" : "Open Now!"}</p>
-                <NumberAttending id={id} />
+                <NumberAttending id={id} index={index} />
                 <p>Price: {price}</p>
                 <p>
                   {address1}, {city}

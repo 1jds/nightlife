@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // Types for this component
 type NumberAttendingProps = {
   id: string;
+  index: number;
 };
 
 const NumberAttending = (props: NumberAttendingProps) => {
@@ -11,18 +12,20 @@ const NumberAttending = (props: NumberAttendingProps) => {
 
   // Component Logic
   useEffect(() => {
-    fetch(`/api/number-attending/${props.id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        return Promise.reject(response);
-      })
-      .then((countData): void => {
-        if (countData.countAttendeesSuccessful) {
-          setNumber(countData.attendingCount);
-        }
-      });
+    setTimeout(() => {
+      fetch(`/api/number-attending/${props.id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          }
+          return Promise.reject(response);
+        })
+        .then((countData): void => {
+          if (countData.countAttendeesSuccessful) {
+            setNumber(countData.attendingCount);
+          }
+        });
+    }, props.index * 1000);
   }, [props.id]);
 
   // Component JSX
