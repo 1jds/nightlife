@@ -20,7 +20,9 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
 
   // Component Logic
   // Handle login/authentication
-  const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
+  const handleRegisterSubmit: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
     e.preventDefault();
     const formData = { ...userRegisterDetails };
     const jsonData = JSON.stringify(formData);

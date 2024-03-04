@@ -25,7 +25,9 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
 
   // Component Logic
   // Handle login/authentication
-  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (e): void => {
+  const handleLoginSubmit: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ): void => {
     e.preventDefault();
     const formData = { ...userLoginDetails };
     const jsonData = JSON.stringify(formData);
@@ -126,9 +128,8 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
         </button>
         <p className="login-modal-footer">
           Don't have an account yet?{" "}
-          <a
+          <button
             className="login-modal-footer-sign-up-link"
-            href="#"
             onClick={() => {
               props.setLoginDialogContent(
                 <LoginModalRegisterContent
@@ -138,7 +139,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             }}
           >
             Sign up
-          </a>
+          </button>
         </p>
       </form>
     </>

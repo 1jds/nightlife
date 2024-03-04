@@ -486,12 +486,19 @@ button.nav--hamburger-menu-body-item:hover {
 }
 
 .login-modal-footer-sign-up-link {
+  all: unset;
+  cursor: pointer;
   font-weight: 700;
   color: var(--focus-outline-color);
+  text-decoration: underline;
+  text-underline-position: under;
+  text-underline-offset: 1px;
+  padding: 1px 0px;
 }
 
-.login-modal-footer a:hover {
+.login-modal-footer-sign-up-link:hover {
   color: var(--dark-blue);
+  text-decoration: none;
 }
 
 /*************************************/
