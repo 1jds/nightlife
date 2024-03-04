@@ -25,7 +25,7 @@ const NumberAttending = (props: NumberAttendingProps) => {
             setNumber(countData.attendingCount);
           }
         });
-    }, props.index * 1000);
+    }, props.index * 500);
   }, [props.id]);
 
   // Component JSX

@@ -107,6 +107,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             id="loginUassword"
             name="password"
             placeholder="Password"
+            autoComplete="current-password"
             value={userLoginDetails?.password}
             onChange={(e): void => {
               setUserLoginDetails((prevState) => ({

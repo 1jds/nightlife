@@ -95,6 +95,7 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
             id="loginUassword"
             name="password"
             placeholder="Password"
+            autoComplete="new-password"
             value={userRegisterDetails?.password}
             onChange={(e): void => {
               setUserRegisterDetails((prevState) => ({
