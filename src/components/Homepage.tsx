@@ -23,7 +23,9 @@ const Homepage = (props: HomepageProps) => {
   // Component State
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [searchIsOpenNow, setSearchIsOpenNow] = useState(false);
+  const [searchIsOpenNow, setSearchIsOpenNow] = useState<
+    "Open" | "Closed" | "Any"
+  >("Any");
   const [searchPrice, setSearchPrice] = useState(4);
   const [searchSortBy, setSearchSortBy] = useState<
     "best_match" | "rating" | "review_count" | "distance"
@@ -191,6 +193,27 @@ const Homepage = (props: HomepageProps) => {
             <option value="rating">Rating</option>
             <option value="review_count">Review Count</option>
             <option value="distance">Distance</option>
+          </select>
+        </div>
+        <div className="options-bar--selector">
+          <label htmlFor="sortBySelect">Open now</label>
+          <select
+            id="sortBySelect"
+            value={searchIsOpenNow}
+            onChange={(e) => {
+              let value: "Open" | "Closed" | "Any";
+              value =
+                e.target.value === "Open"
+                  ? "Open"
+                  : e.target.value === "Closed"
+                  ? "Closed"
+                  : "Any";
+              setSearchIsOpenNow(value);
+            }}
+          >
+            <option value="Any">Any</option>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
           </select>
         </div>
       </div>
