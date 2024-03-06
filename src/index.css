@@ -642,8 +642,8 @@ main {
   gap: 1rem;
 }
 
-/* At 700px we change the venue-result-box flex direction to column 
-  the image becomes width: 100%
+/* At 700px we change the venue-result-box flex direction to column,
+  the image becomes width: 100%,
   the text becomes center aligned and some other style changes...
 */
 @media (max-width: 700px) {
