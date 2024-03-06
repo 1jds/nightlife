@@ -80,6 +80,10 @@ dialog::backdrop {
   background-color: hsla(0, 0%, 0%, 0.5);
 }
 
+img {
+  max-width: 100%;
+}
+
 /* UTILITIES */
 .box-shadow {
   -webkit-box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.09);
@@ -124,6 +128,10 @@ dialog::backdrop {
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.centred-text {
+  text-align: center;
 }
 
 .badge {
@@ -583,6 +591,10 @@ main {
 
 .options-bar--selector > label {
   margin-right: 0.35rem;
+}
+
+.search-placeholder-img {
+  max-width: 75%;
 }
 
 .results {

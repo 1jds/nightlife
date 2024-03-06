@@ -1,6 +1,12 @@
 import { useState, ChangeEvent } from "react";
 import Venues from "./Venues";
 import LoadingDots from "./LoadingDots";
+import searchPlaceholder from "../assets/search-placeholder.svg";
+
+// Types for this component
+type SearchIsOpen = "false" | "true";
+type SearchSortBy = "best_match" | "rating" | "review_count" | "distance";
+type SearchPrice = "1" | "2" | "3" | "4";
 
 // Types for this component's props
 type HomepageProps = {
@@ -23,13 +29,10 @@ const Homepage = (props: HomepageProps) => {
   // Component State
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [searchIsOpenNow, setSearchIsOpenNow] = useState<
-    "Open" | "Closed" | "Any"
-  >("Any");
-  const [searchPrice, setSearchPrice] = useState(4);
-  const [searchSortBy, setSearchSortBy] = useState<
-    "best_match" | "rating" | "review_count" | "distance"
-  >("best_match");
+  const [searchOnlyOpenNow, setSearchOnlyOpenNow] =
+    useState<SearchIsOpen>("false");
+  const [searchPrice, setSearchPrice] = useState<SearchPrice>("4");
+  const [searchSortBy, setSearchSortBy] = useState<SearchSortBy>("best_match");
 
   // Component Functionality
   const handleSearchTextInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -49,7 +52,7 @@ const Homepage = (props: HomepageProps) => {
     }
     const searchFormData = {
       searchOffset: props.searchOffset,
-      searchIsOpenNow,
+      searchOnlyOpenNow,
       searchSortBy,
       searchPrice,
     };
@@ -143,20 +146,7 @@ const Homepage = (props: HomepageProps) => {
             id="priceSelect"
             value={searchPrice}
             onChange={(e) => {
-              let value;
-              switch (e.target.value) {
-                case "1":
-                  value = 1;
-                  break;
-                case "2":
-                  value = 2;
-                  break;
-                case "3":
-                  value = 3;
-                  break;
-                default:
-                  value = 4;
-              }
+              const value: SearchPrice = e.target.value as SearchPrice;
               setSearchPrice(value);
             }}
           >
@@ -172,20 +162,7 @@ const Homepage = (props: HomepageProps) => {
             id="sortBySelect"
             value={searchSortBy}
             onChange={(e) => {
-              let value: "best_match" | "rating" | "review_count" | "distance";
-              switch (e.target.value) {
-                case "rating":
-                  value = "rating";
-                  break;
-                case "review_count":
-                  value = "review_count";
-                  break;
-                case "distance":
-                  value = "distance";
-                  break;
-                default:
-                  value = "best_match";
-              }
+              const value: SearchSortBy = e.target.value as SearchSortBy;
               setSearchSortBy(value);
             }}
           >
@@ -199,21 +176,14 @@ const Homepage = (props: HomepageProps) => {
           <label htmlFor="sortBySelect">Open now</label>
           <select
             id="sortBySelect"
-            value={searchIsOpenNow}
+            value={searchOnlyOpenNow}
             onChange={(e) => {
-              let value: "Open" | "Closed" | "Any";
-              value =
-                e.target.value === "Open"
-                  ? "Open"
-                  : e.target.value === "Closed"
-                  ? "Closed"
-                  : "Any";
-              setSearchIsOpenNow(value);
+              const value: SearchIsOpen = e.target.value as SearchIsOpen;
+              setSearchOnlyOpenNow(value);
             }}
           >
-            <option value="Any">Any</option>
-            <option value="Open">Open</option>
-            <option value="Closed">Closed</option>
+            <option value="false">Open or Closed</option>
+            <option value="true">Open Now</option>
           </select>
         </div>
       </div>

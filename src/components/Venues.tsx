@@ -103,7 +103,6 @@ export default function Venues(props: VenuesProps) {
               name,
               id,
               image_url,
-              is_closed,
               rating,
               price,
               location: { city = "", address1 = "" } = {}, // see documentation.md
@@ -143,7 +142,7 @@ export default function Venues(props: VenuesProps) {
                         : fiveStars
                     }
                   />
-                  <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                  <p>"Open Now!"</p>
                   <NumberAttending id={id} index={index} />
                   <p>Price: {price}</p>
                   <p>
@@ -236,7 +235,6 @@ export default function Venues(props: VenuesProps) {
             name,
             id,
             image_url,
-            is_closed,
             rating,
             price,
             location: { city = "", address1 = "" } = {}, // see documentation.md
@@ -280,7 +278,7 @@ export default function Venues(props: VenuesProps) {
                       : fiveStars
                   }
                 />
-                <p>{is_closed ? "Closed" : "Open Now!"}</p>
+                <p>"Open Now!"</p>
                 <NumberAttending id={id} index={index} />
                 <p>Price: {price}</p>
                 <p>
