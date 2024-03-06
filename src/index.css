@@ -84,6 +84,11 @@ img {
   max-width: 100%;
 }
 
+input[placeholder] {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* UTILITIES */
 .box-shadow {
   -webkit-box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.09);
@@ -582,9 +587,11 @@ main {
 
 .options-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin: 0.5rem 0.1rem;
-  gap: 2rem;
+  column-gap: 2rem;
+  row-gap: 1rem;
   font-weight: 700;
   font-size: 0.8rem;
 }

@@ -112,7 +112,7 @@ const Homepage = (props: HomepageProps) => {
           id="location-search-input"
           className="textarea-input box-shadow"
           type="text"
-          placeholder="Enter your current location"
+          placeholder="Enter your location to find venues"
           onChange={handleSearchTextInput}
           onKeyDown={(e): void => {
             if (e.key === "Enter") {
