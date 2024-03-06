@@ -83,6 +83,7 @@ const LoginModalLoginContent = (props: LoginModalLoginContentProps) => {
             id="loginUsername"
             name="username"
             placeholder="Username (max 15 chars)"
+            autoComplete="username"
             value={userLoginDetails?.username}
             onChange={(e): void => {
               setUserLoginDetails((prevState) => ({

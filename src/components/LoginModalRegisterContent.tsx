@@ -73,6 +73,7 @@ const LoginModalRegisterContent = (props: LoginModalRegisterContentProps) => {
             id="loginUsername"
             name="username"
             placeholder="Username (max 15 chars)"
+            autoComplete="username"
             value={userRegisterDetails?.username}
             onChange={(e): void => {
               setUserRegisterDetails((prevState) => ({
